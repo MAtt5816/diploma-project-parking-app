@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Reservation;
 
 class ReservationController extends Controller
 {
@@ -13,7 +14,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        //
+        $reservations = Reservation::all();
+        return $reservations;
     }
 
     /**
@@ -34,7 +36,14 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reservation = new Reservation();
+        $reservation->start_date = $request->input('start_date');
+        $reservation->end_date = $request->input('end_date');
+        $reservation->driver_id = $request->input('driver_id');
+        $reservation->parking_id = $request->input('parking_id');
+
+        $reservation->save();
+        return $reservation;
     }
 
     /**

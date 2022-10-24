@@ -14,6 +14,8 @@ class InspectorController extends Controller
      */
     public function index()
     {
+        $inspectors = Inspector::all();
+        return $inspectors;
     }
 
     /**
@@ -34,6 +36,14 @@ class InspectorController extends Controller
      */
     public function store(Request $request)
     {
+        $inspector = new Inspector();
+        $inspector->login = $request->input('login');
+        $inspector->password = $request->input('password');
+        $inspector->operator_code = $request->input('operator_code');
+        $inspector->operator_id = $request->input('operator_id');
+
+        $inspector->save();
+        return $inspector;
     }
 
     /**

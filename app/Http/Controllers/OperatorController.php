@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Operator;
 
 class OperatorController extends Controller
 {
@@ -13,7 +14,8 @@ class OperatorController extends Controller
      */
     public function index()
     {
-        //
+        $operators = Operator::all();
+        return $operators;
     }
 
     /**
@@ -34,7 +36,15 @@ class OperatorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $operator = new Operator();
+        $operator->login = $request->input('login');
+        $operator->password = $request->input('password');
+        $operator->email = $request->input('email');
+        $operator->phone = $request->input('phone');
+        $operator->tin = $request->input('tin');
+
+        $operator->save();
+        return $operator;
     }
 
     /**

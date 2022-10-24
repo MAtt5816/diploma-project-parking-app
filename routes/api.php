@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BalanceCotroller;
-use App\Http\Controllers\ControllerController;
+use App\Http\Controllers\BalanceController;
+use App\Http\Controllers\InspectorController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\ParkingController;
@@ -28,10 +28,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResources([
     'drivers' => DriverController::class,
-    'balances' => BalanceCotroller::class,
+    'balances' => BalanceController::class,
     'vehicles' => VehicleController::class,
     'operators' => OperatorController::class,
-    'controllers' => ControllerController::class,
+    'inspectors' => InspectorController::class,
     'parkings' => ParkingController::class,
     'reservations' => ReservationController::class,
     'stops' => StopController::class,

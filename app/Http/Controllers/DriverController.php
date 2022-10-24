@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Driver;
 
 class DriverController extends Controller
 {
@@ -13,7 +14,8 @@ class DriverController extends Controller
      */
     public function index()
     {
-        //
+        $drivers = Driver::all();
+        return $drivers;
     }
 
     /**
@@ -34,7 +36,20 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $driver = new Driver();
+        $driver->name = $request->input('name');
+        $driver->surname = $request->input('surname');
+        $driver->city = $request->input('city');
+        $driver->street = $request->input('street');
+        $driver->house_number = $request->input('house_number');
+        $driver->postal_code = $request->input('postal_code');
+        $driver->phone = $request->input('phone');
+        $driver->email = $request->input('email');
+        $driver->login = $request->input('login');
+        $driver->password = $request->input('password');
+
+        $driver->save();
+        return $driver;
     }
 
     /**
@@ -45,7 +60,8 @@ class DriverController extends Controller
      */
     public function show($id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        return $driver;
     }
 
     /**
@@ -68,7 +84,20 @@ class DriverController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        $driver->name = $request->input('name');
+        $driver->surname = $request->input('surname');
+        $driver->city = $request->input('city');
+        $driver->street = $request->input('street');
+        $driver->house_number = $request->input('house_number');
+        $driver->postal_code = $request->input('postal_code');
+        $driver->phone = $request->input('phone');
+        $driver->email = $request->input('email');
+        $driver->login = $request->input('login');
+        $driver->password = $request->input('password');
+
+        $driver->save();
+        return $driver;
     }
 
     /**
@@ -79,6 +108,8 @@ class DriverController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        if($driver->delete())
+        return $driver;
     }
 }

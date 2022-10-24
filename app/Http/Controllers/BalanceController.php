@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Balance;
 
 class BalanceController extends Controller
 {
@@ -13,7 +14,8 @@ class BalanceController extends Controller
      */
     public function index()
     {
-        //
+        $balances = Balance::all();
+        return $balances;
     }
 
     /**
@@ -34,7 +36,12 @@ class BalanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $balance = new Balance();
+        $balance->balance = $request->input('balance');
+        $balance->driver_id = $request->input('driver_id');
+
+        $balance->save();
+        return $balance;
     }
 
     /**
@@ -45,7 +52,8 @@ class BalanceController extends Controller
      */
     public function show($id)
     {
-        //
+        $balance = Balance::findOrFail($id);
+        return $balance;
     }
 
     /**
@@ -68,7 +76,12 @@ class BalanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $balance = Balance::findOrFail($id);
+        $balance->balance = $request->input('balance');
+        $balance->driver_id = $request->input('driver_id');
+
+        $balance->save();
+        return $balance;
     }
 
     /**
@@ -79,6 +92,8 @@ class BalanceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $balance = Balance::findOrFail($id);
+        if($balance->delete())
+        return $balance;
     }
 }

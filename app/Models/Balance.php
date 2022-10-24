@@ -19,6 +19,7 @@ class Balance extends Authenticatable
      */
     protected $fillable = [
         'balance',
+        'driver_id',
     ];
 
     /**

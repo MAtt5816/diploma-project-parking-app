@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Inspector;
 
-class ControllerController extends Controller
+class InspectorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,8 @@ class ControllerController extends Controller
      */
     public function index()
     {
-        //
+        $inspectors = Inspector::all();
+        return $inspectors;
     }
 
     /**
@@ -34,7 +36,14 @@ class ControllerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inspector = new Inspector();
+        $inspector->login = $request->input('login');
+        $inspector->password = $request->input('password');
+        $inspector->operator_code = $request->input('operator_code');
+        $inspector->operator_id = $request->input('operator_id');
+
+        $inspector->save();
+        return $inspector;
     }
 
     /**
@@ -45,7 +54,8 @@ class ControllerController extends Controller
      */
     public function show($id)
     {
-        //
+        $inspector = Inspector::findOrFail($id);
+        return $inspector;
     }
 
     /**
@@ -68,7 +78,14 @@ class ControllerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $inspector = Inspector::findOrFail($id);
+        $inspector->login = $request->input('login');
+        $inspector->password = $request->input('password');
+        $inspector->operator_code = $request->input('operator_code');
+        $inspector->operator_id = $request->input('operator_id');
+
+        $inspector->save();
+        return $inspector;
     }
 
     /**
@@ -79,6 +96,8 @@ class ControllerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $inspector = Inspector::findOrFail($id);
+        if($inspector->delete())
+        return $inspector;
     }
 }

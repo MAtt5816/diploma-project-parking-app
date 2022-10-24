@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateControllerTable extends Migration
+class CreateInspectorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateControllerTable extends Migration
      */
     public function up()
     {
-        Schema::create('controllers', function (Blueprint $table) {
+        Schema::create('inspectors', function (Blueprint $table) {
             $table->id();
             $table->string('login', 25);
             $table->string('password', 256);
@@ -32,6 +32,6 @@ class CreateControllerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('controllers');
+        Schema::dropIfExists('inspectors');
     }
 }

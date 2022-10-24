@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Stop;
 
 class StopController extends Controller
 {
@@ -13,7 +14,8 @@ class StopController extends Controller
      */
     public function index()
     {
-        //
+        $stops = Stop::all();
+        return $stops;
     }
 
     /**
@@ -34,7 +36,14 @@ class StopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $stop = new Stop();
+        $stop->start_date = $request->input('start_date');
+        $stop->end_date = $request->input('end_date');
+        $stop->driver_id = $request->input('driver_id');
+        $stop->parking_id = $request->input('parking_id');
+
+        $stop->save();
+        return $stop;
     }
 
     /**
@@ -45,7 +54,8 @@ class StopController extends Controller
      */
     public function show($id)
     {
-        //
+        $stop = Stop::findOrFail($id);
+        return $stop;
     }
 
     /**
@@ -68,7 +78,14 @@ class StopController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $stop = Stop::findOrFail($id);
+        $stop->start_date = $request->input('start_date');
+        $stop->end_date = $request->input('end_date');
+        $stop->driver_id = $request->input('driver_id');
+        $stop->parking_id = $request->input('parking_id');
+
+        $stop->save();
+        return $stop;
     }
 
     /**
@@ -79,6 +96,8 @@ class StopController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $stop = Stop::findOrFail($id);
+        if($stop->delete())
+        return $stop;
     }
 }

@@ -20,6 +20,8 @@ class Reservation extends Authenticatable
     protected $fillable = [
         'start_date',
         'end_date',
+        'driver_id',
+        'parking_id'
     ];
 
     /**

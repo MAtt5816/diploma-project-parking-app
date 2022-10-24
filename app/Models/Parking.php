@@ -23,6 +23,7 @@ class Parking extends Authenticatable
         'opening_hours',
         'additional_services',
         'facilities',
+        'operator_id',
     ];
 
     /**

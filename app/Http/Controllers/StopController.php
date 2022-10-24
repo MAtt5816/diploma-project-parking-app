@@ -54,7 +54,8 @@ class StopController extends Controller
      */
     public function show($id)
     {
-        //
+        $stop = Stop::findOrFail($id);
+        return $stop;
     }
 
     /**

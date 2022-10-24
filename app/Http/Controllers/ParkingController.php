@@ -56,7 +56,8 @@ class ParkingController extends Controller
      */
     public function show($id)
     {
-        //
+        $parking = Parking::findOrFail($id);
+        return $parking;
     }
 
     /**

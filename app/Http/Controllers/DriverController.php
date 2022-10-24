@@ -60,7 +60,8 @@ class DriverController extends Controller
      */
     public function show($id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        return $driver;
     }
 
     /**

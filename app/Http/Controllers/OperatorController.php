@@ -55,7 +55,8 @@ class OperatorController extends Controller
      */
     public function show($id)
     {
-        //
+        $operator = Operator::findOrFail($id);
+        return $operator;
     }
 
     /**

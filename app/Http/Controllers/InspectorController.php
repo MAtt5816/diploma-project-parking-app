@@ -54,7 +54,8 @@ class InspectorController extends Controller
      */
     public function show($id)
     {
-        //
+        $inspector = Inspector::findOrFail($id);
+        return $inspector;
     }
 
     /**

@@ -52,7 +52,8 @@ class BalanceController extends Controller
      */
     public function show($id)
     {
-        //
+        $balance = Balance::findOrFail($id);
+        return $balance;
     }
 
     /**

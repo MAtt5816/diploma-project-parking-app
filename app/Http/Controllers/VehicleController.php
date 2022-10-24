@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Vehicle;
 
 class VehicleController extends Controller
 {
@@ -13,7 +14,8 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
+        $vehicles = Vehicle::all();
+        return $vehicles;
     }
 
     /**
@@ -34,7 +36,14 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vehicle = new Vehicle();
+        $vehicle->registration_plate = $request->input('registration_plate');
+        $vehicle->brand = $request->input('brand');
+        $vehicle->model = $request->input('model');
+        $vehicle->driver_id = $request->input('driver_id');
+
+        $vehicle->save();
+        return $vehicle;
     }
 
     /**
@@ -45,7 +54,8 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+        return $vehicle;
     }
 
     /**
@@ -68,7 +78,14 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+        $vehicle->registration_plate = $request->input('registration_plate');
+        $vehicle->brand = $request->input('brand');
+        $vehicle->model = $request->input('model');
+        $vehicle->driver_id = $request->input('driver_id');
+
+        $vehicle->save();
+        return $vehicle;
     }
 
     /**
@@ -79,6 +96,8 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+        if($vehicle->delete())
+        return $vehicle;
     }
 }

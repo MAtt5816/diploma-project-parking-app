@@ -21,6 +21,7 @@ class Vehicle extends Authenticatable
         'registration_plate',
         'brand',
         'model',
+        'driver_id',
     ];
 
     /**

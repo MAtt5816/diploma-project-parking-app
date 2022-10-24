@@ -79,7 +79,15 @@ class OperatorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $operator = Operator::findOrFail($id);
+        $operator->login = $request->input('login');
+        $operator->password = $request->input('password');
+        $operator->email = $request->input('email');
+        $operator->phone = $request->input('phone');
+        $operator->tin = $request->input('tin');
+
+        $operator->save();
+        return $operator;
     }
 
     /**

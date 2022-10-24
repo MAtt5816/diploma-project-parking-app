@@ -78,7 +78,14 @@ class InspectorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $inspector = Inspector::findOrFail($id);
+        $inspector->login = $request->input('login');
+        $inspector->password = $request->input('password');
+        $inspector->operator_code = $request->input('operator_code');
+        $inspector->operator_id = $request->input('operator_id');
+
+        $inspector->save();
+        return $inspector;
     }
 
     /**

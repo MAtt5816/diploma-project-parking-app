@@ -78,7 +78,14 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+        $vehicle->registration_plate = $request->input('registration_plate');
+        $vehicle->brand = $request->input('brand');
+        $vehicle->model = $request->input('model');
+        $vehicle->driver_id = $request->input('driver_id');
+
+        $vehicle->save();
+        return $vehicle;
     }
 
     /**

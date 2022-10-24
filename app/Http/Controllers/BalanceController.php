@@ -76,7 +76,12 @@ class BalanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $balance = Balance::findOrFail($id);
+        $balance->balance = $request->input('balance');
+        $balance->driver_id = $request->input('driver_id');
+
+        $balance->save();
+        return $balance;
     }
 
     /**

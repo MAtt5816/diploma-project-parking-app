@@ -80,7 +80,16 @@ class ParkingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $parking = Parking::findOrFail($id);
+        $parking->price = $request->input('price');
+        $parking->location = $request->input('location');
+        $parking->opening_hours = $request->input('opening_hours');
+        $parking->additional_services = $request->input('additional_services');
+        $parking->facilities = $request->input('facilities');
+        $parking->operator_id = $request->input('operator_id');
+
+        $parking->save();
+        return $parking;
     }
 
     /**

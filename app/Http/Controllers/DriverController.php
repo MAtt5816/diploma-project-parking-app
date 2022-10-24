@@ -84,7 +84,20 @@ class DriverController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        $driver->name = $request->input('name');
+        $driver->surname = $request->input('surname');
+        $driver->city = $request->input('city');
+        $driver->street = $request->input('street');
+        $driver->house_number = $request->input('house_number');
+        $driver->postal_code = $request->input('postal_code');
+        $driver->phone = $request->input('phone');
+        $driver->email = $request->input('email');
+        $driver->login = $request->input('login');
+        $driver->password = $request->input('password');
+
+        $driver->save();
+        return $driver;
     }
 
     /**

@@ -78,7 +78,14 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $reservation = Reservation::findOrFail($id);
+        $reservation->start_date = $request->input('start_date');
+        $reservation->end_date = $request->input('end_date');
+        $reservation->driver_id = $request->input('driver_id');
+        $reservation->parking_id = $request->input('parking_id');
+
+        $reservation->save();
+        return $reservation;
     }
 
     /**

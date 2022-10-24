@@ -13,13 +13,14 @@ class CreateOperatorTable extends Migration
      */
     public function up()
     {
-        Schema::create('operator', function (Blueprint $table) {
+        Schema::create('operators', function (Blueprint $table) {
             $table->id();
             $table->string('login', 25);
-            $table->string('haslo', 256);
+            $table->string('password', 256);
             $table->string('email', 25);
-            $table->integer('nr_tel');
-            $table->string('nip', 12);
+            $table->integer('phone');
+            $table->string('tin', 12);
+            $table->timestamps();
         });
     }
 
@@ -30,6 +31,6 @@ class CreateOperatorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operator');
+        Schema::dropIfExists('operators');
     }
 }

@@ -13,15 +13,16 @@ class CreateStopTable extends Migration
      */
     public function up()
     {
-        Schema::create('postoj', function (Blueprint $table) {
+        Schema::create('stops', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('data_rozpoczecia');
-            $table->dateTime('data_zakonczenia');
-            $table->unsignedBigInteger('kierowca_id');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->unsignedBigInteger('driver_id');
             $table->unsignedBigInteger('parking_id');
+            $table->timestamps();
 
-            $table->foreign('kierowca_id')->references('id')->on('kierowca');
-            $table->foreign('parking_id')->references('id')->on('parking');
+            $table->foreign('driver_id')->references('id')->on('drivers');
+            $table->foreign('parking_id')->references('id')->on('parkings');
         });
     }
 
@@ -32,6 +33,6 @@ class CreateStopTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('postoj');
+        Schema::dropIfExists('stops');
     }
 }

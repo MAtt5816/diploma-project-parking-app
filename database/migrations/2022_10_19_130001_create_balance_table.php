@@ -13,12 +13,13 @@ class CreateBalanceTable extends Migration
      */
     public function up()
     {
-        Schema::create('e-portmonetka', function (Blueprint $table) {
+        Schema::create('balances', function (Blueprint $table) {
             $table->id();
-            $table->float('saldo');
-            $table->unsignedBigInteger('kierowca_id');
+            $table->float('balance');
+            $table->unsignedBigInteger('driver_id');
+            $table->timestamps();
 
-            $table->foreign('kierowca_id')->references('id')->on('kierowca');
+            $table->foreign('driver_id')->references('id')->on('drivers');
         });
     }
 
@@ -29,6 +30,6 @@ class CreateBalanceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('e-portmonetka');
+        Schema::dropIfExists('balances');
     }
 }

@@ -92,6 +92,8 @@ class BalanceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $balance = Balance::findOrFail($id);
+        if($balance->delete())
+        return $balance;
     }
 }

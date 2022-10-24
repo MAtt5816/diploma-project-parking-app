@@ -96,6 +96,8 @@ class InspectorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $inspector = Inspector::findOrFail($id);
+        if($inspector->delete())
+        return $inspector;
     }
 }

@@ -100,6 +100,8 @@ class ParkingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $parking = Parking::findOrFail($id);
+        if($parking->delete())
+        return $parking;
     }
 }

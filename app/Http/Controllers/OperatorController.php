@@ -98,6 +98,8 @@ class OperatorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $operator = Operator::findOrFail($id);
+        if($operator->delete())
+        return $operator;
     }
 }

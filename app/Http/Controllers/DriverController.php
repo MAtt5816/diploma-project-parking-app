@@ -108,6 +108,8 @@ class DriverController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        if($driver->delete())
+        return $driver;
     }
 }

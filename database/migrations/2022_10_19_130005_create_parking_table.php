@@ -13,16 +13,17 @@ class CreateParkingTable extends Migration
      */
     public function up()
     {
-        Schema::create('parking', function (Blueprint $table) {
+        Schema::create('parkings', function (Blueprint $table) {
             $table->id();
-            $table->float('cena');
-            $table->string('lokalizacja', 20);
-            $table->string('godziny_otwarcia', 6);
-            $table->string('dodatk_uslugi', 40);
-            $table->string('udogodnienia', 40);
+            $table->float('price');
+            $table->string('location', 20);
+            $table->string('opening_hours', 6);
+            $table->string('additional_services', 40);
+            $table->string('facilities', 40);
             $table->unsignedBigInteger('operator_id');
+            $table->timestamps();
 
-            $table->foreign('operator_id')->references('id')->on('operator');
+            $table->foreign('operator_id')->references('id')->on('operators');
         });
     }
 
@@ -33,6 +34,6 @@ class CreateParkingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parking');
+        Schema::dropIfExists('parkings');
     }
 }

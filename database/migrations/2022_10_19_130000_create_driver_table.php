@@ -13,18 +13,19 @@ class CreateDriverTable extends Migration
      */
     public function up()
     {
-        Schema::create('kierowca', function (Blueprint $table) {
+        Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->string('imie', 20);
-            $table->string('naziwsko', 25);
-            $table->string('miejscowosc', 30);
-            $table->string('ulica', 25);
-            $table->integer('nr_domu');
-            $table->string('kod_pocztowy', 6);
-            $table->string('nr_tel', 9);
+            $table->string('name', 20);
+            $table->string('surname', 25);
+            $table->string('city', 30);
+            $table->string('street', 25);
+            $table->string('house_number', 7);
+            $table->string('postal_code', 6);
+            $table->string('phone', 9);
             $table->string('email', 30);
             $table->string('login', 15);
-            $table->string('haslo', 256);
+            $table->string('password', 256);
+            $table->timestamps();
         });
     }
 
@@ -35,6 +36,6 @@ class CreateDriverTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kierowca');
+        Schema::dropIfExists('drivers');
     }
 }

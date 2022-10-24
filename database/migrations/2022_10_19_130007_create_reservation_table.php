@@ -13,15 +13,16 @@ class CreateReservationTable extends Migration
      */
     public function up()
     {
-        Schema::create('rezerwacja', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('data_rezerwacji');
-            $table->dateTime('data_zakonczenia');
-            $table->unsignedBigInteger('kierowca_id');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->unsignedBigInteger('driver_id');
             $table->unsignedBigInteger('parking_id');
+            $table->timestamps();
 
-            $table->foreign('kierowca_id')->references('id')->on('kierowca');
-            $table->foreign('parking_id')->references('id')->on('parking');
+            $table->foreign('driver_id')->references('id')->on('drivers');
+            $table->foreign('parking_id')->references('id')->on('parkings');
         });
     }
 
@@ -32,6 +33,6 @@ class CreateReservationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rezerwacja');
+        Schema::dropIfExists('reservations');
     }
 }

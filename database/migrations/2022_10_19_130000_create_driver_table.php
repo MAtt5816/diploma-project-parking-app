@@ -19,7 +19,7 @@ class CreateDriverTable extends Migration
             $table->string('naziwsko', 25);
             $table->string('miejscowosc', 30);
             $table->string('ulica', 25);
-            $table->integer('nr_domu');
+            $table->string('nr_domu', 7);
             $table->string('kod_pocztowy', 6);
             $table->string('nr_tel', 9);
             $table->string('email', 30);

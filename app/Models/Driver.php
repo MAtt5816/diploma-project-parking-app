@@ -21,6 +21,7 @@ class Driver extends Authenticatable
         'name',
         'surname',
         'city',
+        'street',
         'house_number',
         'postal_code',
         'phone',

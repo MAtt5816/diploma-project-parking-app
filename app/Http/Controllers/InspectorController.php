@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Inspector;
 
-class ControllerController extends Controller
+class InspectorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,6 @@ class ControllerController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -34,7 +34,6 @@ class ControllerController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

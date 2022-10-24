@@ -13,14 +13,15 @@ class CreateControllerTable extends Migration
      */
     public function up()
     {
-        Schema::create('kontroler', function (Blueprint $table) {
+        Schema::create('controllers', function (Blueprint $table) {
             $table->id();
             $table->string('login', 25);
-            $table->string('haslo', 256);
-            $table->string('kod_operatora', 5);
+            $table->string('password', 256);
+            $table->string('operator_code', 5);
             $table->unsignedBigInteger('operator_id');
+            $table->timestamps();
 
-            $table->foreign('operator_id')->references('id')->on('operator');
+            $table->foreign('operator_id')->references('id')->on('operators');
         });
     }
 
@@ -31,6 +32,6 @@ class CreateControllerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kontroler');
+        Schema::dropIfExists('controllers');
     }
 }

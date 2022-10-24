@@ -20,6 +20,7 @@ class Controller extends Authenticatable
     protected $fillable = [
         'login',
         'operator_code',
+        'password',
     ];
 
     /**

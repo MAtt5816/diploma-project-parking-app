@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\InspectorController;
 use App\Http\Controllers\DriverController;
@@ -26,13 +27,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'drivers' => DriverController::class,
-    'balances' => BalanceController::class,
-    'vehicles' => VehicleController::class,
-    'operators' => OperatorController::class,
-    'inspectors' => InspectorController::class,
-    'parkings' => ParkingController::class,
-    'reservations' => ReservationController::class,
-    'stops' => StopController::class,
-]);
+Route::group(['middleware' => 'auth:sanctum'], function() {
+    Route::apiResources([
+        'drivers' => DriverController::class,
+        'balances' => BalanceController::class,
+        'vehicles' => VehicleController::class,
+        'operators' => OperatorController::class,
+        'inspectors' => InspectorController::class,
+        'parkings' => ParkingController::class,
+        'reservations' => ReservationController::class,
+        'stops' => StopController::class,
+    ]);
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');

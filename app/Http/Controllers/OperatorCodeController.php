@@ -108,7 +108,7 @@ class OperatorCodeController extends Controller
      *
      * @return \Illuminate\Support\Str
      */
-    private function randCode()
+    public function randCode()
     {
         $arr = $this->index();
         $check = false;

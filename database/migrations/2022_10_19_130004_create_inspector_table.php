@@ -15,7 +15,7 @@ class CreateInspectorTable extends Migration
     {
         Schema::create('inspectors', function (Blueprint $table) {
             $table->id();
-            $table->string('operator_code', 5);
+            $table->string('operator_code', 8);
             $table->unsignedBigInteger('operator_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

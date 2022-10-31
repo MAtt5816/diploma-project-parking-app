@@ -8,6 +8,7 @@ use App\Models\Driver;
 use App\Models\Operator;
 use App\Models\Inspector;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OperatorCodeController;
 use Validator;
 use Illuminate\Support\Facades\Hash;
 use Auth;
@@ -36,11 +37,11 @@ class AuthController extends Controller
                 break;
             }
             case 'operator': {
-                // TODO
+                [$check, $obj] = $this->registerOperator($request, $user->id);
                 break;
             }
             case 'inspector': {
-                // TODO
+                [$check, $obj] = $this->registerInspector($request, $user->id);
                 break;
             }
         }
@@ -91,7 +92,6 @@ class AuthController extends Controller
                 'house_number' => 'string',
                 'postal_code' => 'string',
                 'phone' => 'int',
-                'user_id' => 'bigInteger',
             ]);
         if ($validator->fails())
         {
@@ -101,5 +101,32 @@ class AuthController extends Controller
             'street' => $request->street, 'house_number' => $request->house_number, 'postal_code' => $request->postal_code, 
             'user_id' => $user_id, 'phone' => $request->phone]);
         return [true, $driver];
+    }
+
+    private function registerInspector(Request $request, int $user_id) {
+        $validator = Validator::make($request->all(), 
+            ['operator_id' => 'int']);
+        if ($validator->fails())
+        {
+            return [false, response()->json($validator->errors())];
+        }
+        $code = new OperatorCodeController();
+        $inspector = Inspector::create(['operator_code' => $code->randCode(), 'operator_id' => $request->operator_id, 'user_id' => $user_id]);
+        return [true, $inspector];
+    }
+    
+    private function registerOperator(Request $request, int $user_id) {
+        $validator = Validator::make($request->all(), 
+        ['email' => 'required|string|email|max:255|unique:drivers', 
+            'tin' => 'required|string|max:12',
+            'phone' => 'int',
+        ]);
+        if ($validator->fails())
+        {
+            return [false, response()->json($validator->errors())];
+        }
+        $operator = Operator::create(['email' => $request->email, 'tin' => $request->tin, 'phone' => $request->phone,
+            'user_id' => $user_id]);
+        return [true, $operator];
     }
 }

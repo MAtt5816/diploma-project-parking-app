@@ -56,7 +56,7 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(){   // TODO
+    public function logout(){
         auth()->user()->tokens()->delete();
         return [ 
             'message' => 'Logged out'
@@ -65,18 +65,18 @@ class AuthController extends Controller
 
     public function login(Request $request) {   // TODO
         $fields = $request->validate([
-            'email' => 'required|string',
+            'login' => 'required|string',
             'password' => 'required|string'
         ]);
-        $driver = Driver::where('email', $fields['email'])->first(); // sprawdzenie maila
-        if(!$driver || !Hash::check($fields['password'], $driver->password)){ // sprawdzenie hasła
+        $user = User::where('login', $fields['login'])->first(); // sprawdzenie loginu
+        if(!$user || !Hash::check($fields['password'], $user->password)){ // sprawdzenie hasła
             return response([
                 'message' => 'Bad creds'
             ], 401);
         }
-        $token = $driver->createToken('myapptoketn')->plainTextToken;
+        $token = $user->createToken('myapptoketn')->plainTextToken;
         $response = [
-            'driver' => $driver,
+            'driver' => $user,
             'token' => $token
         ];
         return response($response, 201);

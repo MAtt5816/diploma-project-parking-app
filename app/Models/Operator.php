@@ -18,11 +18,10 @@ class Operator extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'login',
-        'password',
         'email',
         'phone',
         'tin',
+        'user_id',
     ];
 
     /**
@@ -31,7 +30,6 @@ class Operator extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
     ];
 
     /**
@@ -41,5 +39,6 @@ class Operator extends Authenticatable
      */
     protected $casts = [
         'driver_id' => 'int',
+        'user_id' => 'int',
     ];
 }

@@ -26,8 +26,7 @@ class Driver extends Authenticatable
         'postal_code',
         'phone',
         'email',
-        'login',
-        'password',
+        'user_id',
     ];
 
     /**
@@ -36,8 +35,6 @@ class Driver extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        // 'remember_token',
     ];
 
     /**
@@ -45,7 +42,8 @@ class Driver extends Authenticatable
      *
      * @var array<string, string>
      */
-    // protected $casts = [
+     protected $casts = [
     //     'email_verified_at' => 'datetime',
-    // ];
+    'user_id' => 'int',
+     ];
 }

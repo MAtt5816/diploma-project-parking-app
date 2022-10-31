@@ -12,6 +12,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\OperatorCodeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResources([
+        'users' => UserController::class,
         'drivers' => DriverController::class,
         'balances' => BalanceController::class,
         'vehicles' => VehicleController::class,

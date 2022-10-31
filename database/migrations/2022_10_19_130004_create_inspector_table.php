@@ -15,13 +15,13 @@ class CreateInspectorTable extends Migration
     {
         Schema::create('inspectors', function (Blueprint $table) {
             $table->id();
-            $table->string('login', 25);
-            $table->string('password', 256);
             $table->string('operator_code', 5);
             $table->unsignedBigInteger('operator_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('operator_id')->references('id')->on('operators');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

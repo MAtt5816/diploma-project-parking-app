@@ -18,10 +18,9 @@ class Inspector extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'login',
         'operator_code',
-        'password',
         'operator_id',
+        'user_id',
     ];
 
     /**
@@ -30,7 +29,6 @@ class Inspector extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
     ];
 
     /**
@@ -40,5 +38,6 @@ class Inspector extends Authenticatable
      */
     protected $casts = [
         'operator_id' => 'int',
+        'user_id' => 'int',
     ];
 }

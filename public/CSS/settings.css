@@ -1,0 +1,94 @@
+body {
+	background: #f6f5f7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+	height: max-content;
+	margin: -20px 0 50px;
+}
+.settings{
+     background-color: #fff;
+	border-radius: 10px;
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+	position: relative;
+	overflow: hidden;
+	width: 80vw;
+	max-width: 100%;
+	height: 80vh;
+        margin-top: 10%;
+}
+.settings .settings_panel_left{
+background: linear-gradient(to right, #FF4B2B, #FF416C);
+display: block;
+float: left;
+text-align: center;
+width:25%;
+height: 100%; 
+}
+.settings .settings_panel_right{
+    display: block;
+float: right;
+width:75%;
+height: 100%;
+text-align: center;
+margin-top: 10%;     
+}
+.settings_panel_right .header{
+    position: relative;
+    top: -18vh;
+}
+.settings_panel_right h1{
+    font-size: 20px;
+        color: #818181;
+}
+.settings_panel_right label{
+    font-size: 20px;
+        color: #818181;
+}
+.settings_panel_left .user_logo i{
+    margin-top: 5vh;
+    font-size: 55px;
+    color: #fff;
+}
+.settings_panel_left .user{
+    font-size: 20px;
+    color: #fff;
+}
+.settings_panel_left h4{
+    color:#fff;
+}
+.settings_panel_left hr{
+    background-color: #fff;
+    
+}
+.settings_panel_left a.return i{
+    position:relative;
+    top: 7vh;
+    left:3vw;
+   display:inline-block;
+    font-size: 30px;
+    color:#fff; 
+    float:left;
+}
+input {
+    border: 1px solid #242c37;
+    border-radius: 999px;
+    background-color: transparent;
+    text-align: left;
+    min-width: 16vw;
+    min-height: 30px;
+    margin: 10px;
+}
+input[type="submit"]{
+    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    color: #fff;
+    margin-bottom: 6px;
+    text-align: center;
+    
+}
+label,input{
+  display:inline-block;
+}

@@ -1,0 +1,197 @@
+nav{
+  position: fixed;
+  top:0;
+  z-index: 5;
+  overflow: hidden;
+  display: flex;
+  height: 12vh;
+  width: 100vw;
+  background: #1b1b1b;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px 0 16vw;
+  flex-wrap: wrap;
+}
+
+nav .logo{
+    color: #fff;
+    font-weight: bold;
+    display:block;
+    width: 40vw;
+    
+    
+}
+nav .logo img{
+  width: 75px;
+  position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+nav .new{
+    display: block;
+    float:right;
+    margin-right: 14vh;
+}
+.money{
+    display: inline-block;
+    height: auto;
+    width:10vw;
+    border-radius: 999px;
+    background: #f2f2f2;
+    position: relative;
+    right: 11vw;
+    top: 4.5vh;
+}
+.money span{
+    
+    text-align: center;
+}
+.money .add_cash{
+    padding:1vh 1vw;
+    border-radius: 999px;
+    background: coral;
+    border: none;
+    float:right;
+}
+nav .button {
+    margin-left: 10px;
+    background: coral;
+    color: #fff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+nav .button:hover {
+    
+}
+.new a.user-icon{
+   color: #fff;
+   font-size: 28px;
+   text-align: center;
+}
+.new .user{
+   color: #fff;
+   font-size: 20px;
+   display: inline;
+}
+
+nav ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  position: fixed;
+  top: 80px;
+  left: -100%;
+  background: #111;
+  height: auto;
+  width: 20%;
+  text-align: center;
+  display: block;
+  transition: all 0.3s ease;
+}
+nav ul li{
+  width: 100%;
+  margin: 40px 0;
+}
+nav ul li a{
+  color: #f2f2f2;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-left: -100%;
+  display: block;
+  font-size: 18px;
+}
+
+nav ul li a:hover{
+  color: #111;
+  text-decoration: none;
+  background: none;
+  color: cyan;
+}
+nav .menu-btn i{
+  padding-top:3vh;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  display: block;
+}
+#click:checked ~ .menu-btn i:before{
+    content: "\f00d";
+}
+#click:checked ~ ul{
+    left: 0;
+  }
+  #click:checked ~ ul li a{
+    margin-left: 0px;
+  }
+input[type="checkbox"]{
+  display: none;
+}
+#uclick:checked ~ ul{
+    left: 75vw;
+  }
+  #uclick:checked ~ ul li a{
+    margin-left: 0px;
+  }
+.drop-btn {
+  position: relative;
+  top: -3vh;
+  padding-top:3vh;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  display: block;
+}
+.nav {
+  display: inline;
+  width:30vw;
+}
+
+.dropdown ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  position: fixed;
+  top: 80px;
+  left: -100%;
+  background: #111;
+  height: auto;
+  width: 10%;
+  text-align: center;
+  display: block;
+  transition: all 0.3s ease;
+}
+.dropdown ul li{
+  width: 100%;
+  margin: 40px 0;
+}
+.dropdown ul li a{
+  color: #f2f2f2;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  
+  width: 100%;
+  margin-left: -100%;
+  display: block;
+  font-size: 18px;
+}
+
+.dropdown ul li a:hover{
+  color: #111;
+  text-decoration: none;
+  background: none;
+  color: cyan;
+}
+
+

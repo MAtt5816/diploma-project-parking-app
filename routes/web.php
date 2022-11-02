@@ -20,3 +20,20 @@ Route::get('/', function () {
 Route::get('/api/docs', function() {
     return redirect()->away('https://documenter.getpostman.com/view/20222408/2s84LLxCSL');
 });
+
+Route::get('/login', function() {
+    return view('login');
+});
+
+
+Route::get('/add_parking', function() {
+    return view('dodaj_parking');
+});
+
+Route::get('/vehicle', function() {
+    return view('pojazd');
+});
+
+Route::get('/add_inspector', function() {
+    return view('user/dodanie_kontrolera');
+});

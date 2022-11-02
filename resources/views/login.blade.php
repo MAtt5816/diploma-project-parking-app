@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edit this template
+-->
+<html>
+    <head>
+        <link rel="shortcut icon" href="img/logo.png" />
+        <meta charset="UTF-8">
+        <title>Our-parking -rezerwuj miejsca parkingowe, zgłoś parking</title>
+        <link rel="stylesheet" href="CSS/forms.css" type="text/css">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    </head>
+    <body>
+        <?php
+        ?>
+        <br><br><br><section class="container">
+                <aside class="left-panel">
+                 <div class="reurn_block"><a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a></div>   
+                <h1>LOGOWANIE</h1>
+                <form method="post" action="">
+                <input type="email" class="form_input" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"><br/>
+                <input type="password" class="form_input" name="password" placeholder="Hasło(min. 6 znaków)" pattern=".{6,}"><br/>
+                <input type="submit" value="Login" class="button"></form></aside>
+                <aside class="right-panel"><div class="logo"><img src="img/logo.png" alt="parking logo"/>
+                <p>Ours-parking.com</p></div><br/><br/>
+                <nav class="panel_footer">Nie masz jeszcze konta ? <a href="/signup">Zarejestruj się</a></nav</aside>
+                </section>
+
+        
+    </body>
+</html>

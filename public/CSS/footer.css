@@ -1,0 +1,52 @@
+footer{
+    
+    height: 18vh;
+    background:linear-gradient(to right, #FF4B2B, #FF416C);
+    clear: both;
+}
+footer .footer{
+    display: inline;
+    color:#fff;
+}
+footer .footer_logo{
+position:relative;
+top:2vh;
+ margin-left: 20vw;
+}
+footer .copyright{
+ margin-left: 42vw;
+}
+footer .footer_logo span{
+    position: relative;
+    top:-3.5vh;
+    left:-1vw;
+ 
+ font-size: 18px;
+ 
+}
+footer .social{
+    
+    float:right;
+    font-size: 25px;
+    color: #fff;
+    margin-right: 20vw;
+
+    
+    
+}
+footer .social span{
+    position: relative;
+    top:-8vh;
+    display: inline-block;
+    
+   width: 4vw;
+   
+   text-align: center;
+    
+    
+    
+    
+    
+   
+}
+

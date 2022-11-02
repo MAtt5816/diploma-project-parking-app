@@ -1,0 +1,113 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ 
+}
+
+ .home{
+     height: 100vh;
+     background: #f6f5f7;
+ }
+ .home .element{
+     display: block;
+     text-align: center;
+     padding-top:5vh;
+ }
+ #map{
+     
+     
+     margin-top:  2vh;
+     margin-left: 10vw;
+     height: 70vh;
+     width: 80vw;
+     background-image: url(../img/mapa.jpg);
+     border: 2px solid #1b1b1b;
+ }
+ .banner {
+     position: static;
+     top:16vh;
+    height: 100vh;
+    background:linear-gradient(to right, #FF4B2B, #FF416C);
+    background-size: cover;
+    
+   
+ }
+ .banner img.logo{
+     position: absolute;
+     left: 95px;
+     top: 16vh;
+     max-width: 100%;
+     height: auto;
+     object-fit: cover;
+     z-index: 0;
+     
+ }
+ .banner .first{
+     position: absolute;
+     z-index: 1;
+     top: 275px;
+     left:16vh;
+     font-weight: bold;
+     color:#fff;
+     font-size:30px;
+ }
+ .banner .two{
+     position: absolute;
+     z-index: 2;
+     top: 230px;
+     right:350px;
+     font-weight: bold;
+     color:#fff;
+     font-size:30px;
+ }
+ .banner .two span{
+     margin-left: 15vw;
+ }
+ .banner .download{
+     position: absolute;
+     top: 370px;
+     right:465px;
+     color:#fff;
+     font-size: 20px
+ }
+ .banner img.iphone{
+     position: absolute;
+     right: 16vh;
+     top:80px;
+ }
+ .banner img.appstore{
+     position: absolute;
+     right: 470px;
+     bottom:130px;
+ }
+
+.right{
+    float:right;
+    width:79%;
+    height: 500px;
+    
+}
+.right map{
+  display: inline  
+}
+.left{
+    float:left;
+    background:#333;
+    width:20%;
+    height: auto;
+    
+}
+.block{
+    display:block;
+}
+
+
+@media (max-width: 1000px){
+  nav{
+    padding: 0 40px 0 50px;
+  }
+}
+
+  
+

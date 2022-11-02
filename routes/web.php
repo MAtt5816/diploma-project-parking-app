@@ -25,6 +25,9 @@ Route::get('/login', function() {
     return view('login');
 });
 
+Route::get('/logout', function() {
+    return view('logout');
+});
 
 Route::get('/add_parking', function() {
     return view('dodaj_parking');
@@ -36,4 +39,12 @@ Route::get('/vehicle', function() {
 
 Route::get('/add_inspector', function() {
     return view('user/dodanie_kontrolera');
+});
+
+Route::get('/verify', function() {
+    return view('weryfikator');
+});
+
+Route::get('/change_password', function() {
+    return view('zmiana_hasla');
 });

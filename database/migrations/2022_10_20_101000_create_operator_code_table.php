@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInspectorTable extends Migration
+class CreateOperatorCodeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateInspectorTable extends Migration
      */
     public function up()
     {
-        Schema::create('inspectors', function (Blueprint $table) {
+        Schema::create('operator_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('operator_code', 8);
+            $table->string('name',20);
+            $table->string('surname',25);
+            $table->string('operator_code',8);
             $table->unsignedBigInteger('operator_id');
-            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('operator_id')->references('id')->on('operators');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateInspectorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inspectors');
+        Schema::dropIfExists('operator_codes');
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Inspector extends Authenticatable
+class OperatorCode extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -18,9 +18,10 @@ class Inspector extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
+        'surname',
         'operator_code',
         'operator_id',
-        'user_id',
     ];
 
     /**
@@ -38,6 +39,5 @@ class Inspector extends Authenticatable
      */
     protected $casts = [
         'operator_id' => 'int',
-        'user_id' => 'int',
     ];
 }

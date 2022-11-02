@@ -23,9 +23,10 @@ class CreateDriverTable extends Migration
             $table->string('postal_code', 6);
             $table->string('phone', 9);
             $table->string('email', 30);
-            $table->string('login', 15);
-            $table->string('password', 256);
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -42,6 +42,7 @@ Route::post('/login', function(Request $request) {
 });
 
 Route::get('/logout', function() {
+    Session::flush();
     return view('logout');
 });
 

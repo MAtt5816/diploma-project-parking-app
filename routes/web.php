@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,20 @@ Route::get('/api/docs', function() {
 
 Route::get('/login', function() {
     return view('login');
+});
+
+Route::post('/login', function(Request $request) {
+    $auth = new AuthController();
+    $response = $auth->login($request);
+    $json = json_decode($response->content());
+    if($response->status() == 201){
+        $request->session()->put('user', $json->{'user'});
+        $request->session()->put('token', $json->{'token'});
+        return redirect('/');
+    }
+    else{
+        return redirect()->back();   // TODO bad password
+    }
 });
 
 Route::get('/logout', function() {

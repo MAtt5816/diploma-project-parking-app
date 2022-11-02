@@ -18,8 +18,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
                 <aside class="left-panel">
                  <div class="reurn_block"><a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a></div>   
                 <h1>LOGOWANIE</h1>
-                <form method="post" action="">
-                <input type="email" class="form_input" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"><br/>
+                <form method="post" action="/login">
+                @csrf
+                <!-- <input type="email" class="form_input" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"><br/> -->
+                <input type="login" class="form_input" name="login" placeholder="Login" pattern="[a-z0-9._%+-]+$"><br/>
                 <input type="password" class="form_input" name="password" placeholder="Hasło(min. 6 znaków)" pattern=".{6,}"><br/>
                 <input type="submit" value="Login" class="button"></form></aside>
                 <aside class="right-panel"><div class="logo"><img src="img/logo.png" alt="parking logo"/>

@@ -76,7 +76,7 @@ class AuthController extends Controller
         }
         $token = $user->createToken('myapptoketn')->plainTextToken;
         $response = [
-            'driver' => $user,
+            'user' => $user,
             'token' => $token
         ];
         return response($response, 201);

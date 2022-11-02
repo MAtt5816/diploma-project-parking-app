@@ -22,7 +22,7 @@ nav .logo{
     
 }
 nav .logo img{
-  width: 75px;
+  width: 6vw;
   position: absolute;
     margin: auto;
     top: 0;
@@ -57,11 +57,11 @@ nav .new{
     float:right;
 }
 nav .button {
-    margin-left: 10px;
+    margin-left: 1vw;
     background: coral;
     color: #fff;
     border-radius: 20px;
-    padding: 10px 20px;
+    padding: 1.6vh 1.6vw;
     text-decoration: none;
 }
 nav .button:hover {
@@ -83,7 +83,7 @@ nav ul{
   flex-wrap: wrap;
   list-style: none;
   position: fixed;
-  top: 80px;
+  top: 13vh;
   left: -100%;
   background: #111;
   height: auto;
@@ -94,13 +94,13 @@ nav ul{
 }
 nav ul li{
   width: 100%;
-  margin: 40px 0;
+  margin: 6vh 0;
 }
 nav ul li a{
   color: #f2f2f2;
   text-decoration: none;
   font-weight: 500;
-  padding: 10px 16px;
+  padding: 1.6vh 1.2vw;
   border-radius: 5px;
   letter-spacing: 1px;
   transition: all 0.3s ease;
@@ -130,7 +130,7 @@ nav .menu-btn i{
     left: 0;
   }
   #click:checked ~ ul li a{
-    margin-left: 0px;
+    margin-left: 0;
   }
 input[type="checkbox"]{
   display: none;
@@ -139,7 +139,7 @@ input[type="checkbox"]{
     left: 75vw;
   }
   #uclick:checked ~ ul li a{
-    margin-left: 0px;
+    margin-left: 0;
   }
 .drop-btn {
   position: relative;
@@ -160,7 +160,7 @@ input[type="checkbox"]{
   flex-wrap: wrap;
   list-style: none;
   position: fixed;
-  top: 80px;
+  top: 13vh;
   left: -100%;
   background: #111;
   height: auto;
@@ -171,13 +171,13 @@ input[type="checkbox"]{
 }
 .dropdown ul li{
   width: 100%;
-  margin: 40px 0;
+  margin: 6vh 0;
 }
 .dropdown ul li a{
   color: #f2f2f2;
   text-decoration: none;
   font-weight: 500;
-  padding: 10px 16px;
+  padding: 1.6vh 1.2vw;
   border-radius: 5px;
   letter-spacing: 1px;
   

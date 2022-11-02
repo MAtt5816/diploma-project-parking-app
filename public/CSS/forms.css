@@ -4,9 +4,8 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	font-family: 'Montserrat', sans-serif;
 	height: max-content;
-	margin: -20px 0 50px;
+	margin: -3vh 0 8vh;
 }
 .select{
     border-radius: 999px;
@@ -19,8 +18,7 @@ body {
 }
 .select select[test]{
     width: 32vw;
-    height: 30px;
-   
+    height: 5vh;
     border:none !important;
     outline: none;
     box-shadow: none!important;
@@ -37,13 +35,13 @@ input {
     background-color: transparent;
     text-align: left;
     min-width: 16vw;
-    min-height: 30px;
-    margin: 10px;
+    min-height: 5vh;
+    margin: 1.6vh 1.2vw;
 }
 input[type="submit"], input[type="reset"]{
     background: linear-gradient(to right, #FF4B2B, #FF416C);
     color: #fff;
-    margin-bottom: 6px;
+    margin-bottom: 1vh;
     text-align: center;
     
 }
@@ -52,7 +50,7 @@ span.required {
 }
 form {
   text-align: center;
-  padding: 64px 32px;
+  padding: 10vh 2.4vw;
 }
 .logo{
   height: auto;
@@ -63,7 +61,7 @@ form {
   
 }
 .logo p{
-  padding-top:-10px;
+  padding-top:-1.6vh;
 }
 .body_form input{
    min-width: 32vw;
@@ -71,7 +69,7 @@ form {
 }
 .body_form input[name="login"], .body_form input[name="email"], .body_form input[name="tel"], .body_form input[name="nip"], .body_form input[name="kod_operatora"],
 .body_form input[name="pass"], .body_form input[name="new_pass"], .body_form input[name="new_pass2"], .body_form input[class="weryfikator_input"]{
-    min-width: 430px;
+    min-width: 32.5vw;
 }
 .body_form h4{
     text-align: left;
@@ -100,7 +98,7 @@ form {
     float:left;
 }
 .logout p{
-    padding: 10px 20px;
+    padding: 1.6vh 1.6vw;
     text-align: center;
     position: relative;
     top: 8vh;
@@ -117,7 +115,7 @@ form {
    color: #fff;
    border: 2px solid #fff;
    border-radius: 20px;
-   padding:2px 4px;
+   padding:0.3vh 0.3vw;
 }
 .header{
     text-align: center;
@@ -134,7 +132,7 @@ margin-top: 10%;
 .left-panel h1{
     font-size: 20px;
     margin-bottom: 0;
-        margin-top: 30px;
+        margin-top: 5vh;
         color: #818181;
 }
 .right-panel{
@@ -147,7 +145,7 @@ height: 100%;
 
 }
 .right-panel p{
-    margin-top:0px;
+    margin-top:0;
  
 }
 .container2{
@@ -157,7 +155,7 @@ height: 100%;
 			0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;
-	width: 500px;
+	width: 38vw;
 	max-width: 100%;
 	height: 32vh;
         margin-top: 10%;
@@ -169,17 +167,16 @@ height: 100%;
 			0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;
-	width: 768px;
+	width: 58vw;
 	
-	min-height: 480px;
+	min-height: 77vh;
 }
 .form-container{
     display:block;
     
 }
 .description{
-    font-family:Roboto;
-    font-size:14px;
+    font-size:13px;
     font-weight:normal;
     font-style:normal;
     font-stretch:normal;
@@ -187,19 +184,17 @@ height: 100%;
     letter-spacing:normal;
     }
 .title{
-    font-family:Roboto;
     font-size:48px;
     font-weight:300;
     line-height:normal;
     letter-spacing:normal;
-    
     display:block;
     text-align:center;
-    padding-bottom:10px;
-    margin-left:-20px}
+    padding-bottom:1.6vh;
+    margin-left:-1.6vw}
 
 .user_type {
-     margin-bottom: 32px;
+     margin-bottom: 7vh;
 }
 
 .user_type input[type="radio"] {
@@ -210,11 +205,11 @@ height: 100%;
 
 .user_type label {
     display: inline-block;
-    width: 32vh;
-    height: 80px;
+    width: 16vw;
+    height: 13vh;
     background-color: #ddd;
-    padding: 10px 20px;
-    margin-bottom: 30px;
+    padding: 2vh 2vw;
+    margin-bottom: 6vh;
     font-family: sans-serif, Arial;
     font-size: 16px;
     border: 2px solid #818181;
@@ -225,6 +220,7 @@ height: 100%;
 .user_type label:hover{
   background-color: #a5000c;
   color: #fff;
+  border-color: #a5000c; 
 }
 
 .user_type input[type="radio"]:checked + label {
@@ -264,7 +260,7 @@ table{
    
 }
 tr, td {
-    padding: 10px 16px;
+    padding: 1.6vh 1.2vw;
     border-radius: 999px;
     border: 1px solid #ddd;
     text-align: center;

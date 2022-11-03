@@ -18,9 +18,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <aside class="body_form">
                     <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
                     <h1>Dodaj pojazd</h1>
-                <form method="post" action="">
+                <form method="post" action="/vehicle">
+                    @csrf
                 <hr>
-                <input type="text" class="form_input" name="nr_rej" placeholder="Numer rejestracyjny" required="true"><br>
+                <input type="text" class="form_input" name="registration_plate" placeholder="Numer rejestracyjny" required="true"><br>
                 <input type="text" class="form_input" name="brand" placeholder="Marka" required="true"><br>
                 <input type="text" class="form_input" name="model" placeholder="Model" required="true"><br>
                 </aside>

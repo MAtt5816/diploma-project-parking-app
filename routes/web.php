@@ -88,7 +88,7 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     
     Route::get('/vehicles', function() {
         return view('pojazdy');
-    });
+    })->middleware('getFromDB');
     
     Route::get('/change_password', function() {
         return view('zmiana_hasla');
@@ -112,6 +112,12 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     
     Route::get('/stops', function() {
         return view('postoje');
+    });
+
+    Route::group(['middleware' => 'addToDB'], function() {
+        Route::post('/vehicle', function() {
+            return redirect('/');
+        });
     });
 });
 

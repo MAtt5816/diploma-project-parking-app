@@ -11,6 +11,8 @@ use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\OperatorCodeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResources([
+        'users' => UserController::class,
         'drivers' => DriverController::class,
         'balances' => BalanceController::class,
         'vehicles' => VehicleController::class,
@@ -37,6 +40,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
         'parkings' => ParkingController::class,
         'reservations' => ReservationController::class,
         'stops' => StopController::class,
+        'operator_codes' => OperatorCodeController::class,
     ]);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

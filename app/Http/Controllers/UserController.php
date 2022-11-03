@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Inspector;
+use App\Models\User;
 
-class InspectorController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class InspectorController extends Controller
      */
     public function index()
     {
-        $inspectors = Inspector::all();
-        return $inspectors;
+        $users = User::all();
+        return $users;
     }
 
     /**
@@ -36,14 +36,13 @@ class InspectorController extends Controller
      */
     public function store(Request $request)
     {
-        $inspector = new Inspector();
-        $inspector->login = $request->input('login');
-        $inspector->password = $request->input('password');
-        $inspector->operator_code = $request->input('operator_code');
-        $inspector->operator_id = $request->input('operator_id');
+        $user = new User();
+        $user->login = $request->input('login');
+        $user->password = $request->input('password');
+        $user->user_type = $request->input('user_type');
 
-        $inspector->save();
-        return $inspector;
+        $user->save();
+        return $user;
     }
 
     /**
@@ -54,8 +53,8 @@ class InspectorController extends Controller
      */
     public function show($id)
     {
-        $inspector = Inspector::findOrFail($id);
-        return $inspector;
+        $user = User::findOrFail($id);
+        return $user;
     }
 
     /**
@@ -78,13 +77,13 @@ class InspectorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $inspector = Inspector::findOrFail($id);
-        $inspector->user_id = $request->input('user_id');
-        $inspector->operator_code = $request->input('operator_code');
-        $inspector->operator_id = $request->input('operator_id');
+        $user = User::findOrFail($id);
+        $user->login = $request->input('login');
+        $user->password = $request->input('password');
+        $user->user_type = $request->input('user_type');
 
-        $inspector->save();
-        return $inspector;
+        $user->save();
+        return $user;
     }
 
     /**
@@ -95,8 +94,8 @@ class InspectorController extends Controller
      */
     public function destroy($id)
     {
-        $inspector = Inspector::findOrFail($id);
-        if($inspector->delete())
-        return $inspector;
+        $user = User::findOrFail($id);
+        if($user->delete())
+        return $user;
     }
 }

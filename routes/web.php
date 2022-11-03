@@ -88,7 +88,7 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     
     Route::get('/vehicles', function() {
         return view('pojazdy');
-    })->middleware('getFromDB');
+    })->middleware('getFromDB:cars');
     
     Route::get('/change_password', function() {
         return view('zmiana_hasla');
@@ -100,7 +100,7 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     
     Route::get('/reservation', function() {
         return view('rezerwacja');
-    });
+    })->middleware('getFromDB:cars');
     
     Route::get('/reservations', function() {
         return view('rezerwacje');
@@ -108,7 +108,7 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     
     Route::get('/stop', function() {
         return view('postoj');
-    });
+    })->middleware('getFromDB:cars');
     
     Route::get('/stops', function() {
         return view('postoje');

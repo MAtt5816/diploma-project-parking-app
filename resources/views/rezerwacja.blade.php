@@ -26,17 +26,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <label> Data zakończenia<span class="required">* </span>  </label>
                 <input type="datetime-local" class="form_input" name="end" required="true"><br>
                 <label>Wybierz pojazd <span class="required">* </span> </label>
-                <div class ="select">
-                <select test="">
-                    <option selected>   </option>
-                    <?php
-                    // TODO
-                    foreach($array as $item){
-                        echo'<option>'.$item.'</option>';
-                    }
-                    ?>
-                    </select>
-                </div>
+                
+                    @if (Session::has('cars'))
+                        <div class ="select">
+                        <select test="">
+                        <!-- // TODO -->
+                        @foreach (Session::get('cars') as $car)
+                            <option>{{$car}}</option>
+                        @endforeach
+                        </select>
+                                </div>
+                    @else
+                    <p>Brak pojazdów</p>
+                    @endif
+                    
                 </aside>
                 <hr><input type="submit" class="button" value="Dodaj">
                <input type="reset" class="button" value="Wyczyść"></form>

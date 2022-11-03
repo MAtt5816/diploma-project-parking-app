@@ -142,6 +142,7 @@ float: right;
 text-align: center;
 width:49%;
 height: 100%;
+padding-bottom:10%;
 
 }
 .right-panel p{
@@ -169,7 +170,7 @@ height: 100%;
 	overflow: hidden;
 	width: 58vw;
 	
-	min-height: 77vh;
+	min-height: 40vh;
 }
 .form-container{
     display:block;

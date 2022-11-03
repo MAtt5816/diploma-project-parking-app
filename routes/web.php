@@ -55,9 +55,6 @@ Route::get('/logout', function() {
 
 
 Route::group(['middleware' => 'sessionCheck'], function() {
-    Route::get('/account', function() {
-        return view('konto');
-    });
     
     Route::get('/add_parking', function() {
         return view('dodaj_parking');

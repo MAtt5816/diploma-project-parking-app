@@ -42,7 +42,7 @@
             <div class="nav"><aside class="money"><span>$0<?php // TODO cash ?></span><button class="add_cash" onclick="">Dodaj</button></aside>
                         <input type="checkbox" id="uclick">
                 <label for="uclick" class="drop-btn">
-                    <div class="user">NICK_login<?php // TODO login ?></div><i class="fa fa-user"></i></label>
+                    <div class="user">{{Session::get('user')->login}}</div><i class="fa fa-user"></i></label>
                     <ul>
                 <li><a href="/settings"><i class="fa fa-cog"></i> Ustawienia</a></li>
                     <li><a href="/change_password"><i class="fa fa-lock"></i> Zmiana hasła</a></li>

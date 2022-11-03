@@ -27,7 +27,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     <input type="password" name="new_pass" placeholder="Nowe hasło" required="true"><br>
                     <input type="password" name="new_pass2" placeholder="Powtórz hasło" required="true"><br>
                     <input type="submit" class="button" value="Zmień">
-                    <input type="reset" class="button" value="Anuluj">
+                    <input type="reset" class="button" value="Wyczyść">
                 </form>
                 
             </aside>

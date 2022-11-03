@@ -25,7 +25,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <input type="text" class="form_input" name="model" placeholder="Model" required="true"><br>
                 </aside>
                 <hr><input type="submit" class="button" value="Dodaj">
-               <input type="reset" class="button" value="Anuluj"></form>
+               <input type="reset" class="button" value="Wyczyść"></form>
                 </section>
                 
     </body>

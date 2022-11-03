@@ -35,7 +35,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <input type="text" class="form_input" name="street" placeholder="Ulica" required="true">
                 <input type="text" class="form_input" name="house_number" placeholder="Numer domu" required="true"><br></aside>
                 <hr><input type="submit" class="button" value="Zarejestruj">
-                <input type="reset" class="button" value="Anuluj"></form>
+                <input type="reset" class="button" value="Wyczyść"></form>
                 </section>       
     </body>
 </html>

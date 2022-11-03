@@ -55,6 +55,9 @@ Route::get('/logout', function() {
 
 
 Route::group(['middleware' => 'sessionCheck'], function() {
+    Route::get('/account', function() {
+        return view('konto');
+    });
     
     Route::get('/add_parking', function() {
         return view('dodaj_parking');
@@ -64,6 +67,9 @@ Route::group(['middleware' => 'sessionCheck'], function() {
         return view('pojazd');
     });
     
+    Route::get('/vehicles', function() {
+        return view('pojazdy');
+    });
     
     Route::get('/add_inspector', function() {
         return view('user/dodanie_kontrolera');
@@ -75,5 +81,29 @@ Route::group(['middleware' => 'sessionCheck'], function() {
     
     Route::get('/change_password', function() {
         return view('zmiana_hasla');
+    });
+    
+    Route::get('/settings', function() {
+        return view('ustawienia');
+    });
+    
+    Route::get('/reservation', function() {
+        return view('rezerwacja');
+    });
+    
+    Route::get('/reservations', function() {
+        return view('rezerwacje');
+    });
+    
+    Route::get('/stop', function() {
+        return view('postoj');
+    });
+    
+    Route::get('/stops', function() {
+        return view('postoje');
+    });
+    
+    Route::get('/parkings', function() {
+        return view('parkingi');
     });
 });

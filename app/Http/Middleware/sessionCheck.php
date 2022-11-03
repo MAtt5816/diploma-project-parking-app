@@ -15,14 +15,15 @@ class sessionCheck
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $role)
     {
         if(Session::has('token')){
-            if(Session::get('user')->user_type){
+            $type = Session::get('user')->user_type;
+            if($type == $role){
                 return $next($request);
             }
             else{
-                return redirect()->url('/');
+                return redirect('/');  
             }
         }
         //abort(403);

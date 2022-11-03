@@ -54,11 +54,7 @@ Route::get('/logout', function() {
 
 
 
-Route::group(['middleware' => 'sessionCheck'], function() {
-    
-    Route::get('/add_parking', function() {
-        return view('dodaj_parking');
-    });
+Route::group(['middleware' => 'sessionCheck:driver'], function() {
     
     Route::get('/vehicle', function() {
         return view('pojazd');
@@ -66,14 +62,6 @@ Route::group(['middleware' => 'sessionCheck'], function() {
     
     Route::get('/vehicles', function() {
         return view('pojazdy');
-    });
-    
-    Route::get('/add_inspector', function() {
-        return view('user/dodanie_kontrolera');
-    });
-    
-    Route::get('/verify', function() {
-        return view('weryfikator');
     });
     
     Route::get('/change_password', function() {
@@ -99,8 +87,26 @@ Route::group(['middleware' => 'sessionCheck'], function() {
     Route::get('/stops', function() {
         return view('postoje');
     });
-    
+});
+
+Route::group(['middleware' => 'sessionCheck:operator'], function() {
+
+    Route::get('/add_parking', function() {
+        return view('dodaj_parking');
+    });
+
+    Route::get('/add_inspector', function() {
+        return view('user/dodanie_kontrolera');
+    });
+
     Route::get('/parkings', function() {
         return view('parkingi');
+    });
+});
+
+Route::group(['middleware' => 'sessionCheck:inspector'], function() {
+
+    Route::get('/verify', function() {
+        return view('weryfikator');
     });
 });

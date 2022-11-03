@@ -56,14 +56,16 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(){
-        auth()->user()->tokens()->delete();
-        return [ 
-            'message' => 'Logged out'
-        ];
+    public function logout(Request $request){
+        if ($request->user()) { 
+            auth()->user()->tokens()->delete();
+            return [ 
+                'message' => 'Logged out'
+            ];
+        }
     }
 
-    public function login(Request $request) {   // TODO
+    public function login(Request $request) {
         $fields = $request->validate([
             'login' => 'required|string',
             'password' => 'required|string'
@@ -76,7 +78,7 @@ class AuthController extends Controller
         }
         $token = $user->createToken('myapptoketn')->plainTextToken;
         $response = [
-            'driver' => $user,
+            'user' => $user,
             'token' => $token
         ];
         return response($response, 201);

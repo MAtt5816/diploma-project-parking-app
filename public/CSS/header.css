@@ -46,8 +46,9 @@ nav .new{
     top: 4.5vh;
 }
 .money span{
-    
-    text-align: center;
+  position: relative;
+  right:-1vw;
+  top:1vh;
 }
 .money .add_cash{
     padding:1vh 1vw;

@@ -41,10 +41,28 @@ Route::post('/login', function(Request $request) {
     }
 });
 
+Route::get('/signup', function() {
+    return view('signup');
 });
 
+Route::post('/signup', function(Request $request) {
+    if($request->has('user')){
+        switch($request->get('user')){
+            case 'kierowca':
+                return view('user/signup_k');
+            case 'operator':
+                return view('user/signup_o');
+        }
+    }
+    return redirect()->back();
 });
 
+Route::get('/signup_driver', function() {
+    return view('user/signup_k');
+});
+
+Route::get('/signup_operator', function() {
+    return view('user/signup_o');
 });
 
 Route::get('/logout', function() {

@@ -61,9 +61,17 @@ Route::get('/signup_driver', function() {
     return view('user/signup_k');
 });
 
+Route::post('/signup_driver', function() {
+    return redirect('/');
+})->middleware('registerUser:driver');
+
 Route::get('/signup_operator', function() {
     return view('user/signup_o');
 });
+
+Route::post('/signup_operator', function() {
+    return redirect('/');
+})->middleware('registerUser:driver');
 
 Route::get('/logout', function() {
     Session::flush();

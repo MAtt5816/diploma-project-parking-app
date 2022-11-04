@@ -40,7 +40,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             {{$stop}}</td>         
                         <td>
                             <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
-                            <a href="Details"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
+                            <a href="/show_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
                             <a href="/delete_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
                         </td>
                     </tr>

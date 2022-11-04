@@ -12,7 +12,7 @@ use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
 
-class deleteFromDB
+class showFromDB
 {
     /**
      * Handle an incoming request.
@@ -52,36 +52,33 @@ class deleteFromDB
             $request->request->add(['operator_id' => $operator_id]);
         }
 
+        // TODO temp json showing now
         switch($role){
             case 'vehicle': {
-                $request->session()->forget('vehicles');
-
                 $vehicle = new VehicleController();
-                $vehicle->destroy($id);
+                $vehicle = $vehicle->show($id);
+                return response()->json($vehicle);
 
                 break;
             }
             case 'parking': {
-                $request->session()->forget('parkings');
-
                 $parking = new ParkingController();
-                $parking->destroy($id);
+                $parking = $parking->show($id);
+                return response()->json($parking);
 
                 break;
             }
             case 'stop': {
-                $request->session()->forget('stops');
-
                 $stop = new StopController();
-                $stop->destroy($id);
+                $stop = $stop->show($id);
+                return response()->json($stop);
 
                 break;
             }
             case 'reservation': {
-                $request->session()->forget('reservations');
-
                 $reservation = new ReservationController();
-                $reservation->destroy($id);
+                $reservation = $reservation->show($id);
+                return response()->json($reservation);
 
                 break;
             }
@@ -89,7 +86,6 @@ class deleteFromDB
                 return redirect('/');
             }
         }
-
 
         return $next($request);
     }

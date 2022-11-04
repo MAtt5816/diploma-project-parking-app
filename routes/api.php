@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
         'operator_codes' => OperatorCodeController::class,
     ]);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/reset', [AuthController::class, 'resetPassword'])->name('reset');
 });
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');

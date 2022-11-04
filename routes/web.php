@@ -17,7 +17,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/api/docs', function() {
     return redirect()->away('https://documenter.getpostman.com/view/20222408/2s84LLxCSL');
@@ -116,6 +116,9 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     })->middleware('getFromDB:stops');
 
     Route::group([], function() {
+        Route::post('/change_password', function() {
+            return view('zmiana_hasla');
+        })->middleware('resetPassword');
         Route::post('/vehicle', function() {
             return redirect('/');
         })->middleware('addToDB:vehicle');

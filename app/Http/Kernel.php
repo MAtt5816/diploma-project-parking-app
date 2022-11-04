@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'registerUser' => \App\Http\Middleware\registerUser::class,
         'addToDB' => \App\Http\Middleware\addToDB::class,
         'getFromDB' => \App\Http\Middleware\getFromDB::class,
+        'resetPassword' => \App\Http\Middleware\resetPassword::class,
     ];
 }

@@ -100,24 +100,33 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     
     Route::get('/reservation', function() {
         return view('rezerwacja');
-    })->middleware('getFromDB:cars');
+    })->middleware(['getFromDB:cars','getFromDB:allParkings']);
     
     Route::get('/reservations', function() {
         return view('rezerwacje');
-    });
+    })->middleware('getFromDB:reservations');
+
     
     Route::get('/stop', function() {
         return view('postoj');
-    })->middleware('getFromDB:cars');
+    })->middleware(['getFromDB:cars','getFromDB:allParkings']);
     
     Route::get('/stops', function() {
         return view('postoje');
-    });
+    })->middleware('getFromDB:stops');
 
-    Route::group(['middleware' => 'addToDB:vehicle'], function() {
+    Route::group([], function() {
         Route::post('/vehicle', function() {
             return redirect('/');
-        });
+        })->middleware('addToDB:vehicle');
+
+        Route::post('/stop', function() {
+            return redirect('/');
+        })->middleware('addToDB:stop');
+
+        Route::post('/reservation', function() {
+            return redirect('/');
+        })->middleware('addToDB:reservation');
     });
 });
 

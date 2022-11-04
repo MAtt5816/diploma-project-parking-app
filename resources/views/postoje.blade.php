@@ -22,31 +22,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             <h1>Postoje</h1>
             <hr>
-          <table class="table">
-    <thead>
-        <tr>
-            <th>
-                Data
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-<?php foreach ($array as $name) {
-    // TODO
-        echo'<tr>
-            <td id="1">
-                '.$name.'</td>         
-            <td>
-                <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
-                <a href="Details"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
-                <a href="Delete"><i class="fa fa-trash"></i> Usuń</a>
-            </td>
-        </tr>';
-}
-?>
-    </tbody>
-</table>  
+
+            @if (Session::has('reservations'))
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Data
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (Session::get('stops') as $stop)
+                    <tr>
+                        <td id="1">
+                            {{$stop}}</td>         
+                        <td>
+                            <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
+                            <a href="Details"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
+                            <a href="Delete"><i class="fa fa-trash"></i> Usuń</a>
+                        </td>
+                    </tr>
+            @endforeach
+                </tbody>
+            </table>  
+            @else
+            <p>Brak rezerwacji</p>
+            @endif
+
             </aside>
         </section>
     </body>

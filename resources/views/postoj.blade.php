@@ -19,24 +19,40 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <aside class="body_form">
                     <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
                     <h1>Dodaj postój</h1>
-                <form method="post" action="">
+                <form method="post" action="/stop">
+                    @csrf
                 <hr>
                 <label> Data rozpoczęcia<span class="required">*</span> </label>
-                <input type="datetime-local" class="form_input" name="start" required="true"><br>
+                <input type="datetime-local" class="form_input" name="start_date" required="true"><br>
                 <label> Data zakończenia<span class="required">*</span> </label>
-                <input type="datetime-local" class="form_input" name="end" required="true"><br>
-                <label>Wybierz pojazd <span class="required">* </span> </label>
+                <input type="datetime-local" class="form_input" name="end_date" required="true"><br>
+
                 @if (Session::has('cars'))
+                    <label>Wybierz pojazd <span class="required">* </span> </label>
                         <div class ="select">
-                        <select test="">
+                        <select test="" name="vehicle_id">
                         <!-- // TODO -->
-                        @foreach (Session::get('cars') as $car)
-                            <option>{{$car}}</option>
+                        @foreach (Session::get('cars') as $key=>$car)
+                            <option value="{{Session::get('cars_id')[$key]}}">{{$car}}</option>
                         @endforeach
                         </select>
                                 </div>
                     @else
                     <p>Brak pojazdów</p>
+                    @endif
+                    <br />
+                    @if (Session::has('parkings'))
+                    <label>Wybierz parking <span class="required">* </span> </label>
+                        <div class ="select">
+                        <select test="" name="parking_id">
+                        <!-- // TODO -->
+                        @foreach (Session::get('parkings') as $key=>$parking)
+                            <option value="{{Session::get('parkings_id')[$key]}}">{{$parking}}</option>
+                        @endforeach
+                        </select>
+                                </div>
+                    @else
+                    <p>Brak parkingów</p>
                     @endif
                 </aside>
                 <hr><input type="submit" class="button" value="Dodaj">

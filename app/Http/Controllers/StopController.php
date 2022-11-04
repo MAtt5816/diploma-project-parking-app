@@ -40,6 +40,7 @@ class StopController extends Controller
         $stop->start_date = $request->input('start_date');
         $stop->end_date = $request->input('end_date');
         $stop->driver_id = $request->input('driver_id');
+        $stop->vehicle_id = $request->input('vehicle_id');
         $stop->parking_id = $request->input('parking_id');
 
         $stop->save();
@@ -82,6 +83,7 @@ class StopController extends Controller
         $stop->start_date = $request->input('start_date');
         $stop->end_date = $request->input('end_date');
         $stop->driver_id = $request->input('driver_id');
+        $stop->vehicle_id = $request->input('vehicle_id');
         $stop->parking_id = $request->input('parking_id');
 
         $stop->save();

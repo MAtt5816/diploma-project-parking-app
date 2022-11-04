@@ -10,9 +10,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         title>Our-parking -rezerwuj miejsca parkingowe, zgłoś parking</title>
     <link rel="stylesheet" href="CSS/forms.css"/>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-        <?php
-        $array = array("LBI54915", "LU2341","LLB6G21");
-        ?>
     </head>
     <body>
 
@@ -21,7 +18,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             <h1>Moje pojazdy</h1>
             <hr>
-          <table class="table">
+          
+    @if (Session::has('cars') && !empty(Session::get('cars')))
+    <table class="table">
     <thead>
         <tr>
             <th>
@@ -31,20 +30,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         </tr>
     </thead>
     <tbody>
-<?php foreach ($array as $name) {
-        echo'<tr>
+        @foreach (Session::get('cars') as $key=>$car)
+        <tr>
             <td id="1">
-                '.$name.'</td>         
+                {{$car}}</td>         
             <td>
                 <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
                 <a href="Details"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
-                <a href="Delete"><i class="fa fa-trash"></i> Usuń</a>
+                <a href="/delete_vehicle/{{Session::get('cars_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
             </td>
-        </tr>';
-}
-?>
-    </tbody>
-</table>  
+        </tr>
+        @endforeach
+        </tbody>
+</table> 
+    @else
+    <p>Brak pojazdów</p>
+    @endif
+     
             </aside>
         </section>
     </body>

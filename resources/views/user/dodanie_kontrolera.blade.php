@@ -28,7 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <br> <hr>
                 </aside>
                 <input type="submit" class="button" value="Dodaj">
-               <input type="reset" class="button" value="Anuluj"></form>
+               <input type="reset" class="button" value="Wyczyść"></form>
                 </section>
     </body>
 </html>

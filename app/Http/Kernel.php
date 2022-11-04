@@ -64,5 +64,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'sessionCheck' => \App\Http\Middleware\sessionCheck::class,
+        'registerUser' => \App\Http\Middleware\registerUser::class,
+        'addToDB' => \App\Http\Middleware\addToDB::class,
+        'getFromDB' => \App\Http\Middleware\getFromDB::class,
+        'resetPassword' => \App\Http\Middleware\resetPassword::class,
+        'deleteFromDB' => \App\Http\Middleware\deleteFromDB::class,
     ];
 }

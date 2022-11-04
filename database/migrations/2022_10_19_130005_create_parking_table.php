@@ -15,9 +15,10 @@ class CreateParkingTable extends Migration
     {
         Schema::create('parkings', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 30);
             $table->float('price');
-            $table->string('location', 20);
-            $table->string('opening_hours', 6);
+            $table->string('location', 40);
+            $table->string('opening_hours', 20);
             $table->string('additional_services', 40);
             $table->string('facilities', 40);
             $table->unsignedBigInteger('operator_id');

@@ -21,6 +21,7 @@ class Reservation extends Authenticatable
         'start_date',
         'end_date',
         'driver_id',
+        'vehicle_id',
         'parking_id'
     ];
 
@@ -39,6 +40,7 @@ class Reservation extends Authenticatable
      */
     protected $casts = [
         'driver_id' => 'int',
+        'vehicle_id' => 'int',
         'parking_id' => 'int',
     ];
 }

@@ -18,6 +18,7 @@ class Parking extends Authenticatable
      * @var array<int, float, string>
      */
     protected $fillable = [
+        'name',
         'price',
         'location',
         'opening_hours',

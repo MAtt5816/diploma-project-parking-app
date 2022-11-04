@@ -18,10 +18,12 @@ class CreateStopTable extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->unsignedBigInteger('driver_id');
+            $table->unsignedBigInteger('vehicle_id');
             $table->unsignedBigInteger('parking_id');
             $table->timestamps();
 
             $table->foreign('driver_id')->references('id')->on('drivers');
+            $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->foreign('parking_id')->references('id')->on('parkings');
         });
     }

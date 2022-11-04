@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\ParkingController;
+use App\Http\Controllers\OperatorController;
 use Illuminate\Support\Facades\Session;
 
 class getFromDB
@@ -19,9 +21,10 @@ class getFromDB
      */
     public function handle(Request $request, Closure $next, $role)
     {
+        $uid = Session::get('user')->id;
+
         switch($role){
             case 'cars': {
-                $uid = Session::get('user')->id;
                 $driver = new DriverController();
                 $drivers = $driver->index();
                 foreach($drivers as $item){
@@ -38,6 +41,26 @@ class getFromDB
                     array_push($arr, $item->registration_plate);
                 }
                 session(['cars' => $arr]);
+
+                break;
+            }
+            case 'parkings': {
+                $operator = new OperatorController();
+                $operators = $operator->index();
+                foreach($operators as $item){
+                    if($item->user_id == $uid){
+                        $operator_id = $item->id;
+                        break;
+                    }
+                }
+                $request->request->add(['operator_id' => $operator_id]);
+                $parking = new ParkingController();
+                $parkings = $parking->index();
+                $arr = array();
+                foreach($parkings as $item){
+                    array_push($arr, $item->name);
+                }
+                session(['parkings' => $arr]);
 
                 break;
             }

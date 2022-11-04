@@ -133,7 +133,7 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
 
     Route::get('/parkings', function() {
         return view('parkingi');
-    });
+    })->middleware('getFromDB:parkings');
 
     Route::group(['middleware' => 'addToDB:parking'], function() {
         Route::post('/add_parking', function() {

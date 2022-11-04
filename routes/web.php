@@ -79,6 +79,20 @@ Route::get('/logout', function() {
 });
 
 
+Route::group(['middleware' => 'sessionCheck:all'], function() {
+    Route::get('/change_password', function() {
+        return view('zmiana_hasla');
+    });
+    
+    Route::get('/settings', function() {
+        return view('ustawienia');
+    });
+    
+    Route::post('/change_password', function() {
+        return view('zmiana_hasla');
+    })->middleware('resetPassword');
+});
+
 
 Route::group(['middleware' => 'sessionCheck:driver'], function() {
     
@@ -89,14 +103,6 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     Route::get('/vehicles', function() {
         return view('pojazdy');
     })->middleware('getFromDB:cars');
-    
-    Route::get('/change_password', function() {
-        return view('zmiana_hasla');
-    });
-    
-    Route::get('/settings', function() {
-        return view('ustawienia');
-    });
     
     Route::get('/reservation', function() {
         return view('rezerwacja');
@@ -116,9 +122,6 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     })->middleware('getFromDB:stops');
 
     Route::group([], function() {
-        Route::post('/change_password', function() {
-            return view('zmiana_hasla');
-        })->middleware('resetPassword');
         Route::post('/vehicle', function() {
             return redirect('/');
         })->middleware('addToDB:vehicle');

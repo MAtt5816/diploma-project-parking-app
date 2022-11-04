@@ -7,7 +7,7 @@
                     @switch (Session::get('user')->user_type)
                         @case("operator")
                             <li><a href="/add_parking">Dodaj parking</a></li>
-                            <li><a href="/add_inspector">Dodaj kontrolera</a></li>
+                            <!-- // TODO <li><a href="/add_inspector">Dodaj kontrolera</a></li> -->
                             <li><a href="/parkings">Moje parkingi</a></li>
                             @break
                         @case("driver")

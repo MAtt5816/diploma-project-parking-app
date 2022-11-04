@@ -18,12 +18,17 @@ class sessionCheck
     public function handle(Request $request, Closure $next, $role)
     {
         if(Session::has('token')){
-            $type = Session::get('user')->user_type;
-            if($type == $role){
+            if($role == 'all'){
                 return $next($request);
             }
             else{
-                return redirect('/');  
+                $type = Session::get('user')->user_type;
+                if($type == $role){
+                    return $next($request);
+                }
+                else{
+                    return redirect('/');  
+                }
             }
         }
         //abort(403);

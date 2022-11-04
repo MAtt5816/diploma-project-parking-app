@@ -23,7 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             <h1>Postoje</h1>
             <hr>
 
-            @if (Session::has('reservations'))
+            @if (Session::has('stops'))
             <table class="table">
                 <thead>
                     <tr>
@@ -48,7 +48,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </tbody>
             </table>  
             @else
-            <p>Brak rezerwacji</p>
+            <p>Brak postojów</p>
             @endif
 
             </aside>

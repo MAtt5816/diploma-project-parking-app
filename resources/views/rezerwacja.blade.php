@@ -62,6 +62,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                <input type="reset" class="button" value="Wyczyść"></form>
                 </section>
 
-                {{view('map-select');}}
+                {{view('components.map-select');}}
     </body>
 </html>

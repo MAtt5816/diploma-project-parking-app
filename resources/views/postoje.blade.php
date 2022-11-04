@@ -33,6 +33,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </thead>
     <tbody>
 <?php foreach ($array as $name) {
+    // TODO
         echo'<tr>
             <td id="1">
                 '.$name.'</td>         

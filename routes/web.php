@@ -114,7 +114,7 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
         return view('postoje');
     });
 
-    Route::group(['middleware' => 'addToDB'], function() {
+    Route::group(['middleware' => 'addToDB:vehicle'], function() {
         Route::post('/vehicle', function() {
             return redirect('/');
         });
@@ -133,6 +133,12 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
 
     Route::get('/parkings', function() {
         return view('parkingi');
+    });
+
+    Route::group(['middleware' => 'addToDB:parking'], function() {
+        Route::post('/add_parking', function() {
+            return redirect('/');
+        });
     });
 });
 

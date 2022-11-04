@@ -18,14 +18,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <aside class="body_form">
                    <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a> 
                     <h1>Dodaj parking</h1>
-                <form method="post" action="">
+                <form method="post" action="/add_parking">
+                    @csrf
                 <hr>
                 <input type="text" class="form_input" name="name" placeholder="Nazwa" required="true"><br>
-                <input type="text" class="form_input" name="price" placeholder="Cena" required="true"><br>
-                <input type="text" class="form_input" name="pin" placeholder="Lokalizacja" required="true"><br>
-                <input type="text" class="form_input" name="hours" placeholder="Godziny otwarcia" required="true"><br>
-                <input type="text" class="form_input" name="add" placeholder="Dodatkowe usługi" required="true"><br>
-                <input type="text" class="form_input" name="add2" placeholder="Udogodnienia" required="true"><br>
+                <input type="number" class="form_input" name="price" placeholder="Cena" min="0" step="0.01" required="true"><br>
+                <input type="text" class="form_input" name="location" placeholder="Lokalizacja" required="true"><br>
+                <input type="text" class="form_input" name="opening_hours" placeholder="Godziny otwarcia" required="true"><br>
+                <input type="text" class="form_input" name="additional_services" placeholder="Dodatkowe usługi" required="true"><br>
+                <input type="text" class="form_input" name="facilities" placeholder="Udogodnienia" required="true"><br>
                 </aside>
                 <hr><input type="submit" class="button" value="Dodaj">
                <input type="reset" class="button" value="Wyczyść"></form>

@@ -147,6 +147,18 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     Route::get('/delete_vehicle/{id}', function() {
         return redirect('/vehicles');
     })->middleware('deleteFromDB:vehicle');
+
+    Route::get('/show_stop/{id}', function($id){
+        return redirect('/stops');
+    })->middleware('showFromDB:stop');
+
+    Route::get('/show_reservation/{id}', function() {
+        return redirect('/reservations');
+    })->middleware('showFromDB:reservation');
+
+    Route::get('/show_vehicle/{id}', function() {
+        return redirect('/vehicles');
+    })->middleware('showFromDB:vehicle');
 });
 
 Route::group(['middleware' => 'sessionCheck:operator'], function() {
@@ -172,6 +184,10 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
     Route::get('/delete_parking/{id}', function() {
         return redirect('/parkings');
     })->middleware('deleteFromDB:parking');
+
+    Route::get('/show_parking/{id}', function() {
+        return redirect('/parkings');
+    })->middleware('showFromDB:parking');
 });
 
 Route::group(['middleware' => 'sessionCheck:inspector'], function() {

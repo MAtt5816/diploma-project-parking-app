@@ -9,7 +9,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <link rel="shortcut icon" href="img/logo.png" />
         <title>Our-parking -rezerwuj miejsca parkingowe, zgłoś parking</title>
         <link rel="stylesheet" href="CSS/forms.css"/>
+        <link rel="stylesheet" href="CSS/style.css" type="text/css">
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin="">
+        </script>
     </head>
     <body>
 
@@ -45,8 +49,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 @else
                 <p>Brak parkingów</p>
                 @endif  
+                <div id="map" class="mapForm"></div>
             </aside>
         </section>
+
+        {{view('components.map-static');}}
 
     </body>
 </html>

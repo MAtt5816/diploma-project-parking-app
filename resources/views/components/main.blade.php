@@ -1,3 +1,3 @@
 <section>
-    <div id="map">mapa z pinezkami</div>
+    <div id="map"></div>
 </section>

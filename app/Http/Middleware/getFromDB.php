@@ -28,12 +28,15 @@ class getFromDB
             $parkings = $parking->index();
             $arr = array();
             $arr1 = array();
+            $location = array();
             foreach($parkings as $item){
                 array_push($arr, $item->name);
                 array_push($arr1, $item->id);
+                array_push($location, $item->location);
             }
             session(['parkings' => $arr]);
             session(['parkings_id' => $arr1]);
+            session(['locations' => $location]);
         }
         else{
             $driver_roles = array('cars','reservations','stops');

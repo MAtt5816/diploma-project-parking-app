@@ -20,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <br><br><section class="container">
             <aside class="body_form">
                 <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                @if (Session::has('parkings'))
+                @if (Session::has('parkings') && !empty(Session::get('parkings')))
                                 <h1>Moje parkingi</h1>
                             <hr>
                         <table class="table">
@@ -33,14 +33,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach (Session::get('parkings') as $parking)
+                    @foreach (Session::get('parkings') as $key=>$parking)
                     <tr>
                         <td id="1">
                             {{$parking}}</td>         
                         <td>
                             <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
                             <a href="Details"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
-                            <a href="Delete"><i class="fa fa-trash"></i> Usuń</a>
+                            <a href="/delete_parking/{{Session::get('parkings_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
                         </td>
                     </tr>
                     @endforeach

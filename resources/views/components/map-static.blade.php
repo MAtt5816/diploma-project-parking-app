@@ -7,6 +7,7 @@
 
     @if(Session::has('locations'))
     @foreach(Session::get('locations') as $key=>$location)
+    //TODO problem after delete and reload
         var marker = L.marker([{{$location}}]).addTo(map);
         marker.bindPopup("{{Session::get('parkings')[$key]}}");
     @endforeach

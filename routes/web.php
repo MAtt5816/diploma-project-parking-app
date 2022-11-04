@@ -80,6 +80,7 @@ Route::get('/logout', function() {
 
 
 Route::group(['middleware' => 'sessionCheck:all'], function() {
+    
     Route::get('/change_password', function() {
         return view('zmiana_hasla');
     });
@@ -134,6 +135,18 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
             return redirect('/');
         })->middleware('addToDB:reservation');
     });
+
+    Route::get('/delete_stop/{id}', function($id){
+        return redirect('/stops');
+    })->middleware('deleteFromDB:stop');
+
+    Route::get('/delete_reservation/{id}', function() {
+        return redirect('/reservations');
+    })->middleware('deleteFromDB:reservation');
+
+    Route::get('/delete_vehicle/{id}', function() {
+        return redirect('/vehicles');
+    })->middleware('deleteFromDB:vehicle');
 });
 
 Route::group(['middleware' => 'sessionCheck:operator'], function() {
@@ -155,6 +168,10 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
             return redirect('/');
         });
     });
+
+    Route::get('/delete_parking/{id}', function() {
+        return redirect('/parkings');
+    })->middleware('deleteFromDB:parking');
 });
 
 Route::group(['middleware' => 'sessionCheck:inspector'], function() {

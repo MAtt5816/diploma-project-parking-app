@@ -30,7 +30,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <label>Wprowadz numer rejestracyjny</label><br>
                 <input type="text" class="weryfikator_input" name="nr_rej" placeholder="Numer rejestracyjny" required="true"/><br>
                 <input type="submit" class="button" value="Sprawdź">
-                <input type="reset" class="button" value="Anuluj">
+                <input type="reset" class="button" value="Wyczyść">
             </form>
                 <?php
                 if(isset($_REQUEST['nr_rej'])){

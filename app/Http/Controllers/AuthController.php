@@ -84,6 +84,27 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
+    public function resetPassword(Request $request){
+        $fields = $request->validate([
+            'login' => 'required|string',
+            'old_password' => 'required|string',
+            'new_password' => 'required|string',
+        ]);
+        $user = User::where('login', $fields['login'])->first(); // sprawdzenie loginu
+        if(!$user || !Hash::check($fields['old_password'], $user->password)){ // sprawdzenie hasła
+            return response([
+                'message' => 'Bad creds'
+            ], 401);
+        }
+        else{
+            $user = User::where('login', $fields['login'])->update(['password' => Hash::make($fields['new_password'])]);
+            $response = [
+                'user' => $user
+            ];
+            return response($response, 201);
+        }
+    }
+
     private function registerDriver(Request $request, int $user_id) {
         $validator = Validator::make($request->all(), 
             ['name' => 'required|string|max:255', 

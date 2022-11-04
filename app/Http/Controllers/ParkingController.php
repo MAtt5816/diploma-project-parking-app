@@ -37,6 +37,7 @@ class ParkingController extends Controller
     public function store(Request $request)
     {
         $parking = new Parking();
+        $parking->name = $request->input('name');
         $parking->price = $request->input('price');
         $parking->location = $request->input('location');
         $parking->opening_hours = $request->input('opening_hours');
@@ -81,6 +82,7 @@ class ParkingController extends Controller
     public function update(Request $request, $id)
     {
         $parking = Parking::findOrFail($id);
+        $parking->name = $request->input('name');
         $parking->price = $request->input('price');
         $parking->location = $request->input('location');
         $parking->opening_hours = $request->input('opening_hours');

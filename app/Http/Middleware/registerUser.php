@@ -4,9 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Session;
 
-class sessionCheck
+class registerUser
 {
     /**
      * Handle an incoming request.
@@ -17,21 +19,15 @@ class sessionCheck
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        if(Session::has('token')){
-            if($role == 'all'){
-                return $next($request);
-            }
-            else{
-                $type = Session::get('user')->user_type;
-                if($type == $role){
-                    return $next($request);
-                }
-                else{
-                    return redirect('/');  
-                }
-            }
+        if(! Session::has('token')){
+            $user = new AuthController();
+            $user = $user->register($request);
+
+            $json = json_decode($user->content());
+            session(['user' => $json->data]);
+            session(['token' => $json->access_token]);
         }
-        //abort(403);
-        return redirect()->route('loginForm');
+        return redirect('/');
     }
+
 }

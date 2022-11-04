@@ -40,6 +40,7 @@ class ReservationController extends Controller
         $reservation->start_date = $request->input('start_date');
         $reservation->end_date = $request->input('end_date');
         $reservation->driver_id = $request->input('driver_id');
+        $reservation->vehicle_id = $request->input('vehicle_id');
         $reservation->parking_id = $request->input('parking_id');
 
         $reservation->save();
@@ -82,6 +83,7 @@ class ReservationController extends Controller
         $reservation->start_date = $request->input('start_date');
         $reservation->end_date = $request->input('end_date');
         $reservation->driver_id = $request->input('driver_id');
+        $reservation->vehicle_id = $request->input('vehicle_id');
         $reservation->parking_id = $request->input('parking_id');
 
         $reservation->save();

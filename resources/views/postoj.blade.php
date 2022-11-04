@@ -31,7 +31,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     <label>Wybierz pojazd <span class="required">* </span> </label>
                         <div class ="select">
                         <select test="" name="vehicle_id">
-                        <!-- // TODO -->
                         @foreach (Session::get('cars') as $key=>$car)
                             <option value="{{Session::get('cars_id')[$key]}}">{{$car}}</option>
                         @endforeach
@@ -45,7 +44,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     <label>Wybierz parking <span class="required">* </span> </label>
                         <div class ="select">
                         <select test="" name="parking_id">
-                        <!-- // TODO -->
                         @foreach (Session::get('parkings') as $key=>$parking)
                             <option value="{{Session::get('parkings_id')[$key]}}">{{$parking}}</option>
                         @endforeach

@@ -9,7 +9,13 @@
          <img class="appstore" src="img/appstore.png" alt="appstore" height="auto" width="150"/> 
      </aside>
      <aside class="home">
-         <br><div class="element"><h1>Jesteśmy już w <?php // TODO ?><b>0?X</b> miejscach.To dopiero początek</h1><div><br>
+         <br><div class="element"><h1>Jesteśmy już w <b>
+         @if (Session::has('parkings'))
+         {{count(Session::get('parkings'))}}
+         @else
+            0
+        @endif
+         </b> miejscach.To dopiero początek</h1><div><br>
          <hr>
          <div id="map">
              mapa z pinezkami

@@ -17,7 +17,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+})->name('home')->middleware('getFromDB:allParkings');
 
 Route::get('/api/docs', function() {
     return redirect()->away('https://documenter.getpostman.com/view/20222408/2s84LLxCSL');

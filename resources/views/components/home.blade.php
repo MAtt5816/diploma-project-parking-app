@@ -18,7 +18,7 @@
          </b> miejscach.To dopiero początek</h1><div><br>
          <hr>
          <div id="map">
-             mapa z pinezkami
+            
          </div>
          
      </aside>     

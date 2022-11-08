@@ -11,9 +11,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     </head>
     <body>
-        <?php
-        // put your code here
-        ?>
         <br><br><section class="container">
                 <aside class="body_form">
                     <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>

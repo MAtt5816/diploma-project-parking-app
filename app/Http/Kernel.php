@@ -70,5 +70,7 @@ class Kernel extends HttpKernel
         'resetPassword' => \App\Http\Middleware\resetPassword::class,
         'deleteFromDB' => \App\Http\Middleware\deleteFromDB::class,
         'showFromDB' => \App\Http\Middleware\showFromDB::class,
+        'stopInfo' => \App\Http\Middleware\stopInfo::class,
+        'updateDB' => \App\Http\Middleware\updateDB::class,
     ];
 }

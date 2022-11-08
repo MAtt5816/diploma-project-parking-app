@@ -10,7 +10,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <title>Our-parking -rezerwuj miejsca parkingowe, zgłoś parking</title>
         <link rel="stylesheet" href="{{asset('CSS/forms.css')}}" type="text/css">
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-        <link rel="stylesheet" href="CSS/style.css" type="text/css">
+        <link rel="stylesheet" href="{{asset('CSS/style.css')}}" type="text/css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
         <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin="">
         </script>
@@ -34,9 +34,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     @if (Session::has('cars'))
                     <label>Wybierz pojazd <span class="required">* </span> </label>
                         <div class ="select">
-                        <select test="" name="vehicle_id" value="{{Session::get('reservation')->vehicle_id}}">
-                        @foreach (Session::get('cars') as $key=>$car)
-                            <option value="{{Session::get('cars_id')[$key]}}">{{$car}}</option>
+                        <select test="" name="vehicle_id">
+                        @foreach (Session::get('cars') as $key=>$car) 
+                            <option value="{{Session::get('cars_id')[$key]}}" {{(Session::get('cars_id')[$key] == Session::get('reservation')->vehicle_id) ? 'selected' : ' '}}>{{$car}}</option>
                         @endforeach
                         </select>
                                 </div>
@@ -49,7 +49,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         <div class ="select">
                         <select test="" id="parking" name="parking_id" hidden>
                         @foreach (Session::get('parkings') as $key=>$parking)
-                            <option value="{{Session::get('parkings_id')[$key]}}">{{$parking}}</option>
+                            <option value="{{Session::get('parkings_id')[$key]}}" {{(Session::get('parkings_id')[$key] == Session::get('reservation')->parking_id) ? 'selected' : ' '}}>{{$parking}}</option>
                         @endforeach
                         </select>
                                 </div>

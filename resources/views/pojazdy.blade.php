@@ -35,7 +35,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             <td id="1">
                 {{$car}}</td>         
             <td>
-                <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
+                <a href="/edit_vehicle/{{Session::get('cars_id')[$key]}}"><i class="fa fa-edit"></i> Edytuj</a> |
                 <a href="/show_vehicle/{{Session::get('cars_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
                 <a href="/delete_vehicle/{{Session::get('cars_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
             </td>

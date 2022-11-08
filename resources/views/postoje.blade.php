@@ -39,7 +39,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         <td id="1">
                             {{\Carbon\Carbon::parse($stop)->timezone('Europe/Warsaw')}}</td>         
                         <td>
-                            <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
                             <a href="/show_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
                             <a href="/info_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-car"></i> Postój</a>
                         </td>

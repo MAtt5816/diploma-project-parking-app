@@ -122,6 +122,14 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
         return view('postoje');
     })->middleware('getFromDB:stops');
 
+    Route::get('/edit_vehicle/{id}', function() {
+        return view('edytuj_pojazd');
+    })->middleware('showFromDB:vehicle');
+
+    Route::get('/edit_reservation/{id}', function() {
+        return view('edytuj_rezerwacja');
+    })->middleware(['getFromDB:cars','getFromDB:allParkings','showFromDB:reservation']);
+
     Route::group([], function() {
         Route::post('/vehicle', function() {
             return redirect('/');
@@ -134,6 +142,14 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
         Route::post('/reservation', function() {
             return redirect('/');
         })->middleware('addToDB:reservation');
+
+        Route::post('/update_vehicle', function() {
+            return redirect('/');
+        })->middleware('updateDB:vehicle');
+
+        Route::post('/update_reservation', function() {
+            return redirect('/');
+        })->middleware('updateDB:reservation');
     });
 
     Route::get('/delete_stop/{id}', function($id){
@@ -175,6 +191,10 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
         return view('dodaj_parking');
     });
 
+    Route::get('/edit_parking/{id}', function() {
+        return view('edytuj_parking');
+    })->middleware('showFromDB:parking');
+
     Route::get('/add_inspector', function() {
         return view('user/dodanie_kontrolera');
     });
@@ -188,6 +208,10 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
             return redirect('/');
         });
     });
+    
+    Route::post('/update_parking', function() {
+        return redirect('/');
+    })->middleware('updateDB:parking');
 
     Route::get('/delete_parking/{id}', function() {
         return redirect('/parkings');

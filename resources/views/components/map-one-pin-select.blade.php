@@ -5,7 +5,11 @@
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    @if(Session::has('parking'))
+    var marker = L.marker([{{Session::get('parking')->location}}]).addTo(map);;
+    @else
     var marker = null;
+    @endif
     map.on('click', function (e) {
         if (marker !== null) {
             map.removeLayer(marker);

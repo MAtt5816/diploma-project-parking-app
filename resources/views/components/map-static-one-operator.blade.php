@@ -7,8 +7,10 @@
 
     @if(Session::has('locations'))
     @foreach(Session::get('locations') as $key=>$location)
-        var marker = L.marker([{{$location}}]).addTo(map);
-        marker.bindPopup("{{Session::get('parkings')[$key]}}");
+        @if (Session::get('operators')[$key])
+            var marker = L.marker([{{$location}}]).addTo(map);
+            marker.bindPopup("{{Session::get('parkings')[$key]}}");
+        @endif
     @endforeach
     @endif
 </script>

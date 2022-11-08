@@ -11,24 +11,39 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <link rel="stylesheet" href="CSS/forms.css" type="text/css">
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <link rel="stylesheet" href="CSS/style.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
         <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin="">
         </script>
     </head>
     <body>
-        <?php
-       $array = array("LBI54915", "LU4519","LLB84A61")
-        ?>
+        <script>
+            $(document).ready(function(){
+                $("button.toogle1").click(function() {  // start-stop
+                    $(".toogle1").addClass("active").removeClass("inactive");
+                    $(".toogle2").addClass("inactive").removeClass("active");
+                    $('input[name="end_date"]').prop( "disabled", true);
+                    $('input[name="end_date"]').prop("hidden", true);
+                    $("#end_date_label").prop("hidden", true);
+                });
+                $("button.toogle2").click(function() {  // time
+                    $(".toogle2").addClass("active").removeClass("inactive");
+                    $(".toogle1").addClass("inactive").removeClass("active");
+                    $('input[name="end_date"]').prop( "disabled", false);
+                    $('input[name="end_date"]').prop("hidden", false);
+                    $("#end_date_label").prop("hidden", false);
+                });
+            });
+        </script>
         <br><br><section class="container">
                 <aside class="body_form">
                     <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
                     <h1>Dodaj postój</h1>
                 <form method="post" action="/stop">
                     @csrf
+                    <button class="toogle1 inactive" type="button" formnovalidate>start/stop</button> <button class="toogle2 active" type="button" formnovalidate>czasowe</button>
                 <hr>
-                <label> Data rozpoczęcia<span class="required">*</span> </label>
-                <input type="datetime-local" class="form_input" name="start_date" required="true"><br>
-                <label> Data zakończenia<span class="required">*</span> </label>
+                <label id="end_date_label"> Data zakończenia<span class="required">*</span> </label>
                 <input type="datetime-local" class="form_input" name="end_date" required="true"><br>
 
                 @if (Session::has('cars'))

@@ -23,26 +23,11 @@ class getFromDB
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        if($role == 'allParkings'){
-            $parking = new ParkingController();
-            $parkings = $parking->index();
-            $arr = array();
-            $arr1 = array();
-            $location = array();
-            foreach($parkings as $item){
-                array_push($arr, $item->name);
-                array_push($arr1, $item->id);
-                array_push($location, $item->location);
-            }
-            session(['parkings' => $arr]);
-            session(['parkings_id' => $arr1]);
-            session(['locations' => $location]);
-        }
-        else{
-            $driver_roles = array('cars','reservations','stops');
-            $operator_roles = array('parkings');
-
+        if(Session::has('token')){
             $uid = Session::get('user')->id;
+
+            $driver_roles = array('cars','reservations','stops');
+            $operator_roles = array('parkings', 'allParkings');
 
             if(in_array($role,$driver_roles)){
                 $driver = new DriverController();
@@ -58,6 +43,7 @@ class getFromDB
             else if(in_array($role,$operator_roles)){
                 $operator = new OperatorController();
                 $operators = $operator->index();
+                $operator_id = null;
                 foreach($operators as $item){
                     if($item->user_id == $uid){
                         $operator_id = $item->id;
@@ -121,22 +107,58 @@ class getFromDB
                     $parkings = $parking->index();
                     $arr = array();
                     $arr1 = array();
+                    $location = array();
+                    $oid = array();
                     foreach($parkings as $item){
                         if($item->operator_id == $operator_id){
                             array_push($arr, $item->name);
-                            array_push($arr1, $item->id);    
+                            array_push($arr1, $item->id);
+                            array_push($location, $item->location);    
+                            if ($item->operator_id == $request->input('operator_id')){
+                                array_push($oid, true);
+                            } else {
+                                array_push($oid, false);
+                            }
                         }
                     }
                     session(['parkings' => $arr]);
                     session(['parkings_id' => $arr1]);
+                    session(['locations' => $location]);
+                    session(['operators' => $oid]);
 
                     break;
                 }
+                case 'allParkings': break;
                 default:
                     return redirect('/');
             }
         }
-        
+
+        if($role == 'allParkings'){
+            $parking = new ParkingController();
+            $parkings = $parking->index();
+            $arr = array();
+            $arr1 = array();
+            $location = array();
+            $oid = array();
+            foreach($parkings as $item){
+                array_push($arr, $item->name);
+                array_push($arr1, $item->id);
+                array_push($location, $item->location);
+                if($request->input('operator_id') != null){
+                    if ($item->operator_id == $request->input('operator_id')){
+                        array_push($oid, true);
+                    } else {
+                        array_push($oid, false);
+                    }
+                }
+            }
+            session(['parkings' => $arr]);
+            session(['parkings_id' => $arr1]);
+            session(['locations' => $location]);
+            session(['operators' => $oid]);
+        }
+                    
         return $next($request);
     }
 }

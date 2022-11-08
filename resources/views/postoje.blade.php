@@ -24,31 +24,36 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             <hr>
 
             @if (Session::has('stops') && !empty(Session::get('stops')))
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            Data
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Data
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
                 <tbody>
                 @foreach (Session::get('stops') as $key=>$stop)
                     <tr>
                         <td id="1">
-                            {{$stop}}</td>         
+                            {{\Carbon\Carbon::parse($stop)->timezone('Europe/Warsaw')}}</td>         
                         <td>
-                            <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
                             <a href="/show_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
-                            <a href="/delete_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
+                            <a href="/info_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-car"></i> Postój</a>
                         </td>
                     </tr>
-            @endforeach
-                </tbody>
-            </table>  
+                @endforeach
+                    </tbody>
+                </table>  
+                @if (Session::has('stop') && !Session::has('mode'))
+                    {{view('components.szczegoly');}}
+                @endif
+                @if (Session::has('mode'))
+                    {{view('components.infopostoj');}}
+                @endif
             @else
-            <p>Brak postojów</p>
+                <p>Brak postojów</p>
             @endif
 
             </aside>

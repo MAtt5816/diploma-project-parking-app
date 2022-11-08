@@ -13,7 +13,7 @@ use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 
-class addToDB
+class updateDB
 {
     /**
      * Handle an incoming request.
@@ -24,7 +24,7 @@ class addToDB
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        $driver_roles = array('vehicle','stop','reservation');
+        $driver_roles = array('vehicle','reservation');
         $operator_roles = array('parking');
 
         $uid = Session::get('user')->id;
@@ -54,34 +54,55 @@ class addToDB
 
         switch($role){
             case 'vehicle': {
+                Session::reflash();
+                $request->merge(['registration_plate' => $request->input('registration_plate')]);
+                $request->merge(['brand' => $request->input('brand')]);
+                $request->merge(['model' => $request->input('model')]);
+                $request->merge(['driver_id' => $request->input('driver_id')]);
                 $vehicle = new VehicleController();
-                $vehicle = $vehicle->store($request);
-
+                try {
+                    $vehicle = $vehicle->update($request, $request->input('id'));
+                } catch (Throwable $th) {
+                    return Redirect::back()->withErrors(['err: ',$th->getMessage()]);
+                }
+                
                 break;
             }
             case 'parking': {
+                Session::reflash();
+                $request->merge(['name' => $request->input('name')]);
+                $request->merge(['price' => $request->input('price')]);
+                $request->merge(['location' => $request->input('location')]);
+                $request->merge(['opening_hours' => $request->input('opening_hours')]);
+                $request->merge(['additional_services' => $request->input('additional_services')]);
+                $request->merge(['facilities' => $request->input('facilities')]);
+                $request->merge(['operator_id' => $request->input('operator_id')]);
                 $parking = new ParkingController();
-                $parking = $parking->store($request);
+                $parking = $parking->update($request, $request->input('id'));
 
                 break;
             }
             case 'stop': {
-                $request->merge(['start_date' => Carbon::now()->format('Y-m-d H:i:s')]);
-                if(!is_null($request->input('end_date'))){
-                    $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
-                } else {
-                    $request->merge(['end_date' => null]);
-                }
+                Session::reflash();
+                $request->merge(['start_date' => Carbon::parse(Session::get('stop')->start_date)->format('Y-m-d H:i:s')]);
+                $request->merge(['end_date' => Carbon::now()->format('Y-m-d H:i:s')]);
+                $request->merge(['driver_id' => Session::get('stop')->driver_id]);
+                $request->merge(['vehicle_id' => Session::get('stop')->vehicle_id]);
+                $request->merge(['parking_id' => Session::get('stop')->parking_id]);
                 $stop = new StopController();
-                $stop->store($request);
+                $stop->update($request, Session::get('stop')->id);
 
                 break;
             }
             case 'reservation': {
+                Session::reflash();
                 $request->merge(['start_date' => Carbon::parse($request->start_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
+                $request->merge(['driver_id' => $request->input('driver_id')]);
+                $request->merge(['vehicle_id' => $request->input('vehicle_id')]);
+                $request->merge(['parking_id' => $request->input('parking_id')]);
                 $reservation = new ReservationController();
-                $reservation->store($request);
+                $reservation->update($request, $request->input('id'));
 
                 break;
             }

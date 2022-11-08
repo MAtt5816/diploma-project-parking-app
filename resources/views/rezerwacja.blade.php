@@ -16,9 +16,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         </script>
     </head>
     <body>
-        <?php
-        $array = array("LBI54915", "LU4519","LLB84A61")
-        ?>
         <br><br><section class="container">
                 <aside class="body_form">
                     <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>

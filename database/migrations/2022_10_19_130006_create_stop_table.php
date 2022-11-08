@@ -16,7 +16,7 @@ class CreateStopTable extends Migration
         Schema::create('stops', function (Blueprint $table) {
             $table->id();
             $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('end_date')->nullable();
             $table->unsignedBigInteger('driver_id');
             $table->unsignedBigInteger('vehicle_id');
             $table->unsignedBigInteger('parking_id');

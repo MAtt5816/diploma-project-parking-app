@@ -37,7 +37,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 @foreach (Session::get('stops') as $key=>$stop)
                     <tr>
                         <td id="1">
-                            {{$stop}}</td>         
+                            {{\Carbon\Carbon::parse($stop)->timezone('Europe/Warsaw')}}</td>         
                         <td>
                             <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
                             <a href="/show_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |

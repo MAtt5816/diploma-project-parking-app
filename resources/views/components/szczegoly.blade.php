@@ -9,16 +9,16 @@
                 <h4>Model: </h4><div>{{Session::get('vehicle')->model}}</div><br>
                 @break
             @case('stop')
-                <h4>Data rozpoczęcia: </h4><div>{{Session::get('stop')->start_date}}</div>
+                <h4>Data rozpoczęcia: </h4><div>{{\Carbon\Carbon::parse(Session::get('stop')->start_date)->timezone('Europe/Warsaw')}}</div>
                 @if(Session::get('stop')->end_date != null)
-                    <h4>Data zakończenia: </h4><div>{{Session::get('stop')->end_date}}</div>
+                    <h4>Data zakończenia: </h4><div>{{\Carbon\Carbon::parse(Session::get('stop')->end_date)->timezone('Europe/Warsaw')}}</div>
                 @endif
                 <h4>Parking: </h4><div>{{Session::get('parking')->name}}</div>
                 <h4>Pojazd: </h4><div>{{Session::get('vehicle')->registration_plate}}</div><br>
             @break
             @case('reservation')
-                <h4>Data rozpoczęcia: </h4><div>{{Session::get('reservation')->start_date}}</div>
-                <h4>Data zakończenia: </h4><div>{{Session::get('reservation')->end_date}}</div>
+                <h4>Data rozpoczęcia: </h4><div>{{\Carbon\Carbon::parse(Session::get('reservation')->start_date)->timezone('Europe/Warsaw')}}</div>
+                <h4>Data zakończenia: </h4><div>{{\Carbon\Carbon::parse(Session::get('reservation')->end_date)->timezone('Europe/Warsaw')}}</div>
                 <h4>Parking: </h4><div>{{Session::get('parking')->name}}</div>
                 <h4>Pojazd: </h4><div>{{Session::get('vehicle')->registration_plate}}</div><br>
                 @break

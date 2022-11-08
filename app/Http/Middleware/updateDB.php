@@ -54,14 +54,31 @@ class updateDB
 
         switch($role){
             case 'vehicle': {
-                // $vehicle = new VehicleController();
-                // $vehicle = $vehicle->store($request);
-
+                Session::reflash();
+                $request->merge(['registration_plate' => $request->input('registration_plate')]);
+                $request->merge(['brand' => $request->input('brand')]);
+                $request->merge(['model' => $request->input('model')]);
+                $request->merge(['driver_id' => $request->input('driver_id')]);
+                $vehicle = new VehicleController();
+                try {
+                    $vehicle = $vehicle->update($request, $request->input('id'));
+                } catch (Throwable $th) {
+                    return Redirect::back()->withErrors(['err: ',$th->getMessage()]);
+                }
+                
                 break;
             }
             case 'parking': {
-                // $parking = new ParkingController();
-                // $parking = $parking->store($request);
+                Session::reflash();
+                $request->merge(['name' => $request->input('name')]);
+                $request->merge(['price' => $request->input('price')]);
+                $request->merge(['location' => $request->input('location')]);
+                $request->merge(['opening_hours' => $request->input('opening_hours')]);
+                $request->merge(['additional_services' => $request->input('additional_services')]);
+                $request->merge(['facilities' => $request->input('facilities')]);
+                $request->merge(['operator_id' => $request->input('operator_id')]);
+                $parking = new ParkingController();
+                $parking = $parking->update($request, $request->input('id'));
 
                 break;
             }
@@ -78,10 +95,14 @@ class updateDB
                 break;
             }
             case 'reservation': {
-                // $request->merge(['start_date' => Carbon::parse($request->start_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
-                // $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
-                // $reservation = new ReservationController();
-                // $reservation->store($request);
+                Session::reflash();
+                $request->merge(['start_date' => Carbon::parse($request->start_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
+                $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
+                $request->merge(['driver_id' => $request->input('driver_id')]);
+                $request->merge(['vehicle_id' => $request->input('vehicle_id')]);
+                $request->merge(['parking_id' => $request->input('parking_id')]);
+                $reservation = new ReservationController();
+                $reservation->update($request, $request->input('id'));
 
                 break;
             }

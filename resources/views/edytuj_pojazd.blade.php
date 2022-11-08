@@ -12,6 +12,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
     {{Session::reflash()}}
+    @if($errors->any())
+    <h4>{{$errors->first()}}</h4>
+    @endif
         <br><br><section class="container">
                 <aside class="body_form">
                     <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>

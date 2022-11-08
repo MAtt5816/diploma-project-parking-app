@@ -23,7 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             <h1>Postoje</h1>
             <hr>
 
-            @if (Session::has('reservations'))
+            @if (Session::has('stops') && !empty(Session::get('stops')))
             <table class="table">
                 <thead>
                     <tr>
@@ -34,21 +34,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     </tr>
                 </thead>
                 <tbody>
-                @foreach (Session::get('stops') as $stop)
+                @foreach (Session::get('stops') as $key=>$stop)
                     <tr>
                         <td id="1">
                             {{$stop}}</td>         
                         <td>
                             <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
-                            <a href="Details"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
-                            <a href="Delete"><i class="fa fa-trash"></i> Usuń</a>
+                            <a href="/show_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
+                            <a href="/delete_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
                         </td>
                     </tr>
             @endforeach
                 </tbody>
             </table>  
             @else
-            <p>Brak rezerwacji</p>
+            <p>Brak postojów</p>
             @endif
 
             </aside>

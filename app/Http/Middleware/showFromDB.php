@@ -4,16 +4,15 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Carbon;
 
-class addToDB
+class showFromDB
 {
     /**
      * Handle an incoming request.
@@ -28,6 +27,7 @@ class addToDB
         $operator_roles = array('parking');
 
         $uid = Session::get('user')->id;
+        $id = $request->route()->parameter('id');
 
         if(in_array($role,$driver_roles)){
             $driver = new DriverController();
@@ -52,36 +52,33 @@ class addToDB
             $request->request->add(['operator_id' => $operator_id]);
         }
 
+        // TODO temp json showing now
         switch($role){
             case 'vehicle': {
                 $vehicle = new VehicleController();
-                $vehicle = $vehicle->store($request);
+                $vehicle = $vehicle->show($id);
+                return response()->json($vehicle);
 
                 break;
             }
             case 'parking': {
                 $parking = new ParkingController();
-                $parking = $parking->store($request);
+                $parking = $parking->show($id);
+                return response()->json($parking);
 
                 break;
             }
             case 'stop': {
-                $request->merge(['start_date' => Carbon::now()->format('Y-m-d H:i:s')]);
-                if(!is_null($request->input('end_date'))){
-                    $request->merge(['end_date' => Carbon::parse($request->end_date)->format('Y-m-d H:i:s')]);
-                } else {
-                    $request->merge(['end_date' => null]);
-                }
                 $stop = new StopController();
-                $stop->store($request);
+                $stop = $stop->show($id);
+                return response()->json($stop);
 
                 break;
             }
             case 'reservation': {
-                $request->merge(['start_date' => Carbon::parse($request->start_date)->format('Y-m-d H:i:s')]);
-                $request->merge(['end_date' => Carbon::parse($request->end_date)->format('Y-m-d H:i:s')]);
                 $reservation = new ReservationController();
-                $reservation->store($request);
+                $reservation = $reservation->show($id);
+                return response()->json($reservation);
 
                 break;
             }

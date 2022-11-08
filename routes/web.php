@@ -17,7 +17,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+})->name('home')->middleware('getFromDB:allParkings');
 
 Route::get('/api/docs', function() {
     return redirect()->away('https://documenter.getpostman.com/view/20222408/2s84LLxCSL');
@@ -80,6 +80,7 @@ Route::get('/logout', function() {
 
 
 Route::group(['middleware' => 'sessionCheck:all'], function() {
+    
     Route::get('/change_password', function() {
         return view('zmiana_hasla');
     });
@@ -134,6 +135,30 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
             return redirect('/');
         })->middleware('addToDB:reservation');
     });
+
+    Route::get('/delete_stop/{id}', function($id){
+        return redirect('/stops');
+    })->middleware('deleteFromDB:stop');
+
+    Route::get('/delete_reservation/{id}', function() {
+        return redirect('/reservations');
+    })->middleware('deleteFromDB:reservation');
+
+    Route::get('/delete_vehicle/{id}', function() {
+        return redirect('/vehicles');
+    })->middleware('deleteFromDB:vehicle');
+
+    Route::get('/show_stop/{id}', function($id){
+        return redirect('/stops');
+    })->middleware('showFromDB:stop');
+
+    Route::get('/show_reservation/{id}', function() {
+        return redirect('/reservations');
+    })->middleware('showFromDB:reservation');
+
+    Route::get('/show_vehicle/{id}', function() {
+        return redirect('/vehicles');
+    })->middleware('showFromDB:vehicle');
 });
 
 Route::group(['middleware' => 'sessionCheck:operator'], function() {
@@ -155,6 +180,14 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
             return redirect('/');
         });
     });
+
+    Route::get('/delete_parking/{id}', function() {
+        return redirect('/parkings');
+    })->middleware('deleteFromDB:parking');
+
+    Route::get('/show_parking/{id}', function() {
+        return redirect('/parkings');
+    })->middleware('showFromDB:parking');
 });
 
 Route::group(['middleware' => 'sessionCheck:inspector'], function() {

@@ -23,6 +23,7 @@ class CreateReservationTable extends Migration
             $table->timestamps();
 
             $table->foreign('driver_id')->references('id')->on('drivers');
+            $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->foreign('parking_id')->references('id')->on('parkings');
         });
     }

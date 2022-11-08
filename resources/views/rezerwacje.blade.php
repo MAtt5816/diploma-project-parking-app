@@ -19,7 +19,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             <h1>Rezerwacje</h1>
             <hr>
 
-            @if (Session::has('reservations'))
+            @if (Session::has('reservations') && !empty(Session::get('reservations')))
             <table class="table">
             <thead>
                 <tr>
@@ -30,14 +30,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </tr>
             </thead>
             <tbody>
-            @foreach (Session::get('reservations') as $reservation)
+            @foreach (Session::get('reservations') as $key=>$reservation)
             <tr>
                 <td id="1">
                     {{$reservation}}</td>         
                 <td>
                     <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
-                    <a href="Details"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
-                    <a href="Delete"><i class="fa fa-trash"></i> Usuń</a>
+                    <a href="/show_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
+                    <a href="/delete_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
                 </td>
             </tr>
             @endforeach

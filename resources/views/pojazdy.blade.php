@@ -19,7 +19,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             <h1>Moje pojazdy</h1>
             <hr>
           
-    @if (Session::has('cars'))
+    @if (Session::has('cars') && !empty(Session::get('cars')))
     <table class="table">
     <thead>
         <tr>
@@ -30,14 +30,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         </tr>
     </thead>
     <tbody>
-        @foreach (Session::get('cars') as $car)
+        @foreach (Session::get('cars') as $key=>$car)
         <tr>
             <td id="1">
                 {{$car}}</td>         
             <td>
                 <a href="Edit"><i class="fa fa-edit"></i> Edytuj</a> |
-                <a href="Details"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
-                <a href="Delete"><i class="fa fa-trash"></i> Usuń</a>
+                <a href="/show_vehicle/{{Session::get('cars_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
+                <a href="/delete_vehicle/{{Session::get('cars_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
             </td>
         </tr>
         @endforeach

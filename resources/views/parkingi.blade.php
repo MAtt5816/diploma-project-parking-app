@@ -53,7 +53,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             </aside>
         </section>
 
-        {{view('components.map-static');}}
+        {{view('components.map-static-one-operator');}}
 
     </body>
 </html>

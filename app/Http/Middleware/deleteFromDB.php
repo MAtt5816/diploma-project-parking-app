@@ -54,7 +54,8 @@ class deleteFromDB
 
         switch($role){
             case 'vehicle': {
-                $request->session()->forget('vehicles');
+                $request->session()->forget('cars');
+                $request->session()->forget('cars_id');
 
                 $vehicle = new VehicleController();
                 $vehicle->destroy($id);
@@ -63,6 +64,9 @@ class deleteFromDB
             }
             case 'parking': {
                 $request->session()->forget('parkings');
+                $request->session()->forget('parkings_id');
+                $request->session()->forget('locations');
+                $request->session()->forget('operators');
 
                 $parking = new ParkingController();
                 $parking->destroy($id);
@@ -71,6 +75,7 @@ class deleteFromDB
             }
             case 'stop': {
                 $request->session()->forget('stops');
+                $request->session()->forget('stops_id');
 
                 $stop = new StopController();
                 $stop->destroy($id);
@@ -79,6 +84,7 @@ class deleteFromDB
             }
             case 'reservation': {
                 $request->session()->forget('reservations');
+                $request->session()->forget('reservations_id');
 
                 $reservation = new ReservationController();
                 $reservation->destroy($id);

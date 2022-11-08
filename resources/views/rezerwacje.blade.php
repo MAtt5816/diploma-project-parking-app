@@ -43,6 +43,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             @endforeach
             </tbody>
             </table>  
+                @if (Session::has('reservation'))
+                    {{view('components.szczegoly');}}
+                @endif
+
             @else
             <p>Brak rezerwacji</p>
             @endif

@@ -46,6 +46,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     @endforeach
                     </tbody>
                 </table>
+                    @if (Session::has('parking'))
+                        {{view('components.szczegoly');}}
+                    @endif
                 @else
                 <p>Brak parkingów</p>
                 @endif  

@@ -6,8 +6,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="shortcut icon" href="img/logo.png" /><
-        title>Our-parking -rezerwuj miejsca parkingowe, zgłoś parking</title>
+        <link rel="shortcut icon" href="img/logo.png" />
+        <title>Our-parking -rezerwuj miejsca parkingowe, zgłoś parking</title>
     <link rel="stylesheet" href="CSS/forms.css"/>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     </head>
@@ -43,6 +43,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         @endforeach
         </tbody>
 </table> 
+        @if (Session::has('vehicle'))
+            {{view('components.szczegoly');}}
+        @endif
     @else
     <p>Brak pojazdów</p>
     @endif

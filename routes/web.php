@@ -148,10 +148,6 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
         return redirect('/vehicles');
     })->middleware('deleteFromDB:vehicle');
 
-    Route::get('/show_stop/{id}', function($id){
-        return redirect('/stops');
-    })->middleware('showFromDB:stop');
-
     Route::get('/show_reservation/{id}', function() {
         return redirect('/reservations');
     })->middleware('showFromDB:reservation');
@@ -159,6 +155,18 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     Route::get('/show_vehicle/{id}', function() {
         return redirect('/vehicles');
     })->middleware('showFromDB:vehicle');
+
+    Route::get('/show_stop/{id}', function($id){
+        return redirect('/stops');
+    })->middleware('showFromDB:stop');
+
+    Route::get('/info_stop/{id}', function($id){
+        return redirect('/stops');
+    })->middleware(['showFromDB:stop', 'stopInfo']);
+
+    Route::get('/end_stop/{id}', function(){
+        return redirect('/stops');
+    })->middleware(['showFromDB:stop','updateDB:stop']);
 });
 
 Route::group(['middleware' => 'sessionCheck:operator'], function() {

@@ -78,8 +78,8 @@ class updateDB
                 break;
             }
             case 'reservation': {
-                // $request->merge(['start_date' => Carbon::parse($request->start_date)->format('Y-m-d H:i:s')]);
-                // $request->merge(['end_date' => Carbon::parse($request->end_date)->format('Y-m-d H:i:s')]);
+                // $request->merge(['start_date' => Carbon::parse($request->start_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
+                // $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 // $reservation = new ReservationController();
                 // $reservation->store($request);
 

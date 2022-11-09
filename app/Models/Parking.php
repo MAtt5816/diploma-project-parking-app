@@ -25,6 +25,7 @@ class Parking extends Authenticatable
         'additional_services',
         'facilities',
         'operator_id',
+        'parking_spaces',
     ];
 
     /**

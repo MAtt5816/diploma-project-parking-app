@@ -26,7 +26,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <input type="hidden" name="id" value="{{Session::get('parking')->id}}">
                 <input type="text" class="form_input" name="name" placeholder="Nazwa" required="true" value="{{Session::get('parking')->name}}"><br>
                 <input type="number" class="form_input" name="price" placeholder="Cena" min="0" step="0.01" required="true" value="{{Session::get('parking')->price}}"><br>
-                <input type="hidden" class="form_input" id="location" name="location" placeholder="Lokalizacja" value="" required="true" value="{{Session::get('parking')->location}}">
+                <input type="number" class="form_input" name="parking_spaces" placeholder="Ilość miejsc" min="1" step="1" required="true" value="{{Session::get('parking')->parking_spaces}}"><br>
+                <input type="hidden" class="form_input" id="location" name="location" placeholder="Lokalizacja" required="true" value="{{Session::get('parking')->location}}">
                 <input type="text" class="form_input" name="opening_hours" placeholder="Godziny otwarcia" required="true" value="{{Session::get('parking')->opening_hours}}"><br>
                 <input type="text" class="form_input" name="additional_services" placeholder="Dodatkowe usługi" required="true" value="{{Session::get('parking')->additional_services}}"><br>
                 <input type="text" class="form_input" name="facilities" placeholder="Udogodnienia" required="true" value="{{Session::get('parking')->facilities}}"><br>

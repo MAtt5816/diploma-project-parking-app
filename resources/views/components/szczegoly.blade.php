@@ -25,6 +25,7 @@
             @case('parking')
                 <h4>Nazwa: </h4><div>{{Session::get('parking')->name}}</div>
                 <h4>Cena: </h4><div>{{Session::get('parking')->price}}</div>
+                <h4>Ilość miejsc: </h4><div>{{Session::get('parking')->parking_spaces}}</div>
                 <h4>Godziny otwarcia: </h4><div>{{Session::get('parking')->opening_hours}}</div>
                 <h4>Dodatkowe usługi: </h4><div>{{Session::get('parking')->additional_services}}</div>
                 <h4>Udogodnienia: </h4><div>{{Session::get('parking')->facilities}}</div>

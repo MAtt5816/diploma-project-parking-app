@@ -44,6 +44,7 @@ class ParkingController extends Controller
         $parking->additional_services = $request->input('additional_services');
         $parking->facilities = $request->input('facilities');
         $parking->operator_id = $request->input('operator_id');
+        $parking->parking_spaces = $request->input('parking_spaces');
 
         $parking->save();
         return $parking;
@@ -89,6 +90,7 @@ class ParkingController extends Controller
         $parking->additional_services = $request->input('additional_services');
         $parking->facilities = $request->input('facilities');
         $parking->operator_id = $request->input('operator_id');
+        $parking->parking_spaces = $request->input('parking_spaces');
 
         $parking->save();
         return $parking;

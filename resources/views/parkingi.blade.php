@@ -9,6 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <link rel="shortcut icon" href="img/logo.png" />
         <title>Our-parking -rezerwuj miejsca parkingowe, zgłoś parking</title>
         <link rel="stylesheet" href="CSS/forms.css"/>
+        <link rel="stylesheet" href="CSS/details.css"/>
         <link rel="stylesheet" href="CSS/style.css" type="text/css">
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
@@ -46,9 +47,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     @endforeach
                     </tbody>
                 </table>
-                    @if (Session::has('parking'))
-                        {{view('components.szczegoly');}}
-                    @endif
                 @else
                 <p>Brak parkingów</p>
                 @endif  

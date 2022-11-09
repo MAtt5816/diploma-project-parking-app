@@ -92,6 +92,10 @@ Route::group(['middleware' => 'sessionCheck:all'], function() {
     Route::post('/change_password', function() {
         return view('zmiana_hasla');
     })->middleware('resetPassword');
+
+    Route::get('/show_parking/{id}', function() {
+        return back();
+    })->middleware('showFromDB:parking');
 });
 
 
@@ -216,10 +220,6 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
     Route::get('/delete_parking/{id}', function() {
         return redirect('/parkings');
     })->middleware('deleteFromDB:parking');
-
-    Route::get('/show_parking/{id}', function() {
-        return redirect('/parkings');
-    })->middleware('showFromDB:parking');
 });
 
 Route::group(['middleware' => 'sessionCheck:inspector'], function() {

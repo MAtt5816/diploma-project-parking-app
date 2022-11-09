@@ -75,6 +75,8 @@ class deleteFromDB
                 $request->session()->forget('parkings');
                 $request->session()->forget('parkings_id');
                 $request->session()->forget('locations');
+                $request->session()->forget('total');
+                $request->session()->forget('free');
                 $request->session()->forget('operators');
 
                 $parking->destroy($id);

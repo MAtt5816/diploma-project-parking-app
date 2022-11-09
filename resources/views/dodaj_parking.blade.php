@@ -24,6 +24,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <hr>
                 <input type="text" class="form_input" name="name" placeholder="Nazwa" required="true"><br>
                 <input type="number" class="form_input" name="price" placeholder="Cena" min="0" step="0.01" required="true"><br>
+                <input type="number" class="form_input" name="parking_spaces" placeholder="Ilość miejsc" min="1" step="1" required="true"><br>
                 <input type="hidden" class="form_input" id="location" name="location" placeholder="Lokalizacja" value="" required="true" >
                 <input type="text" class="form_input" name="opening_hours" placeholder="Godziny otwarcia" required="true"><br>
                 <input type="text" class="form_input" name="additional_services" placeholder="Dodatkowe usługi" required="true"><br>

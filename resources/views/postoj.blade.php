@@ -73,7 +73,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     @endif
                     <div id="map" class="mapForm"></div>
                 </aside>
-                <hr><input type="submit" class="button" value="Dodaj">
+                <hr><input type="submit" class="button" value="Start">
                <input type="reset" class="button" value="Wyczyść"></form>
                 </section>
 

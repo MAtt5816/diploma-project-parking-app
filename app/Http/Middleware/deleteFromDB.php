@@ -38,7 +38,6 @@ class deleteFromDB
                     break;
                 }
             }
-            $request->request->add(['driver_id' => $driver_id]);
         }
         else if(in_array($role,$operator_roles)){
             $operator = new OperatorController();
@@ -49,44 +48,63 @@ class deleteFromDB
                     break;
                 }
             }
-            $request->request->add(['operator_id' => $operator_id]);
         }
 
         switch($role){
             case 'vehicle': {
+                $vehicle = new VehicleController();
+                $json = json_decode($vehicle->show($id));
+                if($json->driver_id != $driver_id){
+                    return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+                }
+
                 $request->session()->forget('cars');
                 $request->session()->forget('cars_id');
 
-                $vehicle = new VehicleController();
                 $vehicle->destroy($id);
 
                 break;
             }
             case 'parking': {
+                $parking = new ParkingController();
+                $json = json_decode($parking->show($id));
+                if($json->operator_id != $operator_id){
+                    return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+                }
+
                 $request->session()->forget('parkings');
                 $request->session()->forget('parkings_id');
                 $request->session()->forget('locations');
                 $request->session()->forget('operators');
 
-                $parking = new ParkingController();
                 $parking->destroy($id);
 
                 break;
             }
             case 'stop': {
+                $stop = new StopController();
+                $json = json_decode($stop->show($id));
+                if($json->driver_id != $driver_id){
+                    return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+                }
+
                 $request->session()->forget('stops');
                 $request->session()->forget('stops_id');
 
-                $stop = new StopController();
                 $stop->destroy($id);
 
                 break;
             }
             case 'reservation': {
+                $reservation = new ReservationController();
+                $json = json_decode($reservation->show($id));
+                if($json->driver_id != $driver_id){
+                    return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+                }
+
                 $request->session()->forget('reservations');
                 $request->session()->forget('reservations_id');
 
-                $reservation = new ReservationController();
                 $reservation->destroy($id);
 
                 break;

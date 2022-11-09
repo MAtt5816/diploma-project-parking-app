@@ -30,6 +30,9 @@ class addToDB
         $uid = Session::get('user')->id;
 
         if(in_array($role,$driver_roles)){
+            if($request->input('driver_id') !== null){
+                return back()->withErrors(['err','Podejrzenie modyfikacji danych!']);   // suspicious request body
+            }
             $driver = new DriverController();
             $drivers = $driver->index();
             foreach($drivers as $item){
@@ -41,6 +44,9 @@ class addToDB
             $request->request->add(['driver_id' => $driver_id]);
         }
         else if(in_array($role,$operator_roles)){
+            if($request->input('operator_id') !== null){
+                return back()->withErrors(['err','Podejrzenie modyfikacji danych!']);   // suspicious request body
+            }
             $operator = new OperatorController();
             $operators = $operator->index();
             foreach($operators as $item){

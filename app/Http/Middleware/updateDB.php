@@ -30,6 +30,9 @@ class updateDB
         $uid = Session::get('user')->id;
 
         if(in_array($role,$driver_roles)){
+            if($request->input('driver_id') !== null){
+                return back()->withErrors(['err','Podejrzenie modyfikacji danych!']);   // suspicious request body
+            }
             $driver = new DriverController();
             $drivers = $driver->index();
             foreach($drivers as $item){
@@ -41,6 +44,9 @@ class updateDB
             $request->request->add(['driver_id' => $driver_id]);
         }
         else if(in_array($role,$operator_roles)){
+            if($request->input('operator_id') !== null){
+                return back()->withErrors(['err','Podejrzenie modyfikacji danych!']);   // suspicious request body
+            }
             $operator = new OperatorController();
             $operators = $operator->index();
             foreach($operators as $item){
@@ -54,7 +60,6 @@ class updateDB
 
         switch($role){
             case 'vehicle': {
-                Session::reflash();
                 $request->merge(['registration_plate' => $request->input('registration_plate')]);
                 $request->merge(['brand' => $request->input('brand')]);
                 $request->merge(['model' => $request->input('model')]);
@@ -69,7 +74,6 @@ class updateDB
                 break;
             }
             case 'parking': {
-                Session::reflash();
                 $request->merge(['name' => $request->input('name')]);
                 $request->merge(['price' => $request->input('price')]);
                 $request->merge(['location' => $request->input('location')]);
@@ -95,7 +99,6 @@ class updateDB
                 break;
             }
             case 'reservation': {
-                Session::reflash();
                 $request->merge(['start_date' => Carbon::parse($request->start_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $request->merge(['driver_id' => $request->input('driver_id')]);

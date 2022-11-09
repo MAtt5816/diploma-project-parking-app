@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Parking;
+use Validator;
 
 class ParkingController extends Controller
 {
@@ -36,6 +37,19 @@ class ParkingController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),
+            ['name' => 'required|string|max:30',
+            'price' => 'required|regex:/^\d+([\.\,]\d{1,2})?$/',
+            'location' => 'required|string|max:40|regex:/^\d+\.\d+\,\d+\.\d+$/',
+            'opening_hours' => 'required|string|max:20',
+            'additional_services' => 'required|string|max:40',
+            'facilities' => 'required|string|max:40',
+            'parking_spaces' => 'required|integer|min:1'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json($validator->errors());
+        }
         $parking = new Parking();
         $parking->name = $request->input('name');
         $parking->price = $request->input('price');
@@ -82,6 +96,19 @@ class ParkingController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(),
+            ['name' => 'required|string|max:30',
+            'price' => 'required|regex:/^\d+([\.\,]\d{1,2})?$/',
+            'location' => 'required|string|max:40|regex:/^\d+\.\d+\,\d+\.\d+$/',
+            'opening_hours' => 'required|string|max:20',
+            'additional_services' => 'required|string|max:40',
+            'facilities' => 'required|string|max:40',
+            'parking_spaces' => 'required|integer|min:1'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json($validator->errors());
+        }
         $parking = Parking::findOrFail($id);
         $parking->name = $request->input('name');
         $parking->price = $request->input('price');

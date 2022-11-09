@@ -8,7 +8,7 @@
     @if(Session::has('locations'))
     @foreach(Session::get('locations') as $key=>$location)
         var marker = L.marker([{{$location}}]).on('click', onClick).addTo(map);
-        marker.bindPopup("<b>{{Session::get('parkings')[$key]}}</b><hr>Miejsc ogółem: <b>{{Session::get('total')[$key]}}</b><br>"+
+        marker.bindPopup("{{Session::get('parkings_id')[$key]}}| <b>{{Session::get('parkings')[$key]}}</b><hr>Miejsc ogółem: <b>{{Session::get('total')[$key]}}</b><br>"+
         "Aktualnie wolnych miejsc: <b>{{Session::get('free')[$key]}}</b><br>");
     @endforeach
     @endif

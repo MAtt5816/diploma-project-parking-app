@@ -23,9 +23,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     @csrf
                 <hr>
                 <input type="hidden" name="id" value="{{Session::get('vehicle')->id}}">
-                <input type="text" class="form_input" name="registration_plate" placeholder="Numer rejestracyjny" required="true" value="{{Session::get('vehicle')->registration_plate}}"><br>
-                <input type="text" class="form_input" name="brand" placeholder="Marka" required="true" value="{{Session::get('vehicle')->brand}}"><br>
-                <input type="text" class="form_input" name="model" placeholder="Model" required="true" value="{{Session::get('vehicle')->model}}"><br>
+                <input type="text" class="form_input" name="registration_plate" placeholder="Numer rejestracyjny" title="Podaj max. 8 znaków" maxlength="8" required="true" value="{{Session::get('vehicle')->registration_plate}}"><br>
+                <input type="text" class="form_input" name="brand" placeholder="Marka" title="Podaj max. 20 znaków" maxlength="20" required="true" value="{{Session::get('vehicle')->brand}}"><br>
+                <input type="text" class="form_input" name="model" placeholder="Model" title="Podaj max. 20 znaków" maxlength="20" required="true" value="{{Session::get('vehicle')->model}}"><br>
                 </aside>
                 <hr><input type="submit" class="button" value="Edytuj">
                <input type="reset" class="button" value="Wyczyść"></form>

@@ -18,9 +18,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <form method="post" action="/vehicle">
                     @csrf
                 <hr>
-                <input type="text" class="form_input" name="registration_plate" placeholder="Numer rejestracyjny" required="true"><br>
-                <input type="text" class="form_input" name="brand" placeholder="Marka" required="true"><br>
-                <input type="text" class="form_input" name="model" placeholder="Model" required="true"><br>
+                <input type="text" class="form_input" name="registration_plate" placeholder="Numer rejestracyjny" title="Podaj max. 8 znaków" maxlength="8" required="true"><br>
+                <input type="text" class="form_input" name="brand" placeholder="Marka" title="Podaj max. 20 znaków" maxlength="20" required="true"><br>
+                <input type="text" class="form_input" name="model" placeholder="Model" title="Podaj max. 20 znaków" maxlength="20" required="true"><br>
                 </aside>
                 <hr><input type="submit" class="button" value="Dodaj">
                <input type="reset" class="button" value="Wyczyść"></form>

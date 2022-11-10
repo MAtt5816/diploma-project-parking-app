@@ -12,7 +12,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <br><section class='container2'>
-        <aside class='logout'><p>Właśnie zostałeś wylogowany. <a href='/login'>Zaloguj się ponownie.</a></p>
+        <aside class='logout'><p>Twoje konto zostało usunięte. <a href='/'>Wróć do strony głównej.</a></p>
         </aside></section>
                     
     </body>

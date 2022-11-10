@@ -22,12 +22,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <form method="post" action="/add_parking">
                     @csrf
                 <hr>
-                <input type="text" class="form_input" name="name" placeholder="Nazwa" required="true"><br>
+                <input type="text" class="form_input" name="name" placeholder="Nazwa" title="Podaj max. 30 znaków" maxlength="30" required="true"><br>
                 <input type="number" class="form_input" name="price" placeholder="Cena" min="0" step="0.01" required="true"><br>
+                <input type="number" class="form_input" name="parking_spaces" placeholder="Ilość miejsc" min="1" step="1" required="true"><br>
                 <input type="hidden" class="form_input" id="location" name="location" placeholder="Lokalizacja" value="" required="true" >
-                <input type="text" class="form_input" name="opening_hours" placeholder="Godziny otwarcia" required="true"><br>
-                <input type="text" class="form_input" name="additional_services" placeholder="Dodatkowe usługi" required="true"><br>
-                <input type="text" class="form_input" name="facilities" placeholder="Udogodnienia" required="true"><br>
+                <input type="text" class="form_input" name="opening_hours" placeholder="Godziny otwarcia" title="Podaj max. 20 znaków" maxlength="20" required="true"><br>
+                <input type="text" class="form_input" name="additional_services" placeholder="Dodatkowe usługi" title="Podaj max. 40 znaków" maxlength="40" required="true"><br>
+                <input type="text" class="form_input" name="facilities" placeholder="Udogodnienia" title="Podaj max. 40 znaków" maxlength="40" required="true"><br>
                 <div id="map" class="mapForm"></div>
                 </aside>
                 <hr><input type="submit" class="button" value="Dodaj">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Stop;
+use Validator;
+use Illuminate\Support\Carbon;
 
 class StopController extends Controller
 {
@@ -36,6 +38,14 @@ class StopController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),
+            ['end_date' => 'nullable|date|after:'.Carbon::now()->setTimeZone('-1'),
+            'parking_id' => 'required|integer'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json($validator->errors());
+        }
         $stop = new Stop();
         $stop->start_date = $request->input('start_date');
         $stop->end_date = $request->input('end_date');
@@ -79,6 +89,14 @@ class StopController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(),
+            ['end_date' => 'nullable|date|after:'.Carbon::now()->setTimeZone('-1'),
+            'parking_id' => 'required|integer'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json($validator->errors());
+        }
         $stop = Stop::findOrFail($id);
         $stop->start_date = $request->input('start_date');
         $stop->end_date = $request->input('end_date');

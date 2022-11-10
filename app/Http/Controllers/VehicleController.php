@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
+use Validator;
 
 class VehicleController extends Controller
 {
@@ -36,6 +37,16 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),
+            ['registration_plate' => 'required|string|max:8',
+            'brand' => 'required|string|max:20',
+            'model' => 'required|string|max:20',
+            'driver_id' => 'required|integer'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json($validator->errors());
+        }
         $vehicle = new Vehicle();
         $vehicle->registration_plate = $request->input('registration_plate');
         $vehicle->brand = $request->input('brand');
@@ -78,6 +89,16 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(),
+            ['registration_plate' => 'required|string|max:8',
+            'brand' => 'required|string|max:20',
+            'model' => 'required|string|max:20',
+            'driver_id' => 'required|integer'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json($validator->errors());
+        }
         $vehicle = Vehicle::findOrFail($id);
         $vehicle->registration_plate = $request->input('registration_plate');
         $vehicle->brand = $request->input('brand');

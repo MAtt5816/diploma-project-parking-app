@@ -52,6 +52,8 @@ Route::post('/signup', function(Request $request) {
                 return view('user/signup_k');
             case 'operator':
                 return view('user/signup_o');
+            case 'kontroler':
+                return view('user/signup_i');
         }
     }
     return redirect()->back();
@@ -73,25 +75,54 @@ Route::post('/signup_operator', function() {
     return redirect('/');
 })->middleware('registerUser:driver');
 
+Route::get('/signup_inspector', function() {
+    return view('user/signup_i');
+});
+
+Route::post('/signup_inspector', function() {
+    return redirect('/');
+})->middleware('registerUser:inspector');
+
 Route::get('/logout', function() {
     Session::flush();
     return view('logout');
+});
+
+Route::get('/account_removed', function() {
+    Session::flush();
+    return view('postmortem');
 });
 
 
 Route::group(['middleware' => 'sessionCheck:all'], function() {
     
     Route::get('/change_password', function() {
-        return view('zmiana_hasla');
+        return view('ustawienia')->with('option', 'change_password');
     });
     
     Route::get('/settings', function() {
-        return view('ustawienia');
+        return view('ustawienia')->with('option', 'settings');
+    })->middleware('showFromDB:user');
+
+    Route::get('/delete_account', function() {
+        return view('ustawienia')->with('option', 'delete_account');
     });
+
+    Route::post('/settings', function() {
+        return redirect('/settings');
+    })->middleware('updateDB:user');
     
     Route::post('/change_password', function() {
         return view('zmiana_hasla');
     })->middleware('resetPassword');
+
+    Route::post('/delete_account', function() {
+        return view('ustawienia')->with('option', 'delete_account');
+    })->middleware('deleteFromDB:user');
+
+    Route::get('/show_parking/{id}', function() {
+        return back();
+    })->middleware('showFromDB:parking');
 });
 
 
@@ -112,6 +143,10 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
     Route::get('/reservations', function() {
         return view('rezerwacje');
     })->middleware('getFromDB:reservations');
+
+    Route::get('/topup', function() {
+        return view('doladuj');
+    });
 
     
     Route::get('/stop', function() {
@@ -195,20 +230,44 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
         return view('edytuj_parking');
     })->middleware('showFromDB:parking');
 
+    Route::get('/edit_inspector/{id}', function() {
+        return view('user/edytowanie_kontrolera');
+    })->middleware('showFromDB:inspector');
+
     Route::get('/add_inspector', function() {
         return view('user/dodanie_kontrolera');
-    });
+    })->middleware('getFromDB:operator_id');
+
+    Route::post('/add_inspector', function() {
+        return redirect('/inspectors');
+    })->middleware('addToDB:code');
 
     Route::get('/parkings', function() {
         return view('parkingi');
     })->middleware('getFromDB:parkings');
+
+    Route::get('/inspectors', function() {
+        return view('kontrolerzy');
+    })->middleware('getFromDB:inspectors');
 
     Route::group(['middleware' => 'addToDB:parking'], function() {
         Route::post('/add_parking', function() {
             return redirect('/');
         });
     });
+
+    Route::get('/show_inspector/{id}', function() {
+        return back();
+    })->middleware('showFromDB:inspector');
     
+    Route::post('/update_inspector', function() {
+        return redirect('/');
+    })->middleware('updateDB:inspector');
+
+    Route::get('/delete_inspector/{id}', function() {
+        return redirect('/inspectors');
+    })->middleware('deleteFromDB:inspector');
+
     Route::post('/update_parking', function() {
         return redirect('/');
     })->middleware('updateDB:parking');
@@ -216,10 +275,6 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
     Route::get('/delete_parking/{id}', function() {
         return redirect('/parkings');
     })->middleware('deleteFromDB:parking');
-
-    Route::get('/show_parking/{id}', function() {
-        return redirect('/parkings');
-    })->middleware('showFromDB:parking');
 });
 
 Route::group(['middleware' => 'sessionCheck:inspector'], function() {

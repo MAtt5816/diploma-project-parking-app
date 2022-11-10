@@ -15,10 +15,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     $user = $_POST['user'];
     $user1 = "kierowca";
     $user2 = "operator";
+    $user3 = "kontroler";
     if($user == $user1)
     header("Location: user/signup_k.php");
     if($user == $user2)
         header("Location: user/signup_o.php");
+    if($user == $user3)
+        header("Location: user/signup_i.php");
 }
         ?>
     </head>
@@ -36,7 +39,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <div class="description">Jestem kierowcą</div></label><br/>
         <input type="radio" id="register_operator" name="user" value="operator"><label for="register_operator">
         <div class="title">Operator</div>
-        <div class="description">Posiadam parking dla samochodów</div></label>
+        <div class="description">Posiadam parking dla samochodów</div></label><br>
+        <input type="radio" id="register_inspector" name="user" value="kontroler"><label for="register_inspector">
+        <div class="title">Kontroler</div>
+        <div class="description">Posiadam kod podany przez operatora</div></label>
         <br/><input type="submit" value="Kontynuuj"/>
             </div></form></section>
         

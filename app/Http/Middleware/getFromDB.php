@@ -185,7 +185,7 @@ class getFromDB
                     }    
                 }
                 foreach($reservations as $el){
-                    if($el->end_date > Carbon::now() && $el->parking_id == $item->id){
+                    if($el->end_date > Carbon::now() && $el->start_date <= Carbon::now() && $el->parking_id == $item->id){
                         $busy++;
                     }
                 }

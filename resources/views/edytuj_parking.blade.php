@@ -33,7 +33,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <input type="text" class="form_input" name="facilities" placeholder="Udogodnienia" title="Podaj max. 40 znaków" maxlength="40" required="true" value="{{Session::get('parking')->facilities}}"><br>
                 <div id="map" class="mapForm"></div>
                 </aside>
-                <hr><input type="submit" class="button" value="Dodaj">
+                <hr><input type="submit" class="button" value="Edytuj">
                <input type="reset" class="button" value="Wyczyść"></form>
                 </section>
 

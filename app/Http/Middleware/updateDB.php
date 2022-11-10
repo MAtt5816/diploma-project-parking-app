@@ -29,6 +29,15 @@ class updateDB
 
         $uid = Session::get('user')->id;
 
+        if($role == 'user'){
+            if(Session::get('user')->user_type == 'driver'){
+                array_push($driver_roles, 'user');
+            }
+            else if(Session::get('user')->user_type == 'operator'){
+                array_push($operator_roles, 'user');
+            }
+        }
+
         if(in_array($role,$driver_roles)){
             if($request->input('driver_id') !== null){
                 return back()->withErrors(['err','Podejrzenie modyfikacji danych!']);   // suspicious request body
@@ -106,6 +115,31 @@ class updateDB
                 $request->merge(['parking_id' => $request->input('parking_id')]);
                 $reservation = new ReservationController();
                 $reservation->update($request, $request->input('id'));
+
+                break;
+            }
+            case 'user': {
+                if(Session::get('user')->user_type == 'driver'){
+                    $request->merge(['name' => $request->input('name')]);
+                    $request->merge(['surname' => $request->input('surname')]);
+                    $request->merge(['city' => $request->input('city')]);
+                    $request->merge(['street' => $request->input('street')]);
+                    $request->merge(['house_number' => $request->input('house_number')]);
+                    $request->merge(['postal_code' => $request->input('postal_code')]);
+                    $request->merge(['phone' => $request->input('phone')]);
+                    $request->merge(['email' => $request->input('email')]);
+                    $request->merge(['user_id' => $request->input('user_id')]);
+                    $driver = new DriverController();
+                    $res = $driver->update($request, $driver_id);
+                }
+                else if(Session::get('user')->user_type == 'operator'){
+                    $request->merge(['user_id' => $request->input('user_id')]);
+                    $request->merge(['email' => $request->input('email')]);
+                    $request->merge(['phone' => $request->input('phone')]);
+                    $request->merge(['tin' => $request->input('tin')]);
+                    $operator = new OperatorController();
+                    $operator->update($request, $operator_id);
+                }
 
                 break;
             }

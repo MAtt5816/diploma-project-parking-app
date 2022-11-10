@@ -44,8 +44,8 @@
                 <label for="uclick" class="drop-btn">
                     <div class="user">{{Session::get('user')->login}}</div><i class="fa fa-user"></i></label>
                     <ul>
-                <!-- // TODO <li><a href="/settings"><i class="fa fa-cog"></i> Ustawienia</a></li> -->
-                    <li><a href="/change_password"><i class="fa fa-lock"></i> Zmiana hasła</a></li>
+                    <li><a href="/settings"><i class="fa fa-cog"></i> Ustawienia</a></li>
+                    <!-- <li><a href="/change_password"><i class="fa fa-lock"></i> Zmiana hasła</a></li> -->
                     <li><a href="/logout"><i class="fa fa-sign-out"></i> Wyloguj</a></li></div>
 
             @else

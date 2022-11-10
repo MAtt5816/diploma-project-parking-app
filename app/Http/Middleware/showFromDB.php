@@ -32,6 +32,15 @@ class showFromDB
 
         $uid = Session::get('user')->id;
 
+        if($role == 'user'){
+            if(Session::get('user')->user_type == 'driver'){
+                array_push($driver_roles, 'user');
+            }
+            else if(Session::get('user')->user_type == 'operator'){
+                array_push($operator_roles, 'user');
+            }
+        }
+
         if(in_array($role,$driver_roles)){
             $driver = new DriverController();
             $drivers = $driver->index();
@@ -88,12 +97,26 @@ class showFromDB
                 
                 break;
             }
+            case 'user': {
+                if(Session::get('user')->user_type == 'driver'){
+                    $driver = new DriverController();
+                    $driver = json_decode($driver->show($driver_id));
+                    Session::flash('driver', $driver);
+                }
+                else if(Session::get('user')->user_type == 'operator'){
+                    $operator = new OperatorController();
+                    $operator = json_decode($operator->show($operator_id));
+                    Session::flash('operator', $operator);
+                }
+
+                break;
+            }
             default: {
                 return redirect('/');
             }
         }
 
-        if($role != 'parking'){
+        if($role != 'parking' && $role != 'user'){
             $vehicle = new VehicleController();
             $vehicle = json_decode($vehicle->show($vid));
             if($role=='vehicle' && $vehicle->driver_id != $driver_id){
@@ -102,7 +125,7 @@ class showFromDB
             Session::flash('vehicle', $vehicle);       
         }
 
-        if($role != 'vehicle'){
+        if($role != 'vehicle' && $role != 'user'){
             $parking = new ParkingController();
             $parking = json_decode($parking->show($pid));
             

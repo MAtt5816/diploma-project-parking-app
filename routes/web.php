@@ -78,18 +78,31 @@ Route::get('/logout', function() {
     return view('logout');
 });
 
+Route::get('/account_removed', function() {
+    Session::flush();
+    return view('postmortem');
+});
+
 
 Route::group(['middleware' => 'sessionCheck:all'], function() {
     
     Route::get('/change_password', function() {
-        return view('zmiana_hasla');
+        return view('ustawienia')->with('option', 'change_password');
     });
     
     Route::get('/settings', function() {
-        return view('ustawienia');
+        return view('ustawienia')->with('option', 'settings');
+    })->middleware('showFromDB:user');
+
+    Route::get('/delete_account', function() {
+        return view('ustawienia')->with('option', 'delete_account');
     });
+
+    Route::post('/settings', function() {
+        return redirect('/settings');
+    })->middleware('updateDB:user');
     
-    Route::post('/change_password', function() {
+    Route::post('/change_password', function() { //TODO
         return view('zmiana_hasla');
     })->middleware('resetPassword');
 

@@ -144,6 +144,10 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
         return view('rezerwacje');
     })->middleware('getFromDB:reservations');
 
+    Route::get('/topup', function() {
+        return view('doladuj');
+    });
+
     
     Route::get('/stop', function() {
         return view('postoj');

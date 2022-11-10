@@ -11,6 +11,7 @@ use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\UserController;
 
 class deleteFromDB
 {
@@ -28,6 +29,15 @@ class deleteFromDB
 
         $uid = Session::get('user')->id;
         $id = $request->route()->parameter('id');
+
+        if($role == 'user'){
+            if(Session::get('user')->user_type == 'driver'){
+                array_push($driver_roles, 'user');
+            }
+            else if(Session::get('user')->user_type == 'operator'){
+                array_push($operator_roles, 'user');
+            }
+        }
 
         if(in_array($role,$driver_roles)){
             $driver = new DriverController();
@@ -57,6 +67,13 @@ class deleteFromDB
                 if($json->driver_id != $driver_id){
                     return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
                 }
+                $stops = new StopController();
+                $stops = json_decode($stops->index());
+                foreach($stops as $stop){
+                    if($json->id == $stop->vehicle_id && $stop->end_date === null){
+                        return back()->withErrors(['err','Masz niezakończone postoje!']);   // open stops
+                    }
+                }
 
                 $request->session()->forget('cars');
                 $request->session()->forget('cars_id');
@@ -70,6 +87,13 @@ class deleteFromDB
                 $json = json_decode($parking->show($id));
                 if($json->operator_id != $operator_id){
                     return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+                }
+                $stops = new StopController();
+                $stops = json_decode($stops->index());
+                foreach($stops as $stop){
+                    if($json->id == $stop->parking_id && $stop->end_date === null){
+                        return back()->withErrors(['err','Masz niezakończone postoje!']);   // open stops
+                    }
                 }
 
                 $request->session()->forget('parkings');
@@ -108,6 +132,38 @@ class deleteFromDB
                 $request->session()->forget('reservations_id');
 
                 $reservation->destroy($id);
+
+                break;
+            }
+            case 'user': {
+                $user = new UserController();
+                $stops = new StopController();
+                $stops = json_decode($stops->index());
+
+                if(Session::get('user')->user_type == 'driver'){
+                    foreach($stops as $stop){
+                        if($driver_id == $stop->driver_id && $stop->end_date === null){
+                            return back()->withErrors(['err','Masz niezakończone postoje!']);   // open stops
+                        }
+                    }
+                    
+                    $driver = new DriverController();
+                    $driver->destroy($driver_id);
+                }
+                else if(Session::get('user')->user_type == 'operator'){
+                    foreach($stops as $stop){
+                        if($operator_id == $stop->operator_id && $stop->end_date === null){
+                            return back()->withErrors(['err','Masz niezakończone postoje!']);   // open stops
+                        }
+                    }
+
+                    $operator = new OperatorController();
+                    $operator->destroy($operator_id);
+                }
+
+                $request->session()->flush();
+                $user->destroy($uid);
+                return redirect('/account_removed');
 
                 break;
             }

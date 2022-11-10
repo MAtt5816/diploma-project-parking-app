@@ -102,9 +102,13 @@ Route::group(['middleware' => 'sessionCheck:all'], function() {
         return redirect('/settings');
     })->middleware('updateDB:user');
     
-    Route::post('/change_password', function() { //TODO
+    Route::post('/change_password', function() {
         return view('zmiana_hasla');
     })->middleware('resetPassword');
+
+    Route::post('/delete_account', function() {
+        return view('ustawienia')->with('option', 'delete_account');
+    })->middleware('deleteFromDB:user');
 
     Route::get('/show_parking/{id}', function() {
         return back();

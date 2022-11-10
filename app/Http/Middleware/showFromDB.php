@@ -118,19 +118,29 @@ class showFromDB
 
         if($role != 'parking' && $role != 'user'){
             $vehicle = new VehicleController();
-            $vehicle = json_decode($vehicle->show($vid));
-            if($role=='vehicle' && $vehicle->driver_id != $driver_id){
-                return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+            try {
+                $vehicle = json_decode($vehicle->show($vid));
+                if($role=='vehicle' && $vehicle->driver_id != $driver_id){
+                    return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+                }
+            } catch (\Throwable $th) {
+                $vehicle->registration_plate = '<usunięto>';
             }
+            
             Session::flash('vehicle', $vehicle);       
         }
 
         if($role != 'vehicle' && $role != 'user'){
             $parking = new ParkingController();
-            $parking = json_decode($parking->show($pid));
-            if($role=='parking' && $parking->operator_id != $operator_id){
-                return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+            try {
+                $parking = json_decode($parking->show($pid));
+                if($role=='parking' && $parking->operator_id != $operator_id){
+                    return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+                }
+            } catch (\Throwable $th) {
+                $parking->name = '<usunięto>';;
             }
+            
             Session::flash('parking', $parking);    
         }
 

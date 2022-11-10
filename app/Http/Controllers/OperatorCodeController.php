@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\OperatorCode;
+use Validator;
 
 class OperatorCodeController extends Controller
 {
@@ -37,6 +38,16 @@ class OperatorCodeController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),
+            ['name' => 'required|string|max:20',
+            'surname' => 'required|string|max:25',
+            'operator_code' => 'required|string|max:8',
+            'operator_id' => 'required|integer'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json($validator->errors());
+        }
         $operatorCode = new OperatorCode();
         $operatorCode->name = $request->input("name");
         $operatorCode->surname = $request->input("surname");

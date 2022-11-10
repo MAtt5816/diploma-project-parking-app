@@ -12,38 +12,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <link rel="stylesheet" href="CSS/settings.css"/>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     </head>
-    <body>        
+    <body>
         <section class="settings">
             <section class="settings_panel_left">
                 <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
                 <div class="user_logo"><i class="fa fa-user"></i></div>
                 <span class="user">{{Session::get('user')->login}}</span>
                 <hr>
-                <for method="post">  
-                    <input id='option' name='option' type="submit" value="Konto"/>
+                    <a href="/settings"><input id='option' name='option' type="button" value="Konto"/></a>
+                    <hr>
+                    <a href="/change_password"><input id='option' name='option' type="button" value="Hasło"/></a>
                 <hr>
-                <input id='option' name='option' type="submit" value="1"/>
+                <a href="/delete_account"><input id='option' name='option' type="button" value="Usuń konto"/></a>
                 <hr>
-                </for>
             </section>
             <section class="settings_panel_right">
                 <nav class="header"><h1>Ustawienia</h1>
                     <hr></nav>
-                {{view('components.konto')}}
-                <?php
-                // TODO
-                /* $option=$_REQUEST['option'];
-                        switch ($option) {
-                            case 'Konto':
-                                include'konto.php';
-                                break;
-                            case '1':
-                                
-                                break;
-                            default:
-                                break;
-                        }*/
-                ?>
+                @switch($option)
+                    @case('settings')
+                        {{view('components.konto')}}
+                    @break
+                    @case('change_password')
+                        {{view('components.zmiana_hasla')}}
+                    @break
+                    @case('delete_account')
+                        {{view('components.deleteaccount')}}
+                    @break
+                @endswitch
             </section>
         </section>
     </body>

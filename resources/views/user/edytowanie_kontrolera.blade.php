@@ -14,16 +14,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <br><br><section class="container">
                 <aside class="body_form">
                     <a class="return" href="/signup"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                    <h1>Dodaj kontrolera</h1>
-                <form method="post" action="/add_inspector">
+                    <h1>Edytuj kontrolera</h1>
+                <form method="post" action="/update_inspector">
                     @csrf
                     <h4>Dane kontrolera</h4><hr>
                     {{Session::reflash()}}
-                    <input type="text" class="form_input" name="name" placeholder="Imię" pattern="[A-Za-ząćęłńóśźżŁŻŚŹĆÓ ]{1,20}$" title="Użyj max. 20 liter" required="true">
-                <input type="text" class="form_input" name="surname" placeholder="Nazwisko" pattern="[A-Za-ząćęłńóśźżŁŻŚŹĆÓ -]{1,25}$" title="Użyj max. 25 liter"  required="true"><br>
+                    <input type="hidden" name="id" value="{{Session::get('inspector')->id}}">
+                    <input type="text" class="form_input" name="name" placeholder="Imię" pattern="[A-Za-ząćęłńóśźżŁŻŚŹĆÓ ]{1,20}$" title="Użyj max. 20 liter" value="{{Session::get('inspector')->name}}" required="true">
+                <input type="text" class="form_input" name="surname" placeholder="Nazwisko" pattern="[A-Za-ząćęłńóśźżŁŻŚŹĆÓ -]{1,25}$" title="Użyj max. 25 liter" value="{{Session::get('inspector')->surname}}"  required="true"><br>
                 <br> <hr>
                 </aside>
-                <input type="submit" class="button" value="Dodaj">
+                <input type="submit" class="button" value="Edytuj">
                <input type="reset" class="button" value="Wyczyść"></form>
                 </section>
     </body>

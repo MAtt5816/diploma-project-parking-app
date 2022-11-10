@@ -8,6 +8,7 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\OperatorCodeController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Session;
@@ -25,11 +26,23 @@ class updateDB
     public function handle(Request $request, Closure $next, $role)
     {
         $driver_roles = array('vehicle','reservation');
-        $operator_roles = array('parking');
+        $operator_roles = array('parking','inspector');
 
         $uid = Session::get('user')->id;
 
+        if($role == 'user'){
+            if(Session::get('user')->user_type == 'driver'){
+                array_push($driver_roles, 'user');
+            }
+            else if(Session::get('user')->user_type == 'operator'){
+                array_push($operator_roles, 'user');
+            }
+        }
+
         if(in_array($role,$driver_roles)){
+            if($request->input('driver_id') !== null){
+                return back()->withErrors(['err','Podejrzenie modyfikacji danych!']);   // suspicious request body
+            }
             $driver = new DriverController();
             $drivers = $driver->index();
             foreach($drivers as $item){
@@ -41,6 +54,9 @@ class updateDB
             $request->request->add(['driver_id' => $driver_id]);
         }
         else if(in_array($role,$operator_roles)){
+            if($request->input('operator_id') !== null){
+                return back()->withErrors(['err','Podejrzenie modyfikacji danych!']);   // suspicious request body
+            }
             $operator = new OperatorController();
             $operators = $operator->index();
             foreach($operators as $item){
@@ -54,11 +70,9 @@ class updateDB
 
         switch($role){
             case 'vehicle': {
-                Session::reflash();
                 $request->merge(['registration_plate' => $request->input('registration_plate')]);
                 $request->merge(['brand' => $request->input('brand')]);
                 $request->merge(['model' => $request->input('model')]);
-                $request->merge(['driver_id' => $request->input('driver_id')]);
                 $vehicle = new VehicleController();
                 try {
                     $vehicle = $vehicle->update($request, $request->input('id'));
@@ -69,16 +83,23 @@ class updateDB
                 break;
             }
             case 'parking': {
-                Session::reflash();
                 $request->merge(['name' => $request->input('name')]);
                 $request->merge(['price' => $request->input('price')]);
                 $request->merge(['location' => $request->input('location')]);
                 $request->merge(['opening_hours' => $request->input('opening_hours')]);
                 $request->merge(['additional_services' => $request->input('additional_services')]);
                 $request->merge(['facilities' => $request->input('facilities')]);
-                $request->merge(['operator_id' => $request->input('operator_id')]);
                 $parking = new ParkingController();
                 $parking = $parking->update($request, $request->input('id'));
+
+                break;
+            }
+            case 'inspector': {
+                $request->merge(['name' => $request->input('name')]);
+                $request->merge(['surname' => $request->input('surname')]);
+                $request->merge(['operator_code' => Session::get('inspector')->operator_code]);
+                $inspector = new OperatorCodeController();
+                $inspector = $inspector->update($request, $request->input('id'));
 
                 break;
             }
@@ -95,14 +116,37 @@ class updateDB
                 break;
             }
             case 'reservation': {
-                Session::reflash();
                 $request->merge(['start_date' => Carbon::parse($request->start_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
-                $request->merge(['driver_id' => $request->input('driver_id')]);
                 $request->merge(['vehicle_id' => $request->input('vehicle_id')]);
                 $request->merge(['parking_id' => $request->input('parking_id')]);
                 $reservation = new ReservationController();
                 $reservation->update($request, $request->input('id'));
+
+                break;
+            }
+            case 'user': {
+                if(Session::get('user')->user_type == 'driver'){
+                    $request->merge(['name' => $request->input('name')]);
+                    $request->merge(['surname' => $request->input('surname')]);
+                    $request->merge(['city' => $request->input('city')]);
+                    $request->merge(['street' => $request->input('street')]);
+                    $request->merge(['house_number' => $request->input('house_number')]);
+                    $request->merge(['postal_code' => $request->input('postal_code')]);
+                    $request->merge(['phone' => $request->input('phone')]);
+                    $request->merge(['email' => $request->input('email')]);
+                    $request->merge(['user_id' => $request->input('user_id')]);
+                    $driver = new DriverController();
+                    $res = $driver->update($request, $driver_id);
+                }
+                else if(Session::get('user')->user_type == 'operator'){
+                    $request->merge(['user_id' => $request->input('user_id')]);
+                    $request->merge(['email' => $request->input('email')]);
+                    $request->merge(['phone' => $request->input('phone')]);
+                    $request->merge(['tin' => $request->input('tin')]);
+                    $operator = new OperatorController();
+                    $operator->update($request, $operator_id);
+                }
 
                 break;
             }

@@ -17,8 +17,8 @@ class AuthController extends Controller
 {
     public function register(Request $request){
         $validator = Validator::make($request->all(),
-            ['login' => 'string',
-            'password' => 'required|string|min:8',
+            ['login' => 'required|string|max:15|unique:users|regex:/^[A-Za-z0-9._%+-]{1,15}$/',
+            'password' => 'required|string|min:8|max:50|confirmed',
             'user_type' => 'in:driver,operator,inspector'
         ]);
         if ($validator->fails())
@@ -67,8 +67,8 @@ class AuthController extends Controller
 
     public function login(Request $request) {
         $fields = $request->validate([
-            'login' => 'required|string',
-            'password' => 'required|string'
+            'login' => 'required|string|max:15',
+            'password' => 'required|string|max:50'
         ]);
         $user = User::where('login', $fields['login'])->first(); // sprawdzenie loginu
         if(!$user || !Hash::check($fields['password'], $user->password)){ // sprawdzenie hasła
@@ -86,9 +86,9 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request){
         $fields = $request->validate([
-            'login' => 'required|string',
-            'old_password' => 'required|string',
-            'new_password' => 'required|string',
+            'login' => 'required|string|max:15',
+            'old_password' => 'required|string|max:50',
+            'new_password' => 'required|string|max:50',
         ]);
         $user = User::where('login', $fields['login'])->first(); // sprawdzenie loginu
         if(!$user || !Hash::check($fields['old_password'], $user->password)){ // sprawdzenie hasła
@@ -107,14 +107,14 @@ class AuthController extends Controller
 
     private function registerDriver(Request $request, int $user_id) {
         $validator = Validator::make($request->all(), 
-            ['name' => 'required|string|max:255', 
-                'email' => 'required|string|email|max:255|unique:drivers', 
-                'surname' => 'string',
-                'city' => 'string',
-                'street' => 'string',
-                'house_number' => 'string',
-                'postal_code' => 'string',
-                'phone' => 'int',
+            ['name' => 'required|string|max:20', 
+                'email' => 'required|string|email|max:30|unique:drivers', 
+                'surname' => 'required|string|max:25',
+                'city' => 'required|string|max:30',
+                'street' => 'required|string|max:25',
+                'house_number' => 'required|string|max:7',
+                'postal_code' => 'required|string|max:6',
+                'phone' => 'required|string|max:11',
             ]);
         if ($validator->fails())
         {
@@ -128,21 +128,32 @@ class AuthController extends Controller
 
     private function registerInspector(Request $request, int $user_id) {
         $validator = Validator::make($request->all(), 
-            ['operator_id' => 'int']);
+            ['operator_code' => 'required|string|max:8|unique:inspectors']);
         if ($validator->fails())
         {
             return [false, response()->json($validator->errors())];
         }
-        $code = new OperatorCodeController();
-        $inspector = Inspector::create(['operator_code' => $code->randCode(), 'operator_id' => $request->operator_id, 'user_id' => $user_id]);
+        $codes = new OperatorCodeController();
+        $codes = $codes->index();
+        $operator_id = null;
+        foreach($codes as $code){
+            if($code->operator_code == $request->operator_code){
+                $operator_id = $code->operator_id;
+                break;
+            }
+        }
+        if($operator_id === null){
+            return [false, response()->json(['err', 'Niepoprawny kod operatora'])]; // bad operator code
+        }
+        $inspector = Inspector::create(['operator_code' => $request->operator_code, 'operator_id' => $operator_id, 'user_id' => $user_id]);
         return [true, $inspector];
     }
     
     private function registerOperator(Request $request, int $user_id) {
         $validator = Validator::make($request->all(), 
-        ['email' => 'required|string|email|max:255|unique:drivers', 
+        ['email' => 'required|string|email|max:25|unique:operators', 
             'tin' => 'required|string|max:12',
-            'phone' => 'int',
+            'phone' => 'required|string|max:11',
         ]);
         if ($validator->fails())
         {

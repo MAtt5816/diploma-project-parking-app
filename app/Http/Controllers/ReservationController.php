@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reservation;
+use Validator;
+use Illuminate\Support\Carbon;
 
 class ReservationController extends Controller
 {
@@ -36,6 +38,15 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),
+            ['start_date' => 'required|date|after_or_equal:'.Carbon::now()->setTimeZone('-1'),
+            'end_date' => 'required|date|after:'.Carbon::now()->setTimeZone('-1'),
+            'parking_id' => 'required|integer'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json($validator->errors());
+        }
         $reservation = new Reservation();
         $reservation->start_date = $request->input('start_date');
         $reservation->end_date = $request->input('end_date');
@@ -79,6 +90,15 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(),
+            ['start_date' => 'required|date|after_or_equal:'.Carbon::now()->setTimeZone('-1'),
+            'end_date' => 'required|date|after:'.Carbon::now()->setTimeZone('-1'),
+            'parking_id' => 'required|integer'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json($validator->errors());
+        }
         $reservation = Reservation::findOrFail($id);
         $reservation->start_date = $request->input('start_date');
         $reservation->end_date = $request->input('end_date');

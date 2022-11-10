@@ -8,6 +8,7 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\OperatorCodeController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Session;
@@ -25,11 +26,14 @@ class addToDB
     public function handle(Request $request, Closure $next, $role)
     {
         $driver_roles = array('vehicle','stop','reservation');
-        $operator_roles = array('parking');
+        $operator_roles = array('parking','code');
 
         $uid = Session::get('user')->id;
 
         if(in_array($role,$driver_roles)){
+            if($request->input('driver_id') !== null){
+                return back()->withErrors(['err','Podejrzenie modyfikacji danych!']);   // suspicious request body
+            }
             $driver = new DriverController();
             $drivers = $driver->index();
             foreach($drivers as $item){
@@ -41,6 +45,9 @@ class addToDB
             $request->request->add(['driver_id' => $driver_id]);
         }
         else if(in_array($role,$operator_roles)){
+            if($request->input('operator_id') !== null){
+                return back()->withErrors(['err','Podejrzenie modyfikacji danych!']);   // suspicious request body
+            }
             $operator = new OperatorController();
             $operators = $operator->index();
             foreach($operators as $item){
@@ -62,6 +69,13 @@ class addToDB
             case 'parking': {
                 $parking = new ParkingController();
                 $parking = $parking->store($request);
+
+                break;
+            }
+            case 'code': {
+                $code = new OperatorCodeController();
+                $request->merge(['operator_code' => $code->randCode()]);
+                $code = $code->store($request);
 
                 break;
             }

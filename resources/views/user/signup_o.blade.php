@@ -20,14 +20,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     @csrf
                 <input type="hidden" name="user_type" value="operator">
                 <h4>Dane osobowe</h4><hr>
-                <input type="text" class="form_input" name="login" placeholder="Login" required="true">
-                <input type="text" class="form_input" name="phone" placeholder="Numer telefonu" required="true" pattern="[0-9]{9}">
+                <input type="text" class="form_input" name="login" placeholder="Login" title="Użyj max. 15 liter, cyfr lub znaków ._%+-" pattern="[A-Za-ząćęłńóśźżŁŻŚŹĆÓ0-9._%+-]{1,15}$" required="true">
+                <input type="text" class="form_input" name="phone" placeholder="Numer telefonu" required="true" pattern="[0-9]{1,11}">
                 <h4>Dane konta</h4><hr>
-                <input type="email" class="form_input" name="email" placeholder="Email" required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"><br>
-                <input type="password" class="form_input" name="password" placeholder="Hasło(min. 6 znaków)" required="true" pattern=".{6,}">
-                <input type="password" class="form_input" name="password2" placeholder="Powtórz hasło" required="true" pattern=".{6,}">
+                <input type="email" class="form_input" name="email" placeholder="Email" required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" maxlength="25"><br>
+                <input type="password" class="form_input" name="password" placeholder="Hasło" required="true" title="Podaj 8-50 znaków" pattern=".{8,50}">
+                <input type="password" class="form_input" name="password_confirmation" placeholder="Powtórz hasło" required="true" pattern=".{8,50}">
                 <h4>Dane firmy</h4><hr>
-                <input type="text" class="form_input" name="tin" placeholder="Nip" required="true"></aside>
+                <input type="text" class="form_input" name="tin" placeholder="Nip" maxlength="12" required="true"></aside>
                 <hr><input type="submit" class="button" value="Zarejestruj">
                 <input type="reset" class="button" value="Wyczyść"></form>
                 </aside></section>

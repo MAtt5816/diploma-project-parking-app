@@ -128,7 +128,9 @@ class showFromDB
         if($role != 'vehicle' && $role != 'user'){
             $parking = new ParkingController();
             $parking = json_decode($parking->show($pid));
-            
+            if($role=='parking' && $parking->operator_id != $operator_id){
+                return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+            }
             Session::flash('parking', $parking);    
         }
 

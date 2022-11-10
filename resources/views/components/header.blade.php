@@ -40,7 +40,13 @@
                 
             <aside class="new">
             @if (Session::has('token'))
-            <div class="nav"><aside class="money"><span>$0<?php // TODO cash ?></span><button class="add_cash" onclick="">Dodaj</button></aside>
+            <div class="nav"><aside class="money"><span>$0<?php // TODO cash ?></span>
+            @if (Session::get('user')->user_type == 'driver')
+                <a href="/topup"><button class="add_cash">Dodaj</button></a>
+                @else
+                <button class="add_cash"><i class="fa fa-usd" aria-hidden="true"></i></button>
+            @endif
+            </aside>
                         <input type="checkbox" id="uclick">
                 <label for="uclick" class="drop-btn">
                     <div class="user">{{Session::get('user')->login}}</div><i class="fa fa-user"></i></label>

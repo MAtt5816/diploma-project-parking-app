@@ -37,7 +37,7 @@ class OperatorController extends Controller
     public function store(Request $request)
     {
         $operator = new Operator();
-        $inspector->user_id = $request->input('user_id');
+        $operator->user_id = $request->input('user_id');
         $operator->email = $request->input('email');
         $operator->phone = $request->input('phone');
         $operator->tin = $request->input('tin');
@@ -79,7 +79,7 @@ class OperatorController extends Controller
     public function update(Request $request, $id)
     {
         $operator = Operator::findOrFail($id);
-        $inspector->user_id = $request->input('user_id');
+        $operator->user_id = $request->input('user_id');
         $operator->email = $request->input('email');
         $operator->phone = $request->input('phone');
         $operator->tin = $request->input('tin');

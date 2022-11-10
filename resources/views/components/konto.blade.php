@@ -34,6 +34,9 @@
                 <input type="text" name="tin" placeholder="NIP" maxlength="11" value="{{Session::get('operator')->tin}}" required="true"></div>
                 <div class="btno"><input type="submit" name="submit" value="Zapisz"></div>
             @break
+            @case('inspector')
+                <p>Sekcja niedostępna dla kontrolerów</p>
+            @break
         @endswitch
     @endif
             </form>

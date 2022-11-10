@@ -29,7 +29,12 @@
                 <h4>Godziny otwarcia: </h4><div>{{Session::get('parking')->opening_hours}}</div>
                 <h4>Dodatkowe usługi: </h4><div>{{Session::get('parking')->additional_services}}</div>
                 <h4>Udogodnienia: </h4><div>{{Session::get('parking')->facilities}}</div>
-                @break
+            @break
+            @case('inspector')
+                <h4>Imię: </h4><div>{{Session::get('inspector')->name}}</div>
+                <h4>Nazwisko: </h4><div>{{Session::get('inspector')->surname}}</div>
+                <h4>Kod operatora: </h4><div>{{Session::get('inspector')->operator_code}}</div>
+            @break
         @endswitch    
 </section>
 @endif

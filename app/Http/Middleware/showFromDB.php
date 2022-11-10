@@ -9,6 +9,8 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\InspectorController;
+use App\Http\Controllers\OperatorCodeController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
 
@@ -28,7 +30,7 @@ class showFromDB
         $pid = $id;     
 
         $driver_roles = array('vehicle','stop','reservation');
-        $operator_roles = array('parking');
+        $operator_roles = array('parking', 'inspector');
 
         $uid = Session::get('user')->id;
 
@@ -69,6 +71,17 @@ class showFromDB
             }
             case 'parking': {
                 Session::flash('details', 'parking');
+                break;
+            }
+            case 'inspector': {
+                $inspector = new OperatorCodeController();
+                $inspector = json_decode($inspector->show($id));
+                if($inspector->operator_id != $operator_id){
+                    return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+                }
+                Session::flash('details', 'inspector');
+                Session::flash('inspector', $inspector);
+
                 break;
             }
             case 'stop': {

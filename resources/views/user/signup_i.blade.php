@@ -14,13 +14,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <br><br><section class="container">
                 <aside class="body_form">
                     <a class="return" href="/signup"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                    <h1>Dodaj kontrolera</h1>
-                <form method="post" action="/add_inspector">
+                    <h1>Stwórz konto kontrolera</h1>
+                <form method="post" action="/signup_inspector">
                     @csrf
-                    <h4>Dane kontrolera</h4><hr>
-                    {{Session::reflash()}}
-                    <input type="text" class="form_input" name="name" placeholder="Imię" pattern="[A-Za-ząćęłńóśźżŁŻŚŹĆÓ ]{1,20}$" title="Użyj max. 20 liter" required="true">
-                <input type="text" class="form_input" name="surname" placeholder="Nazwisko" pattern="[A-Za-ząćęłńóśźżŁŻŚŹĆÓ -]{1,25}$" title="Użyj max. 25 liter"  required="true"><br>
+                    <h4>Dane konta</h4><hr>
+                    <input type="hidden" name="user_type" value="inspector">
+                <input type="text" class="form_input" name="login" placeholder="Login" title="Użyj max. 15 liter, cyfr lub znaków ._%+-" pattern="[A-Za-ząćęłńóśźżŁŻŚŹĆÓ0-9._%+-]{1,15}$" required="true"><br>
+                <input type="password" class="form_input" name="password" placeholder="Hasło" title="Podaj 8-50 znaków" pattern=".{8,50}" required="true">
+                <input type="password" class="form_input" name="password_confirmation" placeholder="Powtórz hasło" required="true"><br>
+                <h4>Kod</h4><hr>
+                <input type="text" class="form_input" name="operator_code" placeholder="Kod_operatora" required="true">
                 <br> <hr>
                 </aside>
                 <input type="submit" class="button" value="Dodaj">

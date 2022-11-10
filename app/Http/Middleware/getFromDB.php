@@ -8,6 +8,8 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\InspectorController;
+use App\Http\Controllers\OperatorCodeController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Session;
@@ -28,7 +30,7 @@ class getFromDB
             $uid = Session::get('user')->id;
 
             $driver_roles = array('cars','reservations','stops');
-            $operator_roles = array('parkings', 'allParkings');
+            $operator_roles = array('parkings', 'operator_id', 'inspectors', 'allParkings');
 
             if(in_array($role,$driver_roles)){
                 $driver = new DriverController();
@@ -102,6 +104,28 @@ class getFromDB
                     session(['stops_id' => $arr1]);
 
                     break;
+                }
+                case 'inspectors': {
+                    $inspector = new OperatorCodeController();
+                    $inspectors = $inspector->index();
+                    $arr = array();
+                    $arr1 = array();
+                    $arr2 = array();
+                    foreach($inspectors as $item){
+                        if($item->operator_id == $operator_id){
+                            array_push($arr, $item->name);
+                            array_push($arr1, $item->surname);   
+                            array_push($arr2, $item->id); 
+                        }
+                    }
+                    session(['inspectors_n' => $arr]);
+                    session(['inspectors_s' => $arr1]);
+                    session(['inspectors_id' => $arr2]);
+
+                    break;
+                }
+                case 'operator_id': {
+                    Session::flash('operator_id', $operator_id);
                 }
                 case 'parkings': {
                     $parking = new ParkingController();

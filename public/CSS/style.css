@@ -78,6 +78,9 @@
      color:#fff;
      font-size: 20px
  }
+ td{
+    text-shadow: 0px 0px 5px darkred;
+ }
  .banner img.iphone{
      position: absolute;
      right: 8vw;

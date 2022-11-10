@@ -128,13 +128,24 @@ class AuthController extends Controller
 
     private function registerInspector(Request $request, int $user_id) {
         $validator = Validator::make($request->all(), 
-            ['operator_id' => 'required|integer|max_digits:8']);
+            ['operator_code' => 'required|string|max:8|unique:inspectors']);
         if ($validator->fails())
         {
             return [false, response()->json($validator->errors())];
         }
-        $code = new OperatorCodeController();
-        $inspector = Inspector::create(['operator_code' => $code->randCode(), 'operator_id' => $request->operator_id, 'user_id' => $user_id]);
+        $codes = new OperatorCodeController();
+        $codes = $codes->index();
+        $operator_id = null;
+        foreach($codes as $code){
+            if($code->operator_code == $request->operator_code){
+                $operator_id = $code->operator_id;
+                break;
+            }
+        }
+        if($operator_id === null){
+            return [false, response()->json(['err', 'Niepoprawny kod operatora'])]; // bad operator code
+        }
+        $inspector = Inspector::create(['operator_code' => $request->operator_code, 'operator_id' => $operator_id, 'user_id' => $user_id]);
         return [true, $inspector];
     }
     

@@ -9,6 +9,8 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\OperatorCodeController;
+use App\Http\Controllers\InspectorController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
@@ -25,7 +27,7 @@ class deleteFromDB
     public function handle(Request $request, Closure $next, $role)
     {
         $driver_roles = array('vehicle','stop','reservation');
-        $operator_roles = array('parking');
+        $operator_roles = array('parking','inspector');
 
         $uid = Session::get('user')->id;
         $id = $request->route()->parameter('id');
@@ -104,6 +106,31 @@ class deleteFromDB
                 $request->session()->forget('operators');
 
                 $parking->destroy($id);
+
+                break;
+            }
+            case 'inspector': {
+                $code = new OperatorCodeController();
+                $json = json_decode($code->show($id));
+                if($json->operator_id != $operator_id){
+                    return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
+                }
+
+                $inspector = new InspectorController();
+                $inspector = $inspector->index();
+                foreach($inspector as $item){
+                    if($json->operator_code == $item->operator_code){
+                        $user = new UserController();
+                        $user->destroy($item->user_id);
+                        break;
+                    }
+                }
+
+                $request->session()->forget('inspectors_n');
+                $request->session()->forget('inspectors_s');
+                $request->session()->forget('inspectors_id');
+
+                $code->destroy($id);
 
                 break;
             }

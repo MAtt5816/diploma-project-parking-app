@@ -8,6 +8,7 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\OperatorCodeController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Session;
@@ -25,7 +26,7 @@ class addToDB
     public function handle(Request $request, Closure $next, $role)
     {
         $driver_roles = array('vehicle','stop','reservation');
-        $operator_roles = array('parking');
+        $operator_roles = array('parking','code');
 
         $uid = Session::get('user')->id;
 
@@ -68,6 +69,13 @@ class addToDB
             case 'parking': {
                 $parking = new ParkingController();
                 $parking = $parking->store($request);
+
+                break;
+            }
+            case 'code': {
+                $code = new OperatorCodeController();
+                $request->merge(['operator_code' => $code->randCode()]);
+                $code = $code->store($request);
 
                 break;
             }

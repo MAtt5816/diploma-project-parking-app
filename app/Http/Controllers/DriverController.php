@@ -92,7 +92,7 @@ class DriverController extends Controller
         $driver->postal_code = $request->input('postal_code');
         $driver->phone = $request->input('phone');
         $driver->email = $request->input('email');
-        $inspector->user_id = $request->input('user_id');
+        $driver->user_id = $request->input('user_id');
 
         $driver->save();
         return $driver;

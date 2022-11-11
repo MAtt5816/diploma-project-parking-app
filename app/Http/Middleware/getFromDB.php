@@ -129,10 +129,17 @@ class getFromDB
                 }
                 case 'parkings': {
                     $parking = new ParkingController();
+                    $stop = new StopController();
+                    $reservation = new ReservationController();        
                     $parkings = $parking->index();
+                    $stops = $stop->index();
+                    $reservations = $reservation->index();        
                     $arr = array();
                     $arr1 = array();
                     $total = array();
+                    $free = array();
+                    $stop = new StopController();
+                    $reservation = new ReservationController();        
                     $location = array();
                     $oid = array();
                     foreach($parkings as $item){
@@ -140,7 +147,24 @@ class getFromDB
                             array_push($arr, $item->name);
                             array_push($arr1, $item->id);
                             array_push($total, $item->parking_spaces);
-                            array_push($location, $item->location);    
+                            array_push($location, $item->location);  
+                            $busy = 0;
+                            foreach($stops as $elem){
+                                if(($elem->end_date == null || $elem->end_date > Carbon::now()) && $elem->parking_id == $item->id){
+                                    $busy++;
+                                }    
+                            }
+                            foreach($reservations as $el){
+                                if($el->end_date > Carbon::now() && $el->start_date <= Carbon::now() && $el->parking_id == $item->id){
+                                    $busy++;
+                                }
+                            }
+                            if($item->parking_spaces >= $busy){
+                                array_push($free, $item->parking_spaces - $busy);
+                            }
+                            else{
+                                array_push($free, 0);
+                            }  
                             if ($item->operator_id == $request->input('operator_id')){
                                 array_push($oid, true);
                             } else {
@@ -151,6 +175,7 @@ class getFromDB
                     session(['parkings' => $arr]);
                     session(['parkings_id' => $arr1]);
                     session(['total' => $total]);
+                    session(['free' => $free]);
                     session(['locations' => $location]);
                     session(['operators' => $oid]);
 

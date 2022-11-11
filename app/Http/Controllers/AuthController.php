@@ -23,7 +23,7 @@ class AuthController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $user = User::create(['login' => $request->login, 'password' => Hash::make($request->password),
             'user_type' => $request->user_type]);
@@ -52,7 +52,7 @@ class AuthController extends Controller
         else{
             $tmp = new UserController();
             $tmp->destroy($user->id);
-            return response()->json($obj);
+            return response()->json($obj, 400);
         }
     }
 

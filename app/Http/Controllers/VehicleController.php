@@ -45,7 +45,7 @@ class VehicleController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $vehicle = new Vehicle();
         $vehicle->registration_plate = $request->input('registration_plate');
@@ -97,7 +97,7 @@ class VehicleController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $vehicle = Vehicle::findOrFail($id);
         $vehicle->registration_plate = $request->input('registration_plate');

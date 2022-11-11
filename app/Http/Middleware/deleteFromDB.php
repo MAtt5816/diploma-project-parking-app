@@ -178,9 +178,15 @@ class deleteFromDB
                     $driver->destroy($driver_id);
                 }
                 else if(Session::get('user')->user_type == 'operator'){
+                    $parkings = new ParkingController();
+                    $parkings = json_decode($parkings->index());
                     foreach($stops as $stop){
-                        if($operator_id == $stop->operator_id && $stop->end_date === null){
-                            return back()->withErrors(['err','Masz niezakończone postoje!']);   // open stops
+                        foreach($parkings as $parking){
+                            if($operator_id == $parking->operator_id){
+                                if(($stop->parking_id == $parking->id) && ($stop->end_date === null)){
+                                    return back()->withErrors(['err','Masz niezakończone postoje!']);   // open stops
+                                }
+                            }
                         }
                     }
 
@@ -200,6 +206,6 @@ class deleteFromDB
         }
 
 
-        return $next($request);
+        return $next($request)->withSuccess(['Pomyślnie usunięto']);;
     }
 }

@@ -155,6 +155,6 @@ class updateDB
             }
         }
 
-        return $next($request);
+        return $next($request)->withSuccess(['Pomyślnie zaktualizowano']);
     }
 }

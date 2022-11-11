@@ -34,7 +34,7 @@ class resetPassword
         $user = $auth->resetPassword($request);
 
         if(! is_null($user)){
-            return redirect()->route('home'); 
+            return redirect()->back()->withSuccess(['Hasło zostało zmienione']); 
         }
         else{
             return back()->withErrors(['email' => [__($status)]]);

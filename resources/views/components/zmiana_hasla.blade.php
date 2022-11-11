@@ -1,7 +1,27 @@
-        @if($errors->any())
-    {{ implode('', $errors->all('<div>:message</div>')) }}
-@endif{{-- TODO error codes --}}
-<section class="include">                 
+@if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('success'))
+            <div class="alert-success">
+                @if(is_array(session('success')))
+                    <ul>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{ session('success') }}
+                @endif
+            </div>
+            @endif
+
+            <section class="include">                 
                 <h3>Zmiana hasła</h3>
 
                 <form method="post" action="/change_password">

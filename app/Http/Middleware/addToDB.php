@@ -104,6 +104,6 @@ class addToDB
             }
         }
 
-        return $next($request);
+        return $next($request)->withSuccess(['Pomyślnie dodano']);
     }
 }

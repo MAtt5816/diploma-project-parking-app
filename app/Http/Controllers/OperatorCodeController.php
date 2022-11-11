@@ -46,7 +46,7 @@ class OperatorCodeController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $operatorCode = new OperatorCode();
         $operatorCode->name = $request->input("name");
@@ -90,6 +90,16 @@ class OperatorCodeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(),
+            ['name' => 'required|string|max:20',
+            'surname' => 'required|string|max:25',
+            'operator_code' => 'required|string|max:8',
+            'operator_id' => 'required|integer'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json($validator->errors(), 400);
+        }
         $operatorCode = OperatorCode::findOrFail($id);
         $operatorCode->name = $request->input("name");
         $operatorCode->surname = $request->input("surname");

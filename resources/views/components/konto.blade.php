@@ -1,6 +1,29 @@
 <section class="include">
     <h3> Ustawienia konta </h3>
 <form method="post">
+@if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('success'))
+            <div class="alert-success">
+                @if(is_array(session('success')))
+                    <ul>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{ session('success') }}
+                @endif
+            </div>
+            @endif
+
     @csrf
     @if(Session::has('token'))
         @switch(Session::get('user')->user_type)

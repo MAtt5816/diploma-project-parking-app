@@ -138,8 +138,6 @@ class getFromDB
                     $arr1 = array();
                     $total = array();
                     $free = array();
-                    $stop = new StopController();
-                    $reservation = new ReservationController();        
                     $location = array();
                     $oid = array();
                     foreach($parkings as $item){

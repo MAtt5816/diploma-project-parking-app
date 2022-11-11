@@ -172,11 +172,11 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
 
         Route::post('/stop', function() {
             return redirect('/stops');
-        })->middleware('addToDB:stop');
+        })->middleware('getFromDB:allParkings','addToDB:stop');
 
         Route::post('/reservation', function() {
             return redirect('/reservations');
-        })->middleware('addToDB:reservation');
+        })->middleware('getFromDB:allParkings','addToDB:reservation');
 
         Route::post('/update_vehicle', function() {
             return redirect('/vehicles');

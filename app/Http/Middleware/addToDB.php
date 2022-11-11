@@ -59,6 +59,14 @@ class addToDB
             $request->request->add(['operator_id' => $operator_id]);
         }
 
+        if($role == 'stop' || $role == 'reservation'){
+            foreach(Session::get('parkings_id') as $key=>$pid){
+                if($pid == $request->parking_id){
+                    $total = Session::get('total')[$key];
+                }
+            }
+        }
+
         switch($role){
             case 'vehicle': {
                 $vehicle = new VehicleController();
@@ -89,13 +97,32 @@ class addToDB
                 break;
             }
             case 'stop': {
+                $stop = new StopController();
+                $reservation = new ReservationController();
+                $stops = $stop->index();
+                $reservations = $reservation->index();
+                $busy = 0;
+                foreach($stops as $elem){
+                    if(($elem->end_date == null || $elem->end_date > $request->end_date) && $elem->parking_id == $request->parking_id){
+                        $busy++;
+                    }    
+                }
+                foreach($reservations as $el){
+                    if($el->end_date > $request->end_date && $el->start_date <= Carbon::now() && $el->parking_id == $request->parking_id){
+                        $busy++;
+                    }
+                }
+                if($total < $busy){
+                    return back()->withErrors(['err','Brak wolnych miejsc dla podanych parametrów']);   // No empty spaces for parameters
+                }
+
                 $request->merge(['start_date' => Carbon::now()->format('Y-m-d H:i:s')]);
                 if(!is_null($request->input('end_date'))){
                     $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 } else {
                     $request->merge(['end_date' => null]);
                 }
-                $stop = new StopController();
+
                 $stop = $stop->store($request);
                 if(method_exists($stop,'status') && $stop->status() >= 400){
                     return back()->withErrors(json_decode($stop->content()));
@@ -104,6 +131,25 @@ class addToDB
                 break;
             }
             case 'reservation': {
+                $stop = new StopController();
+                $reservation = new ReservationController();
+                $stops = $stop->index();
+                $reservations = $reservation->index();
+                $busy = 0;
+                foreach($stops as $elem){
+                    if(($elem->end_date == null || $elem->end_date > $request->end_date) && $elem->parking_id == $request->parking_id){
+                        $busy++;
+                    }    
+                }
+                foreach($reservations as $el){
+                    if($el->end_date > $request->end_date && $el->start_date <= $request->start_date && $el->parking_id == $request->parking_id){
+                        $busy++;
+                    }
+                }
+                if($total < $busy){
+                    return back()->withErrors(['err','Brak wolnych miejsc dla podanych parametrów']);   // No empty spaces for parameters
+                }
+
                 if($request->start_date > $request->end_date){
                     return back()->withErrors(['err','Data zakończenia nie może być wcześniejsza od daty rozpoczęcia']);   // The end date cannot be earlier than the start date
                 }
@@ -112,7 +158,7 @@ class addToDB
                 }
                 $request->merge(['start_date' => Carbon::parse($request->start_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
-                $reservation = new ReservationController();
+
                 $reservation = $reservation->store($request);
                 if(method_exists($reservation,'status') && $reservation->status() >= 400){
                     return back()->withErrors(json_decode($reservation->content()));

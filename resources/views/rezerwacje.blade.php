@@ -59,8 +59,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     {{\Carbon\Carbon::parse($reservation)->timezone('Europe/Warsaw')}}</td>         
                 <td>
                     <a href="/edit_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-edit"></i> Edytuj</a> |
-                    <a href="/show_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
+                    <a href="/show_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> 
+                    @if($reservation >= \Carbon\Carbon::now()) 
+                    |
                     <a class="delete" href="/delete_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
+                    @endif
                 </td>
             </tr>
             @endforeach

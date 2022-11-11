@@ -14,6 +14,7 @@ use App\Http\Controllers\InspectorController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Carbon;
 
 class deleteFromDB
 {
@@ -134,17 +135,17 @@ class deleteFromDB
 
                 break;
             }
-            case 'stop': {
+            case 'stop': {  // cannot to remove stops
                 $stop = new StopController();
                 $json = json_decode($stop->show($id));
                 if($json->driver_id != $driver_id){
                     return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
                 }
 
-                $request->session()->forget('stops');
-                $request->session()->forget('stops_id');
+                // $request->session()->forget('stops');
+                // $request->session()->forget('stops_id');
 
-                $stop->destroy($id);
+                // $stop->destroy($id);
 
                 break;
             }
@@ -154,7 +155,9 @@ class deleteFromDB
                 if($json->driver_id != $driver_id){
                     return back()->withErrors(['err','Zalogowano na niewłaściwe konto']);   // bad user ID
                 }
-
+                if($json->start_date < Carbon::now()){
+                    return back()->withErrors(['err','Nie można usunąć trwającej rezerwacji']);   // cannot to delete reservation in progress
+                }
                 $request->session()->forget('reservations');
                 $request->session()->forget('reservations_id');
 

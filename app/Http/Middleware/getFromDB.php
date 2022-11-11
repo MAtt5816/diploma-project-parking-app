@@ -12,6 +12,7 @@ use App\Http\Controllers\InspectorController;
 use App\Http\Controllers\OperatorCodeController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\BalanceController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 
@@ -29,7 +30,7 @@ class getFromDB
         if(Session::has('token')){
             $uid = Session::get('user')->id;
 
-            $driver_roles = array('cars','reservations','stops');
+            $driver_roles = array('cars','reservations','stops','balance');
             $operator_roles = array('parkings', 'operator_id', 'inspectors', 'allParkings');
 
             if(in_array($role,$driver_roles)){
@@ -70,6 +71,18 @@ class getFromDB
                     }
                     session(['cars' => $arr]);
                     session(['cars_id' => $arr1]);
+
+                    break;
+                }
+                case 'balance': {
+                    $balances = new BalanceController();
+                    $balances = $balances->index();
+                    foreach($balances as $item){
+                        if($item->driver_id == $driver_id){
+                            $balance = strval($item->balance);    
+                        }
+                    }
+                    session(['balance' => $balance]);
 
                     break;
                 }

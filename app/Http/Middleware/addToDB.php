@@ -9,6 +9,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\OperatorCodeController;
+use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Session;
@@ -116,6 +117,25 @@ class addToDB
                     return back()->withErrors(['err','Brak wolnych miejsc dla podanych parametrów']);   // No empty spaces for parameters
                 }
 
+                $parking = new ParkingController();
+                $parking = $parking->show($request->parking_id);
+                $balance = new BalanceController();
+                $balances = $balance->index();
+                foreach($balances as $ba){
+                    if($ba->driver_id == $driver_id){
+                        $balance_val = $ba->balance;
+                        $bid = $ba->id;
+                        break;
+                    }
+                }
+                if($request->end_date !== null){
+                    $end = Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s');
+                    $balance_val -= round(($parking->price * (Carbon::now()->diffInMinutes($end) + 1) / 60), 2);
+                    $request->merge(['balance' => $balance_val]);
+                    $request->merge(['driver_id' => $driver_id]);
+                    $balance->update($request, $bid);
+                }
+
                 $request->merge(['start_date' => Carbon::now()->format('Y-m-d H:i:s')]);
                 if(!is_null($request->input('end_date'))){
                     $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
@@ -156,6 +176,23 @@ class addToDB
                 else if($request->start_date == $request->end_date){
                     return back()->withErrors(['err','Rezerwacja musi być dłuższa od 0 s']);   // The reservation must be longer than 0 seconds
                 }
+
+                $parking = new ParkingController();
+                $parking = $parking->show($request->parking_id);
+                $balance = new BalanceController();
+                $balances = $balance->index();
+                foreach($balances as $ba){
+                    if($ba->driver_id == $driver_id){
+                        $balance_val = $ba->balance;
+                        $bid = $ba->id;
+                        break;
+                    }
+                }
+                $balance_val -= round(($parking->price * (Carbon::parse($request->start_date)->diffInMinutes($request->end_date) + 1) / 60), 2);
+                $request->merge(['balance' => $balance_val]);
+                $request->merge(['driver_id' => $driver_id]);
+                $balance->update($request, $bid);
+
                 $request->merge(['start_date' => Carbon::parse($request->start_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
 

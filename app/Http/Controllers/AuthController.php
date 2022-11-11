@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Driver;
 use App\Models\Operator;
 use App\Models\Inspector;
+use App\Models\Balance;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OperatorCodeController;
 use Validator;
@@ -47,6 +48,7 @@ class AuthController extends Controller
         }
 
         if($check){
+            if($request->user_type == 'driver') $balance = Balance::create(['balance' => 0, 'driver_id' => $obj->id]);
             return response()->json(['data' => $user, 'details' => $obj, 'access_token' => $token, 'token_type' => 'Bearer', ]);
         }
         else{

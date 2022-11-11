@@ -10,6 +10,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <title>Our-parking -rezerwuj miejsca parkingowe, zgłoś parking</title>
     <link rel="stylesheet" href="CSS/forms.css"/>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body>
 
@@ -18,6 +19,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             <h1>Rezerwacje</h1>
             <hr>
+            @if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('success'))
+            <div class="alert-success">
+                @if(is_array(session('success')))
+                    <ul>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{ session('success') }}
+                @endif
+            </div>
+            @endif
 
             @if (Session::has('reservations') && !empty(Session::get('reservations')))
             <table class="table">
@@ -36,8 +59,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     {{\Carbon\Carbon::parse($reservation)->timezone('Europe/Warsaw')}}</td>         
                 <td>
                     <a href="/edit_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-edit"></i> Edytuj</a> |
-                    <a href="/show_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
-                    <a href="/delete_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
+                    <a href="/show_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> 
+                    @if($reservation >= \Carbon\Carbon::now()) 
+                    |
+                    <a class="delete" href="/delete_reservation/{{Session::get('reservations_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
+                    @endif
                 </td>
             </tr>
             @endforeach
@@ -46,6 +72,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 @if (Session::has('reservation'))
                     {{view('components.szczegoly');}}
                 @endif
+                {{view('components.ru_sure');}}
 
             @else
             <p>Brak rezerwacji</p>

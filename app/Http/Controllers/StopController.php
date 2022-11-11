@@ -44,7 +44,7 @@ class StopController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $stop = new Stop();
         $stop->start_date = $request->input('start_date');
@@ -95,7 +95,7 @@ class StopController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $stop = Stop::findOrFail($id);
         $stop->start_date = $request->input('start_date');

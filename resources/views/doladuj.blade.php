@@ -27,7 +27,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <aside class="body_form">
                     <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
                     <h1>Doładuj portfel</h1>
-                <form method="post" action="">
+                <form method="post" action="/pay">
                     @csrf
                 <hr>
                 <aside class="cash">

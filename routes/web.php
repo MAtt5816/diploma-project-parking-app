@@ -148,6 +148,10 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
         return view('doladuj');
     });
 
+    Route::post('/pay', function() {
+        return redirect('/');
+    })->middleware('payment');
+
     
     Route::get('/stop', function() {
         return view('postoj');

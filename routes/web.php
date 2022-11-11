@@ -37,7 +37,7 @@ Route::post('/login', function(Request $request) {
         return redirect('/');
     }
     else{
-        return redirect()->back();   // TODO bad password
+        return redirect()->back()->withErrors($json);
     }
 });
 

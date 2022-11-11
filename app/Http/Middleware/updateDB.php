@@ -76,7 +76,7 @@ class updateDB
                 $vehicle = new VehicleController();
                 try {
                     $vehicle = $vehicle->update($request, $request->input('id'));
-                    if($vehicle->status() >= 400){
+                    if(method_exists($vehicle,'status') && $vehicle->status() >= 400){
                         return back()->withErrors(json_decode($vehicle->content()));
                     }
                 } catch (Throwable $th) {
@@ -94,7 +94,7 @@ class updateDB
                 $request->merge(['facilities' => $request->input('facilities')]);
                 $parking = new ParkingController();
                 $parking = $parking->update($request, $request->input('id'));
-                if($parking->status() >= 400){
+                if(method_exists($parking,'status') && $parking->status() >= 400){
                     return back()->withErrors(json_decode($parking->content()));
                 }
 
@@ -106,7 +106,7 @@ class updateDB
                 $request->merge(['operator_code' => Session::get('inspector')->operator_code]);
                 $inspector = new OperatorCodeController();
                 $inspector = $inspector->update($request, $request->input('id'));
-                if($inspector->status() >= 400){
+                if(method_exists($inspector,'status') && $inspector->status() >= 400){
                     return back()->withErrors(json_decode($inspector->content()));
                 }
 
@@ -120,21 +120,27 @@ class updateDB
                 $request->merge(['vehicle_id' => Session::get('stop')->vehicle_id]);
                 $request->merge(['parking_id' => Session::get('stop')->parking_id]);
                 $stop = new StopController();
-                $stop->update($request, Session::get('stop')->id);
-                if($stop->status() >= 400){
+                $stop = $stop->update($request, Session::get('stop')->id);
+                if(method_exists($stop,'status') && $stop->status() >= 400){
                     return back()->withErrors(json_decode($stop->content()));
                 }
 
                 break;
             }
             case 'reservation': {
+                if($request->start_date > $request->end_date){
+                    return back()->withErrors(['err','Data zakończenia nie może być wcześniejsza od daty rozpoczęcia']);   // The end date cannot be earlier than the start date
+                }
+                else if($request->start_date == $request->end_date){
+                    return back()->withErrors(['err','Rezerwacja musi być dłuższa od 0 s']);   // The reservation must be longer than 0 seconds
+                }
                 $request->merge(['start_date' => Carbon::parse($request->start_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $request->merge(['vehicle_id' => $request->input('vehicle_id')]);
                 $request->merge(['parking_id' => $request->input('parking_id')]);
                 $reservation = new ReservationController();
-                $reservation->update($request, $request->input('id'));
-                if($reservation->status() >= 400){
+                $reservation = $reservation->update($request, $request->input('id'));
+                if(method_exists($reservation,'status') && $reservation->status() >= 400){
                     return back()->withErrors(json_decode($reservation->content()));
                 }
 

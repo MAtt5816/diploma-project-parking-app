@@ -63,7 +63,7 @@ class addToDB
             case 'vehicle': {
                 $vehicle = new VehicleController();
                 $vehicle = $vehicle->store($request);
-                if($vehicle->status() >= 400){
+                if(method_exists($vehicle,'status') && $vehicle->status() >= 400){
                     return back()->withErrors(json_decode($vehicle->content()));
                 }
 
@@ -72,7 +72,7 @@ class addToDB
             case 'parking': {
                 $parking = new ParkingController();
                 $parking = $parking->store($request);
-                if($parking->status() >= 400){
+                if(method_exists($parking,'status') && $parking->status() >= 400){
                     return back()->withErrors(json_decode($parking->content()));
                 }
 
@@ -82,7 +82,7 @@ class addToDB
                 $code = new OperatorCodeController();
                 $request->merge(['operator_code' => $code->randCode()]);
                 $code = $code->store($request);
-                if($code->status() >= 400){
+                if(method_exists($code,'status') && $code->status() >= 400){
                     return back()->withErrors(json_decode($code->content()));
                 }
 
@@ -96,19 +96,25 @@ class addToDB
                     $request->merge(['end_date' => null]);
                 }
                 $stop = new StopController();
-                $stop->store($request);
-                if($stop->status() >= 400){
+                $stop = $stop->store($request);
+                if(method_exists($stop,'status') && $stop->status() >= 400){
                     return back()->withErrors(json_decode($stop->content()));
                 }
 
                 break;
             }
             case 'reservation': {
+                if($request->start_date > $request->end_date){
+                    return back()->withErrors(['err','Data zakończenia nie może być wcześniejsza od daty rozpoczęcia']);   // The end date cannot be earlier than the start date
+                }
+                else if($request->start_date == $request->end_date){
+                    return back()->withErrors(['err','Rezerwacja musi być dłuższa od 0 s']);   // The reservation must be longer than 0 seconds
+                }
                 $request->merge(['start_date' => Carbon::parse($request->start_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $reservation = new ReservationController();
-                $reservation->store($request);
-                if($reservation->status() >= 400){
+                $reservation = $reservation->store($request);
+                if(method_exists($reservation,'status') && $reservation->status() >= 400){
                     return back()->withErrors(json_decode($reservation->content()));
                 }
 

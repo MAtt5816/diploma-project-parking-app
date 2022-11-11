@@ -12,16 +12,36 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
     {{Session::reflash()}}
-    @if($errors->any())
-    <h4>{{$errors->first()}}</h4>
-    @endif
         <br><br><section class="container">
                 <aside class="body_form">
-                    <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                    <a class="return" href="/vehicles"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
                     <h1>Edytuj pojazd</h1>
                 <form method="post" action="/update_vehicle">
                     @csrf
                 <hr>
+                @if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('success'))
+            <div class="alert-success">
+                @if(is_array(session('success')))
+                    <ul>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{ session('success') }}
+                @endif
+            </div>
+            @endif
+
                 <input type="hidden" name="id" value="{{Session::get('vehicle')->id}}">
                 <input type="text" class="form_input" name="registration_plate" placeholder="Numer rejestracyjny" title="Podaj max. 8 znaków" maxlength="8" required="true" value="{{Session::get('vehicle')->registration_plate}}"><br>
                 <input type="text" class="form_input" name="brand" placeholder="Marka" title="Podaj max. 20 znaków" maxlength="20" required="true" value="{{Session::get('vehicle')->brand}}"><br>

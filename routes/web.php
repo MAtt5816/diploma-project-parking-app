@@ -17,7 +17,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home')->middleware('getFromDB:allParkings');
+})->name('home')->middleware(['getFromDB:allParkings','getFromDB:balance']);
 
 Route::get('/api/docs', function() {
     return redirect()->away('https://documenter.getpostman.com/view/20222408/2s84LLxCSL');
@@ -37,7 +37,7 @@ Route::post('/login', function(Request $request) {
         return redirect('/');
     }
     else{
-        return redirect()->back();   // TODO bad password
+        return redirect()->back()->withErrors($json);
     }
 });
 
@@ -167,23 +167,23 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
 
     Route::group([], function() {
         Route::post('/vehicle', function() {
-            return redirect('/');
+            return redirect('/vehicles');
         })->middleware('addToDB:vehicle');
 
         Route::post('/stop', function() {
-            return redirect('/');
-        })->middleware('addToDB:stop');
+            return redirect('/stops');
+        })->middleware('getFromDB:allParkings','addToDB:stop');
 
         Route::post('/reservation', function() {
-            return redirect('/');
-        })->middleware('addToDB:reservation');
+            return redirect('/reservations');
+        })->middleware('getFromDB:allParkings','addToDB:reservation');
 
         Route::post('/update_vehicle', function() {
-            return redirect('/');
+            return redirect('/vehicles');
         })->middleware('updateDB:vehicle');
 
         Route::post('/update_reservation', function() {
-            return redirect('/');
+            return redirect('/reservations');
         })->middleware('updateDB:reservation');
     });
 
@@ -252,7 +252,7 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
 
     Route::group(['middleware' => 'addToDB:parking'], function() {
         Route::post('/add_parking', function() {
-            return redirect('/');
+            return redirect('/parkings');
         });
     });
 
@@ -261,7 +261,7 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
     })->middleware('showFromDB:inspector');
     
     Route::post('/update_inspector', function() {
-        return redirect('/');
+        return redirect('/inspectors');
     })->middleware('updateDB:inspector');
 
     Route::get('/delete_inspector/{id}', function() {
@@ -269,7 +269,7 @@ Route::group(['middleware' => 'sessionCheck:operator'], function() {
     })->middleware('deleteFromDB:inspector');
 
     Route::post('/update_parking', function() {
-        return redirect('/');
+        return redirect('/parkings');
     })->middleware('updateDB:parking');
 
     Route::get('/delete_parking/{id}', function() {
@@ -282,4 +282,8 @@ Route::group(['middleware' => 'sessionCheck:inspector'], function() {
     Route::get('/verify', function() {
         return view('weryfikator');
     });
+
+    Route::post('/verify', function() {
+        return view('weryfikator');
+    })->middleware('getFromDB:verify');
 });

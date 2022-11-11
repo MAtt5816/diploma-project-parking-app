@@ -45,7 +45,7 @@ class ReservationController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $reservation = new Reservation();
         $reservation->start_date = $request->input('start_date');
@@ -97,7 +97,7 @@ class ReservationController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $reservation = Reservation::findOrFail($id);
         $reservation->start_date = $request->input('start_date');

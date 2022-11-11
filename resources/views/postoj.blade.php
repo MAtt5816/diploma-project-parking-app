@@ -43,6 +43,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     @csrf
                     <button class="toogle1 inactive" type="button" formnovalidate>start/stop</button> <button class="toogle2 active" type="button" formnovalidate>czasowe</button>
                 <hr>
+                @if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('success'))
+            <div class="alert-success">
+                @if(is_array(session('success')))
+                    <ul>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{ session('success') }}
+                @endif
+            </div>
+            @endif
+
                 <label id="end_date_label"> Data zakończenia<span class="required">*</span> </label>
                 <input type="datetime-local" class="form_input" name="end_date" required="true"><br>
 

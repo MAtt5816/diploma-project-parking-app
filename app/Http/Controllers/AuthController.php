@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Driver;
 use App\Models\Operator;
 use App\Models\Inspector;
+use App\Models\Balance;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OperatorCodeController;
 use Validator;
@@ -23,7 +24,7 @@ class AuthController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $user = User::create(['login' => $request->login, 'password' => Hash::make($request->password),
             'user_type' => $request->user_type]);
@@ -47,12 +48,13 @@ class AuthController extends Controller
         }
 
         if($check){
+            if($request->user_type == 'driver') $balance = Balance::create(['balance' => 0, 'driver_id' => $obj->id]);
             return response()->json(['data' => $user, 'details' => $obj, 'access_token' => $token, 'token_type' => 'Bearer', ]);
         }
         else{
             $tmp = new UserController();
             $tmp->destroy($user->id);
-            return response()->json($obj);
+            return response()->json($obj, 400);
         }
     }
 

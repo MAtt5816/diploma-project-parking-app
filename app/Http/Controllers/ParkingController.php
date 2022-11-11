@@ -48,7 +48,7 @@ class ParkingController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $parking = new Parking();
         $parking->name = $request->input('name');
@@ -107,7 +107,7 @@ class ParkingController extends Controller
         ]);
         if ($validator->fails())
         {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         $parking = Parking::findOrFail($id);
         $parking->name = $request->input('name');

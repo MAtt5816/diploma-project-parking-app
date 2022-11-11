@@ -34,6 +34,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <p> Wybierz typ użytkownika</p></nav>
         <br/><form method="post"><div class="user_type">
         @csrf
+        @if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('success'))
+            <div class="alert-success">
+                @if(is_array(session('success')))
+                    <ul>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{ session('success') }}
+                @endif
+            </div>
+            @endif
+
                 <input type="radio" id="register_driver" name="user" value="kierowca" checked><label for="register_driver">
         <div class="title">Kierowca</div>
         <div class="description">Jestem kierowcą</div></label><br/>

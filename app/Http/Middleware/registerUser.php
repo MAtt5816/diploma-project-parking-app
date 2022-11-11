@@ -24,6 +24,9 @@ class registerUser
             $user = $user->register($request);
 
             $json = json_decode($user->content());
+            if($user->status() >= 400){
+                return back()->withErrors($json);
+            }
             session(['user' => $json->data]);
             session(['token' => $json->access_token]);
         }

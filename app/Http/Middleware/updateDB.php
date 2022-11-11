@@ -76,6 +76,9 @@ class updateDB
                 $vehicle = new VehicleController();
                 try {
                     $vehicle = $vehicle->update($request, $request->input('id'));
+                    if($vehicle->status() >= 400){
+                        return back()->withErrors(json_decode($vehicle->content()));
+                    }
                 } catch (Throwable $th) {
                     return Redirect::back()->withErrors(['err: ',$th->getMessage()]);
                 }
@@ -91,6 +94,9 @@ class updateDB
                 $request->merge(['facilities' => $request->input('facilities')]);
                 $parking = new ParkingController();
                 $parking = $parking->update($request, $request->input('id'));
+                if($parking->status() >= 400){
+                    return back()->withErrors(json_decode($parking->content()));
+                }
 
                 break;
             }
@@ -100,6 +106,9 @@ class updateDB
                 $request->merge(['operator_code' => Session::get('inspector')->operator_code]);
                 $inspector = new OperatorCodeController();
                 $inspector = $inspector->update($request, $request->input('id'));
+                if($inspector->status() >= 400){
+                    return back()->withErrors(json_decode($inspector->content()));
+                }
 
                 break;
             }
@@ -112,6 +121,9 @@ class updateDB
                 $request->merge(['parking_id' => Session::get('stop')->parking_id]);
                 $stop = new StopController();
                 $stop->update($request, Session::get('stop')->id);
+                if($stop->status() >= 400){
+                    return back()->withErrors(json_decode($stop->content()));
+                }
 
                 break;
             }
@@ -122,6 +134,9 @@ class updateDB
                 $request->merge(['parking_id' => $request->input('parking_id')]);
                 $reservation = new ReservationController();
                 $reservation->update($request, $request->input('id'));
+                if($reservation->status() >= 400){
+                    return back()->withErrors(json_decode($reservation->content()));
+                }
 
                 break;
             }

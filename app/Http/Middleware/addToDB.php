@@ -63,12 +63,18 @@ class addToDB
             case 'vehicle': {
                 $vehicle = new VehicleController();
                 $vehicle = $vehicle->store($request);
+                if($vehicle->status() >= 400){
+                    return back()->withErrors(json_decode($vehicle->content()));
+                }
 
                 break;
             }
             case 'parking': {
                 $parking = new ParkingController();
                 $parking = $parking->store($request);
+                if($parking->status() >= 400){
+                    return back()->withErrors(json_decode($parking->content()));
+                }
 
                 break;
             }
@@ -76,6 +82,9 @@ class addToDB
                 $code = new OperatorCodeController();
                 $request->merge(['operator_code' => $code->randCode()]);
                 $code = $code->store($request);
+                if($code->status() >= 400){
+                    return back()->withErrors(json_decode($code->content()));
+                }
 
                 break;
             }
@@ -88,6 +97,9 @@ class addToDB
                 }
                 $stop = new StopController();
                 $stop->store($request);
+                if($stop->status() >= 400){
+                    return back()->withErrors(json_decode($stop->content()));
+                }
 
                 break;
             }
@@ -96,6 +108,9 @@ class addToDB
                 $request->merge(['end_date' => Carbon::parse($request->end_date)->setTimeZone('-1')->format('Y-m-d H:i:s')]);
                 $reservation = new ReservationController();
                 $reservation->store($request);
+                if($reservation->status() >= 400){
+                    return back()->withErrors(json_decode($reservation->content()));
+                }
 
                 break;
             }

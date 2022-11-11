@@ -36,6 +36,7 @@ class getFromDB
             if(in_array($role,$driver_roles)){
                 $driver = new DriverController();
                 $drivers = $driver->index();
+                $driver_id = null;
                 foreach($drivers as $item){
                     if($item->user_id == $uid){
                         $driver_id = $item->id;
@@ -77,12 +78,50 @@ class getFromDB
                 case 'balance': {
                     $balances = new BalanceController();
                     $balances = $balances->index();
+                    $balance = 0;
                     foreach($balances as $item){
                         if($item->driver_id == $driver_id){
                             $balance = strval($item->balance);    
                         }
                     }
                     session(['balance' => $balance]);
+
+                    break;
+                }
+                case 'verify': {
+                    $vehicle = new VehicleController();
+                    $vehicle = $vehicle->index();
+                    $stops = new StopController();
+                    $stops = $stops->index();
+                    $reservations = new ReservationController();
+                    $reservations = $reservations->index();
+
+                    foreach($vehicle as $car){
+                        if($request->registration_plate == $car->registration_plate){
+                            foreach($stops as $stop){
+                                if($stop->vehicle_id == $car->id && $stop->start_date < Carbon::now()){
+                                    if($stop->end_date === null){
+                                        Session::flash('verify', 0); // start-stop
+                                        return $next($request);
+                                    }
+                                    else if($stop->end_date > Carbon::now()){
+                                        Session::flash('verify', 1); // all is OK
+                                        return $next($request);    
+                                    }
+                                    else{
+                                        Session::flash('verify_date', Carbon::parse($stop->end_date)->setTimeZone('Europe/Warsaw')->format('Y-m-d H:i:s'));
+                                    }
+                                }
+                            }
+                            foreach($reservations as $reservation){
+                                if($reservation->vehicle_id == $car->id && $reservation->start_date < Carbon::now() && $reservation->end_date > Carbon::now()){
+                                    Session::flash(['verify', 1]); // all is OK
+                                    return $next($request);
+                                }
+                            }
+                        }
+                    }
+                    Session::flash('verify', -1); // no payment
 
                     break;
                 }

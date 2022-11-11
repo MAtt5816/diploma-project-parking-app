@@ -282,4 +282,8 @@ Route::group(['middleware' => 'sessionCheck:inspector'], function() {
     Route::get('/verify', function() {
         return view('weryfikator');
     });
+
+    Route::post('/verify', function() {
+        return view('weryfikator');
+    })->middleware('getFromDB:verify');
 });

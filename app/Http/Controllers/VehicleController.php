@@ -38,7 +38,7 @@ class VehicleController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),
-            ['registration_plate' => 'required|string|max:8',
+            ['registration_plate' => 'required|string|max:8|unique:vehicles',
             'brand' => 'required|string|max:20',
             'model' => 'required|string|max:20',
             'driver_id' => 'required|integer'

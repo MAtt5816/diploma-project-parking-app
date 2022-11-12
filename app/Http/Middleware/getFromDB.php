@@ -12,6 +12,7 @@ use App\Http\Controllers\InspectorController;
 use App\Http\Controllers\OperatorCodeController;
 use App\Http\Controllers\StopController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\BalanceController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 
@@ -29,12 +30,13 @@ class getFromDB
         if(Session::has('token')){
             $uid = Session::get('user')->id;
 
-            $driver_roles = array('cars','reservations','stops');
+            $driver_roles = array('cars','reservations','stops','balance');
             $operator_roles = array('parkings', 'operator_id', 'inspectors', 'allParkings');
 
             if(in_array($role,$driver_roles)){
                 $driver = new DriverController();
                 $drivers = $driver->index();
+                $driver_id = null;
                 foreach($drivers as $item){
                     if($item->user_id == $uid){
                         $driver_id = $item->id;
@@ -70,6 +72,56 @@ class getFromDB
                     }
                     session(['cars' => $arr]);
                     session(['cars_id' => $arr1]);
+
+                    break;
+                }
+                case 'balance': {
+                    $balances = new BalanceController();
+                    $balances = $balances->index();
+                    $balance = 0;
+                    foreach($balances as $item){
+                        if($item->driver_id == $driver_id){
+                            $balance = strval($item->balance);    
+                        }
+                    }
+                    session(['balance' => $balance]);
+
+                    break;
+                }
+                case 'verify': {
+                    $vehicle = new VehicleController();
+                    $vehicle = $vehicle->index();
+                    $stops = new StopController();
+                    $stops = $stops->index();
+                    $reservations = new ReservationController();
+                    $reservations = $reservations->index();
+
+                    foreach($vehicle as $car){
+                        if($request->registration_plate == $car->registration_plate){
+                            foreach($stops as $stop){
+                                if($stop->vehicle_id == $car->id && $stop->start_date < Carbon::now()){
+                                    if($stop->end_date === null){
+                                        Session::flash('verify', 0); // start-stop
+                                        return $next($request);
+                                    }
+                                    else if($stop->end_date > Carbon::now()){
+                                        Session::flash('verify', 1); // all is OK
+                                        return $next($request);    
+                                    }
+                                    else{
+                                        Session::flash('verify_date', Carbon::parse($stop->end_date)->setTimeZone('Europe/Warsaw')->format('Y-m-d H:i:s'));
+                                    }
+                                }
+                            }
+                            foreach($reservations as $reservation){
+                                if($reservation->vehicle_id == $car->id && $reservation->start_date < Carbon::now() && $reservation->end_date > Carbon::now()){
+                                    Session::flash(['verify', 1]); // all is OK
+                                    return $next($request);
+                                }
+                            }
+                        }
+                    }
+                    Session::flash('verify', -1); // no payment
 
                     break;
                 }
@@ -129,10 +181,15 @@ class getFromDB
                 }
                 case 'parkings': {
                     $parking = new ParkingController();
+                    $stop = new StopController();
+                    $reservation = new ReservationController();        
                     $parkings = $parking->index();
+                    $stops = $stop->index();
+                    $reservations = $reservation->index();        
                     $arr = array();
                     $arr1 = array();
                     $total = array();
+                    $free = array();
                     $location = array();
                     $oid = array();
                     foreach($parkings as $item){
@@ -140,7 +197,24 @@ class getFromDB
                             array_push($arr, $item->name);
                             array_push($arr1, $item->id);
                             array_push($total, $item->parking_spaces);
-                            array_push($location, $item->location);    
+                            array_push($location, $item->location);  
+                            $busy = 0;
+                            foreach($stops as $elem){
+                                if(($elem->end_date == null || $elem->end_date > Carbon::now()) && $elem->parking_id == $item->id){
+                                    $busy++;
+                                }    
+                            }
+                            foreach($reservations as $el){
+                                if($el->end_date > Carbon::now() && $el->start_date <= Carbon::now() && $el->parking_id == $item->id){
+                                    $busy++;
+                                }
+                            }
+                            if($item->parking_spaces >= $busy){
+                                array_push($free, $item->parking_spaces - $busy);
+                            }
+                            else{
+                                array_push($free, 0);
+                            }  
                             if ($item->operator_id == $request->input('operator_id')){
                                 array_push($oid, true);
                             } else {
@@ -151,6 +225,7 @@ class getFromDB
                     session(['parkings' => $arr]);
                     session(['parkings_id' => $arr1]);
                     session(['total' => $total]);
+                    session(['free' => $free]);
                     session(['locations' => $location]);
                     session(['operators' => $oid]);
 

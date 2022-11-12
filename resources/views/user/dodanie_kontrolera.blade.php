@@ -13,10 +13,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     <body>
         <br><br><section class="container">
                 <aside class="body_form">
-                    <a class="return" href="/signup"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                    <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
                     <h1>Dodaj kontrolera</h1>
                 <form method="post" action="/add_inspector">
                     @csrf
+
+                    @if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('success'))
+            <div class="alert-success">
+                @if(is_array(session('success')))
+                    <ul>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{ session('success') }}
+                @endif
+            </div>
+            @endif
+
                     <h4>Dane kontrolera</h4><hr>
                     {{Session::reflash()}}
                     <input type="text" class="form_input" name="name" placeholder="Imię" pattern="[A-Za-ząćęłńóśźżŁŻŚŹĆÓ ]{1,20}$" title="Użyj max. 20 liter" required="true">

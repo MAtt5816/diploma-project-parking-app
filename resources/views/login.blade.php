@@ -20,6 +20,30 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
                 <h1>LOGOWANIE</h1>
                 <form method="post" action="/login">
                 @csrf
+
+                @if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('success'))
+            <div class="alert-success">
+                @if(is_array(session('success')))
+                    <ul>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{ session('success') }}
+                @endif
+            </div>
+            @endif
+
                 <!-- <input type="email" class="form_input" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"><br/> -->
                 <input type="login" class="form_input" name="login" placeholder="Login" title="Użyj max. 15 liter, cyfr lub znaków ._%+-" pattern="[A-Za-z0-9._%+-ąćęłńóśźżŁŻŚŹĆÓ]{1,15}$" required><br/>
                 <input type="password" class="form_input" name="password" placeholder="Hasło" title="Podaj 8-50 znaków" pattern=".{8,50}" required><br/>

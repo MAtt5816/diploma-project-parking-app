@@ -12,6 +12,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <link rel="stylesheet" href="CSS/details.css"/>
         <link rel="stylesheet" href="CSS/style.css" type="text/css">
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
         <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin="">
         </script>
@@ -22,8 +23,31 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             <aside class="body_form">
                 <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
                 <h1>Moje parkingi</h1>
+                <hr>
+                @if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('success'))
+            <div class="alert-success">
+                @if(is_array(session('success')))
+                    <ul>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{ session('success') }}
+                @endif
+            </div>
+            @endif
+
                 @if (Session::has('parkings') && !empty(Session::get('parkings')))
-                            <hr>
                         <table class="table">
                     <thead>
                         <tr>
@@ -41,12 +65,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         <td>
                             <a href="/edit_parking/{{Session::get('parkings_id')[$key]}}"><i class="fa fa-edit"></i> Edytuj</a> |
                             <a href="/show_parking/{{Session::get('parkings_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
-                            <a href="/delete_parking/{{Session::get('parkings_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
+                            <a class="delete" href="/delete_parking/{{Session::get('parkings_id')[$key]}}"><i class="fa fa-trash"></i> Usuń</a>
                         </td>
                     </tr>
                     @endforeach
                     </tbody>
                 </table>
+                {{view('components.ru_sure');}}
                 @else
                 <p>Brak parkingów</p>
                 @endif  

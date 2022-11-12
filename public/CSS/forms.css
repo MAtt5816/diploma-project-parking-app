@@ -108,6 +108,17 @@ span.required {
       border-radius: 999px;
       padding: 1vh 1vw;
   }
+  .alert-danger{
+    color: red;
+    font-weight: bolder;
+  }
+  .alert-success{
+    color:green;
+    font-weight: bolder;
+  }
+  #ru_sure{
+    display: none;
+  }
 form {
   text-align: center;
   padding: 10vh 2.4vw;

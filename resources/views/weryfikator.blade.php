@@ -17,38 +17,38 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         ?>
     </head>
     <body>
-        <?php
-        $komunikat="";
-        $nr="";
-        ?>
         <br><br><section class="container">
             <aside class="body_form">
                 <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a> 
                 <h1>Weryfikator opłat</h1>
                 <hr>
-            <form mathod="post">
+            <form method="post" action="verify">
+                @csrf
                 <label>Wprowadz numer rejestracyjny</label><br>
-                <input type="text" class="weryfikator_input" name="nr_rej" placeholder="Numer rejestracyjny" required="true"/><br>
+                <input type="text" class="weryfikator_input" name="registration_plate" placeholder="Numer rejestracyjny" required="true"/><br>
                 <input type="submit" class="button" value="Sprawdź">
                 <input type="reset" class="button" value="Wyczyść">
             </form>
-                <?php
-                if(isset($_REQUEST['nr_rej'])){
-        $rej = $_REQUEST['nr_rej'];
-        foreach($array as $item){
-           if($item == $rej)$nr=$item;
-           break;
-        }
-        if($nr == $rej){
-                $komunikat = "Wszystko ok";
-            }
-            else{
-                $komunikat="Nie zapłacono";
-            }
-         }
-                ?>
-                <hr>
-                <br><section class="komunikat"><aside class="com_title">Status: </aside><div class="com_text"><?php echo$komunikat; ?></div></section>
+            <hr>
+                <br><section class="komunikat"><aside class="com_title">Status: </aside><div class="com_text">
+                @if(Session::has('verify'))
+                @switch(Session::get('verify'))
+                    @case(1)
+                        Wszystko OK
+                    @break
+                    @case(0)
+                        START-STOP
+                    @break
+                    @case(-1)
+                        @if(Session::has('verify_date'))
+                            Postój zakończono: {{Session::get('verify_date')}}
+                        @else
+                            Nie zapłacono
+                        @endif
+                    @break
+                @endswitch
+                @endif
+                </div></section>
             </aside>
             
         </section>

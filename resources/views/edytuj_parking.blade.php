@@ -18,11 +18,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         {{Session::reflash()}}
         <br><br><section class="container">
                 <aside class="body_form">
-                   <a class="return" href="/"><i class="fa fa-angle-left" aria-hidden="true"></i></a> 
+                   <a class="return" href="/parkings"><i class="fa fa-angle-left" aria-hidden="true"></i></a> 
                     <h1>Edytuj parking</h1>
                 <form method="post" action="/update_parking">
                     @csrf
                 <hr>
+                @if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('success'))
+            <div class="alert-success">
+                @if(is_array(session('success')))
+                    <ul>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{ session('success') }}
+                @endif
+            </div>
+            @endif
+
                 <input type="hidden" name="id" value="{{Session::get('parking')->id}}">
                 <input type="text" class="form_input" name="name" placeholder="Nazwa" required="true" title="Podaj max. 30 znaków" maxlength="30" value="{{Session::get('parking')->name}}"><br>
                 <input type="number" class="form_input" name="price" placeholder="Cena" min="0" step="0.01" required="true" value="{{Session::get('parking')->price}}"><br>

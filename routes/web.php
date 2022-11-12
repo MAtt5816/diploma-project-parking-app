@@ -17,7 +17,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home')->middleware(['getFromDB:allParkings','getFromDB:balance']);
+})->name('home')->middleware(['getFromDB:allParkings','getFromDB:balance','increaseBalance']);
 
 Route::get('/api/docs', function() {
     return redirect()->away('https://documenter.getpostman.com/view/20222408/2s84LLxCSL');
@@ -146,7 +146,11 @@ Route::group(['middleware' => 'sessionCheck:driver'], function() {
 
     Route::get('/topup', function() {
         return view('doladuj');
-    });
+    })->middleware('showFromDB:user');
+
+    Route::post('/pay', function() {
+        return redirect('/');
+    })->middleware('payment');
 
     
     Route::get('/stop', function() {

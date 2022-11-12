@@ -73,5 +73,6 @@ class Kernel extends HttpKernel
         'stopInfo' => \App\Http\Middleware\stopInfo::class,
         'updateDB' => \App\Http\Middleware\updateDB::class,
         'payment' => \App\Http\Middleware\payment::class,
+        'increaseBalance' => \App\Http\Middleware\increaseBalance::class,
     ];
 }

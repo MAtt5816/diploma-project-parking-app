@@ -21,6 +21,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
     </head>
     
     <body>
+        @if(Session::has('widget'))
+        <iframe srcdoc="{{Session::get('widget')}}"></iframe>
+        @endif
        
             {{view('components.header');}}
 

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\TransactionController;
 
 class payment
 {
@@ -19,10 +22,18 @@ class payment
      */
     public function handle(Request $request, Closure $next)
     {
-        $curl = curl_init();
+      Session::reflash();
+      $arr = array('amount' => ($request->money * 100), 'externalId' => Str::random(60), 'description' => ('doladowanie '.$request->money.' PLN'), 'buyer' => array('email'=> Session::get('driver')->email));
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://secure.snd.payu.com/pl/standard/user/oauth/authorize',
+      $str = json_encode($arr);
+              
+      $calculatedHash = base64_encode(hash_hmac("sha256", $str, 'c8a063ae-10a0-4154-a306-082bb90e624d', true));
+
+
+      $curl = curl_init();
+
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://api.sandbox.paynow.pl/v1/payments',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -30,60 +41,30 @@ class payment
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => 'grant_type=client_credentials&client_id=452231&client_secret=105686c50e5b41db255de5935f6b629c',
+        CURLOPT_POSTFIELDS =>$str,
         CURLOPT_HTTPHEADER => array(
-            'Content-Type: application/x-www-form-urlencoded',
-            'Cookie: cookieFingerprint=9a1a9a29-b507-47db-8926-4dea74b9bfd9; payu_persistent=mobile_agent-false#'
+          'Content-Type: application/json',
+          'Api-Key: 648b9e41-0567-432c-97c2-440a326a5a49',
+          'Signature: '.$calculatedHash,
+          'Idempotency-Key: '.Str::random(40)
         ),
-        ));
+      ));
 
-        $response = curl_exec($curl);
-        curl_close($curl);
+      $response = curl_exec($curl);
 
-        $token = json_decode($response)->access_token;
+      curl_close($curl);
 
+      $url = json_decode($response)->redirectUrl;
+      $code = json_decode($response)->paymentId;
 
-        // #########
+      $request->merge(['driver_id' => Session::get('driver')->id]);
+      $request->merge(['amount' => $request->money]);
+      $request->merge(['code' => $code]);
+      $request->merge(['status' => 'NEW']);
 
-$curl = curl_init();
+      $trx = new TransactionController();
+      $trx->store($request);
 
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://secure.payu.com/api/v2_1/orders',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS =>'{
-    "customerIp": "127.0.0.1",
-    "merchantPosId": "452231",
-    "description": "RTV market",
-    "currencyCode": "PLN",
-    "totalAmount": "21000",
-    "products": [
-         {
-             "name": "Wireless Mouse for Laptop",
-             "unitPrice": "21000",
-             "quantity": "1"
-         }
-     ]
-}',
-  CURLOPT_HTTPHEADER => array(
-    'Content-Type: application/json',
-    'Authorization: Bearer '.$token,
-    'Cookie: cookieFingerprint=9a1a9a29-b507-47db-8926-4dea74b9bfd9; payu_persistent=mobile_agent-false#'
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-
-
-                dd($response);
-
-        return $next($request);
+      return redirect()->away($url);
     }
 }

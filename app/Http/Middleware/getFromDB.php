@@ -46,13 +46,26 @@ class getFromDB
                 $request->request->add(['driver_id' => $driver_id]);
             }
             else if(in_array($role,$operator_roles)){
-                $operator = new OperatorController();
-                $operators = $operator->index();
-                $operator_id = null;
-                foreach($operators as $item){
-                    if($item->user_id == $uid){
-                        $operator_id = $item->id;
-                        break;
+                if(Session::get('user')->user_type == 'operator'){
+                    $operator = new OperatorController();
+                    $operators = $operator->index();
+                    $operator_id = null;
+                    foreach($operators as $item){
+                        if($item->user_id == $uid){
+                            $operator_id = $item->id;
+                            break;
+                        }
+                    }
+                }
+                else if(Session::get('user')->user_type == 'inspector'){
+                    $inspector = new InspectorController();
+                    $inspectors = $inspector->index();
+                    $operator_id = null;
+                    foreach($inspectors as $item){
+                        if($item->user_id == $uid){
+                            $operator_id = $item->operator_id;
+                            break;
+                        }
                     }
                 }
                 $request->request->add(['operator_id' => $operator_id]);

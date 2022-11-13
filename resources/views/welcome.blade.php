@@ -29,7 +29,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
 
             @if (Session::has('token'))
             {{view('components.main');}}
-                @if (Session::get('user')->user_type == 'operator')
+                @if (Session::get('user')->user_type == 'operator' || Session::get('user')->user_type == 'inspector')
                 {{view('components.map-static-one-operator');}}
                 @else
                 {{view('components.map-static');}}

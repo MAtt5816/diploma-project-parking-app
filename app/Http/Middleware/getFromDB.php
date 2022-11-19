@@ -31,7 +31,7 @@ class getFromDB
             $uid = Session::get('user')->id;
 
             $driver_roles = array('cars','reservations','stops','balance');
-            $operator_roles = array('parkings', 'operator_id', 'inspectors', 'allParkings');
+            $operator_roles = array('parkings', 'operator_id', 'inspectors');
 
             if(in_array($role,$driver_roles)){
                 $driver = new DriverController();
@@ -262,7 +262,6 @@ class getFromDB
             $total = array();
             $free = array();
             $location = array();
-            $oid = array();
             foreach($parkings as $item){
                 array_push($arr, $item->name);
                 array_push($arr1, $item->id);
@@ -285,20 +284,12 @@ class getFromDB
                 }
                 array_push($total, $item->parking_spaces);
                 array_push($location, $item->location);
-                if($request->input('operator_id') != null){
-                    if ($item->operator_id == $request->input('operator_id')){
-                        array_push($oid, true);
-                    } else {
-                        array_push($oid, false);
-                    }
-                }
             }
             session(['parkings' => $arr]);
             session(['parkings_id' => $arr1]);
             session(['total' => $total]);
             session(['free' => $free]);
             session(['locations' => $location]);
-            session(['operators' => $oid]);
         }
                     
         return $next($request);

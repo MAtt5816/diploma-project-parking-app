@@ -31,7 +31,7 @@ class getFromDB
             $uid = Session::get('user')->id;
 
             $driver_roles = array('cars','reservations','stops','balance');
-            $operator_roles = array('parkings', 'operator_id', 'inspectors');
+            $operator_roles = array('parkings', 'operator_id', 'inspectors','allParkings');
 
             if(in_array($role,$driver_roles)){
                 $driver = new DriverController();
@@ -46,10 +46,10 @@ class getFromDB
                 $request->request->add(['driver_id' => $driver_id]);
             }
             else if(in_array($role,$operator_roles)){
+                $operator_id = null;
                 if(Session::get('user')->user_type == 'operator'){
                     $operator = new OperatorController();
                     $operators = $operator->index();
-                    $operator_id = null;
                     foreach($operators as $item){
                         if($item->user_id == $uid){
                             $operator_id = $item->id;
@@ -60,7 +60,6 @@ class getFromDB
                 else if(Session::get('user')->user_type == 'inspector'){
                     $inspector = new InspectorController();
                     $inspectors = $inspector->index();
-                    $operator_id = null;
                     foreach($inspectors as $item){
                         if($item->user_id == $uid){
                             $operator_id = $item->operator_id;
@@ -128,7 +127,7 @@ class getFromDB
                             }
                             foreach($reservations as $reservation){
                                 if($reservation->vehicle_id == $car->id && $reservation->start_date < Carbon::now() && $reservation->end_date > Carbon::now()){
-                                    Session::flash(['verify', 1]); // all is OK
+                                    Session::flash('verify', 1); // all is OK
                                     return $next($request);
                                 }
                             }
@@ -159,14 +158,17 @@ class getFromDB
                     $stops = $stop->index();
                     $arr = array();
                     $arr1 = array();
+                    $end_date = array();
                     foreach($stops as $item){
                         if($item->driver_id == $driver_id){
                             array_push($arr, $item->start_date);
-                            array_push($arr1, $item->id);    
+                            array_push($arr1, $item->id);  
+                            array_push($end_date, $item->end_date);  
                         }
                     }
                     session(['stops' => $arr]);
                     session(['stops_id' => $arr1]);
+                    session(['end_date' => $end_date]);
 
                     break;
                 }
@@ -262,6 +264,7 @@ class getFromDB
             $total = array();
             $free = array();
             $location = array();
+            $oid = array();
             foreach($parkings as $item){
                 array_push($arr, $item->name);
                 array_push($arr1, $item->id);
@@ -284,12 +287,20 @@ class getFromDB
                 }
                 array_push($total, $item->parking_spaces);
                 array_push($location, $item->location);
+                if($request->input('operator_id') !== null){
+                    if ($item->operator_id == $request->input('operator_id')){
+                        array_push($oid, true);
+                    } else {
+                        array_push($oid, false);
+                    }
+                }
             }
             session(['parkings' => $arr]);
             session(['parkings_id' => $arr1]);
             session(['total' => $total]);
             session(['free' => $free]);
             session(['locations' => $location]);
+            session(['operators' => $oid]);
         }
                     
         return $next($request);

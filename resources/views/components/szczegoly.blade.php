@@ -23,7 +23,7 @@
                 <h4>Pojazd: </h4><div>{{Session::get('vehicle')->registration_plate}}</div><br>
                 @break
             @case('parking')
-                <h4>Nazwa: </h4><div>{{Session::get('parking')->name}}</div>
+                {{-- <h4>Nazwa: </h4><div>{{Session::get('parking')->name}}</div> --}}
                 <h4>Cena: </h4><div>{{Session::get('parking')->price}}</div>
                 <h4>Ilość miejsc: </h4><div>{{Session::get('parking')->parking_spaces}}</div>
                 <h4>Godziny otwarcia: </h4><div>{{Session::get('parking')->opening_hours}}</div>

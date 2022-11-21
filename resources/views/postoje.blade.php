@@ -59,7 +59,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             {{\Carbon\Carbon::parse($stop)->timezone('Europe/Warsaw')}}</td>         
                         <td>
                             <a href="/show_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-sticky-note-o"></i> Szczegóły</a> |
-                            <a href="/info_stop/{{Session::get('stops_id')[$key]}}"><i class="fa fa-car"></i> Postój</a>
+                            <a href="/info_stop/{{Session::get('stops_id')[$key]}}">
+                            @if(Session::get('end_date')[$key] == null)
+                                <i class="fa fa-clock-o"></i> Stop &nbsp;&nbsp;  
+                            @else
+                                <i class="fa fa-car"></i> Postój
+                            @endif
+                            </a>
                         </td>
                     </tr>
                 @endforeach

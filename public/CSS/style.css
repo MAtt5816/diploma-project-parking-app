@@ -54,7 +54,7 @@
      position: absolute;
      z-index: 1;
      top: 44vh;
-     left:16vw;
+     left:7vw;
      font-weight: bold;
      color:#fff;
      font-size:30px;
@@ -113,10 +113,33 @@
 }
 
 
-@media (max-width: 1000px){
-  nav{
-    padding: 0 3vw 0 4vw;
-  }
+@media (max-width: 767px){
+  
+.banner img.iphone{
+    left: -100%;
+}
+.banner img.logo{
+    top:10vh;
+    left: 30vw;
+}
+.banner .two{
+    left: 25vw;
+    font-size: 24px;
+    top:50vh;
+    width:80vw;
+}
+.banner .first{
+    left:30vw;
+    top:39vh;
+}
+.banner .download{
+    top:67vh;
+    right: 25vw;
+}
+.banner img.appstore{
+    top: 64vh;
+    right: 26vw;
+}
 }
 
   

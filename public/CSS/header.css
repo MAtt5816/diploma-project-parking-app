@@ -195,4 +195,24 @@ input[type="checkbox"]{
   color: cyan;
 }
 
-
+@media (max-width: 767px){
+nav .new{
+  position:absolute;
+right: -11vw;
+}
+nav .logo img{
+  width: 10vw;
+}
+nav .money{
+  width:20vw;
+  right: 18vw;
+  
+}
+nav .drop-btn{
+  position:relative;
+  left:5vw;
+}
+nav ul{
+  width: 25%;
+}
+}

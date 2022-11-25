@@ -149,3 +149,21 @@ label,input{
     margin-left: 5vw;
     font-size: 20px;
 }
+@media (max-width: 767px){
+.settings{
+    width: 95vw;
+}
+.include .left input, .include .right input{
+width:30vw;
+}
+.include .text{
+    font-size: 18px;
+    margin-right: 8vw;
+}
+
+    
+.settings_panel_right .header{
+    position: relative;
+    top:-9vh;
+}
+}

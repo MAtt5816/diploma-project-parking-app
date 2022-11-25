@@ -49,4 +49,11 @@ footer .social span{
     
    
 }
+@media (max-width: 767px){
+footer .copyright{
+    position: relative;
+    top: 2vh;
+    right: 8vw;
+}
+}
 

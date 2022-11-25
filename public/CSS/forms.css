@@ -83,6 +83,8 @@ span.required {
           z-index: 3;
           bottom: 15vh;
           left: 15vw;
+          padding-left: 1vw;
+          padding-right: 1vw;
    
   }
   .alert h3{
@@ -97,7 +99,7 @@ span.required {
      font-size: 22px;
   }
   .alert h4{
-      margin-left: 1vw;
+     
   }
   .alert .button{
       position: absolute;
@@ -198,7 +200,7 @@ float: left;
 width:50%;
 height: 100%;
 text-align: center;
-margin-top: 10%;
+
 }
 .left-panel h1{
     font-size: 20px;
@@ -213,7 +215,7 @@ float: right;
 text-align: center;
 width:49%;
 height: 100%;
-padding-bottom:10%;
+
 
 }
 .right-panel p{
@@ -240,7 +242,7 @@ padding-bottom:10%;
 	position: relative;
 	overflow: hidden;
 	width: 58vw;
-	
+	padding-bottom: 3vh;
 	min-height: 40vh;
 }
 .form-container{
@@ -278,7 +280,7 @@ padding-bottom:10%;
 .user_type label {
     display: inline-block;
     width: 16vw;
-    height: 13vh;
+    height: 14vh;
     background-color: #ddd;
     padding: 2vh 2vw;
     margin-bottom: 6vh;
@@ -405,6 +407,7 @@ input [name="option"]{
     color:#5b5b5a;
     outline: none;
     font-size: 20px;
+    text-align: right;
 }
 .cash .other span{
     position:absolute;
@@ -412,4 +415,55 @@ input [name="option"]{
    font-size: 20px;
 
    z-index:3;
+}
+
+@media (max-width: 767px){
+.container{
+    width: 88vw;
+}
+.container2{
+    width: 53vw;
+}
+.container2 a{
+    position:relative;
+    padding:0;
+    top:1vh;   
+}
+.user_type label{
+    width: 22vw;
+    height: 16vh;
+}
+.title{
+    font-size: 30px;
+}
+.panel_footer a{
+    position: relative;
+    top:2vh;
+}
+table{
+    width: 70vw;
+}
+.alert{
+    width: 45vw;
+}
+.cash label{
+    width: 10vw;
+    height: 6vh;
+    right: 0;
+}
+.cash label span{
+    top:1.5vh;
+}
+.cash .other{
+    width:60vw;
+}
+.cash .other input{
+    text-align: right;
+}
+.com_text{
+    width:30%;
+    margin-right: 20%;
+    
+}
+
 }

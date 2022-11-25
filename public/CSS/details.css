@@ -8,12 +8,16 @@
       width: 25vw;
       height: auto;
           z-index: 1003;
-          bottom: 50vh;
-          left: 40vw;
+          bottom: 40vh;
+          left: 30vw;
+          padding-right: 1vw;
+          padding-left: 1vw;
+          padding-bottom: 1vh;
    
   }
   .alert h3{
       text-align: center;
+      padding: 2vh 2vw;
   }
   .alert .close i{
       position:absolute;
@@ -24,7 +28,9 @@
      font-size: 22px;
   }
   .alert h4{
-      margin-left: 1vw;
+    text-align: left;
+    color: #818181;
+    margin-bottom: 0; 
   }
   .alert .button{
       position: absolute;
@@ -34,4 +40,9 @@
       border: 1px solid black;
       border-radius: 999px;
       padding: 1vh 1vw;
+  }
+  @media (max-width: 767px){
+.alert{
+    width:40vw;
+}
   }

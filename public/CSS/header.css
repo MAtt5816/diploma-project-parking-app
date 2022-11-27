@@ -216,3 +216,55 @@ nav ul{
   width: 25%;
 }
 }
+
+@media only screen and (max-width: 375px){
+  nav .new{
+  right: -19vw;
+  }
+  nav ul{
+    width: 30%;
+  }
+  nav .logo img{
+    width: 14vw;
+  }
+  nav ul{
+    width: 30%;
+    
+  }
+  nav ul li a{
+    font-size: 16px;
+  }
+  #uclick:checked ~ ul {
+    left:69vw;
+  }
+  nav .button{
+    padding:1vh 1vw;
+   
+  }
+  nav .drop-btn{
+    position:relative;
+    left:10vw;
+    font-size: 20px;
+    top:-2vh;
+  }
+  .new .user{
+    font-size: 18px;
+  }
+  nav .money{
+    width:25vw;
+    right: 16vw;
+    height: 3vh;
+    font-size: 12px;
+  }
+  .money .add_cash{
+    font-size: 11px;
+    height: 3vh;
+    padding-top:0.5vh;
+  }
+  .money span{
+    top:0.5vh;
+  }
+  nav .logo img{
+    width: 18vw;
+  }
+}

@@ -98,9 +98,7 @@ span.required {
      color: #FF416C;
      font-size: 22px;
   }
-  .alert h4{
-     
-  }
+ 
   .alert .button{
       position: absolute;
       background: linear-gradient(to right, #FF4B2B, #FF416C); 
@@ -200,7 +198,7 @@ float: left;
 width:50%;
 height: 100%;
 text-align: center;
-
+margin-top:10vh;
 }
 .left-panel h1{
     font-size: 20px;
@@ -215,7 +213,7 @@ float: right;
 text-align: center;
 width:49%;
 height: 100%;
-
+padding-top:10vh;
 
 }
 .right-panel p{
@@ -242,8 +240,9 @@ height: 100%;
 	position: relative;
 	overflow: hidden;
 	width: 58vw;
-	padding-bottom: 3vh;
+	
 	min-height: 40vh;
+    margin-top:10vh;
 }
 .form-container{
     display:block;
@@ -465,5 +464,53 @@ table{
     margin-right: 20%;
     
 }
+}
 
+@media only screen and (max-width: 375px){
+.container{
+    width: 90vw;
+}
+
+.left-panel{
+    width:100%;
+}
+.right-panel{
+    width: 100%;
+    height: 80vw;
+}
+.right-panel .logo{
+    position: relative;
+    bottom:12vh;
+}
+.panel_footer{
+    position: relative;
+    bottom:10vh;
+}
+.panel_footer a{
+    top:0;
+}
+.container2{
+    width: 70vw;
+}
+.container2 a{
+    position:relative;
+    padding:0;
+    top:1vh;   
+}
+td:nth-child(odd){
+   font-size: 13px;
+   width:30%;
+}
+td:nth-child(even){
+    font-size: 13px;
+    width:70%;
+ }
+ table{
+    width:85vw;
+    margin-left: 2vw;
+ }
+ .user_type label{
+    width: 30vw;
+   
+}
 }

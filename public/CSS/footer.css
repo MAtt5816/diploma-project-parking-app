@@ -56,4 +56,22 @@ footer .copyright{
     right: 8vw;
 }
 }
+@media only screen and (max-width: 375px){
+footer .social{
+    margin-left: 10vw;
+    margin-right: 15vw;
+}
+footer .footer_logo{
+    margin-left: 10vw;
+}
+footer .copyright{
+    right:15vw;
+}
+footer .social span{
+    width:6vw;
+}
+footer .footer_logo span{
+left:-4vw;
+}
+}
 

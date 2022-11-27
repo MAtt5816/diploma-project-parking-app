@@ -7,6 +7,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     <head>
         <link rel="shortcut icon" href="img/logo.png" />
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width" />
         <title>Our-parking -rezerwuj miejsca parkingowe, zgłoś parking</title>
         <link rel="stylesheet" href="CSS/forms.css" type="text/css">
     </head>

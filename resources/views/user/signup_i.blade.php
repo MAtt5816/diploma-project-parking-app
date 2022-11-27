@@ -6,6 +6,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width" />
         <title>Our-parking -rezerwuj miejsca parkingowe, zgłoś parking</title>
         <link rel="stylesheet" href="../CSS/forms.css" type="text/css">
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>

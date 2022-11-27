@@ -15,12 +15,16 @@
      padding-top:5vh;
  }
  #map{
-     margin-top:  2vh;
+     margin-top:  12vh;
      margin-left: 10vw;
      height: 80vh;
      width: 80vw;
      /* background-image: url(../img/mapa.jpg); */
      border: 2px solid #1b1b1b;
+ }
+ .homeMap{
+    position: relative;
+    bottom:10vh;
  }
 .mapForm{
     margin-top:  2vh;
@@ -140,6 +144,29 @@
     top: 64vh;
     right: 26vw;
 }
+}
+
+@media only screen and (max-width: 375px){
+    .banner img.logo{
+        left: 20vw;
+    }
+    .banner .two{
+        left: 19vw;
+    }
+    .banner .first{
+        left:20vw;
+    }
+    .banner .download{
+        top:70vh;
+        right: 26vw;
+    }
+    .banner img.appstore{
+        right: 28vw;
+        top:67vh;
+    }
+    #map{
+        height: 115vw;
+    }
 }
 
   

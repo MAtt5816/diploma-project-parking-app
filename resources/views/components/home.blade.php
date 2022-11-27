@@ -17,10 +17,11 @@
         @endif
          </b> miejscach.To dopiero początek</h1><div><br>
          <hr>
+         <aside class="homeMap">
          <div id="map">
             
          </div>
-         
+        </aside>
      </aside>     
  </section>
 

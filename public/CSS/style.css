@@ -145,23 +145,45 @@
     right: 26vw;
 }
 }
-
+@media only screen and (max-width: 400px){
+    .banner img.logo{
+        left: 21vw;
+    }
+    .banner .two{
+        left: 17vw;
+        font-size: 21px;
+    }
+    .banner .first{
+        left:21vw;
+    }
+    .banner .download{
+        top:70vh;
+        right: 30vw;
+    }
+    .banner img.appstore{
+        right: 32vw;
+        top:67vh;
+    }
+    .element h1{
+        margin: 0 5vw;
+    }
+}
 @media only screen and (max-width: 375px){
     .banner img.logo{
         left: 20vw;
     }
     .banner .two{
-        left: 19vw;
+        left: 16vw;
     }
     .banner .first{
         left:20vw;
     }
     .banner .download{
         top:70vh;
-        right: 26vw;
+        right: 30vw;
     }
     .banner img.appstore{
-        right: 28vw;
+        right: 32vw;
         top:67vh;
     }
     #map{

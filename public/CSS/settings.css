@@ -167,7 +167,53 @@ width:30vw;
     top:-9vh;
 }
 }
-
+@media only screen and (max-width: 400px){
+    .settings{
+        height: 95vh;
+    }
+    .settings .settings_panel_left{
+    width:35%;
+}
+.settings .settings_panel_right{
+    width:65%;
+}
+ .include .right, .include .left{
+    width:100%;
+ } 
+ .include .left input, .include .right input{
+    width:45vw;
+    height: 3vh;
+    margin: 1vh 8vw;
+    font-size: 14px;
+    }
+    .include .left label, .include .right label{
+        text-align: center;
+        font-size: 16px;
+    }
+    .include{
+        padding-top: 0;
+        top:8vh;
+    }
+    .header{
+        margin-top:7vh;
+    }
+    .header h1{
+        position: relative;
+        top: 2vh;
+    }
+    .alert-success{
+        position:absolute;
+        bottom:-5vh;
+        font-size: 13px;
+    }
+    input[type="button"]{
+        width:30vw;
+    }
+    .settings_panel_right form p {
+        font-size: 15px;
+        margin-left:2vw;
+    }
+}
 @media only screen and (max-width: 375px){
     .settings{
         height: 95vh;

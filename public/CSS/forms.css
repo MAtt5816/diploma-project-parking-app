@@ -421,12 +421,12 @@ input [name="option"]{
     width: 88vw;
 }
 .container2{
-    width: 53vw;
+    width: 67vw;
 }
 .container2 a{
     position:relative;
     padding:0;
-    top:1vh;   
+    top:0;   
 }
 .user_type label{
     width: 22vw;
@@ -434,6 +434,9 @@ input [name="option"]{
 }
 .title{
     font-size: 30px;
+}
+.panel_footer{
+    font-size: 18px;
 }
 .panel_footer a{
     position: relative;
@@ -550,6 +553,7 @@ table{
     width: 90vw;
 }
 
+
 .left-panel{
     width:100%;
 }
@@ -569,7 +573,7 @@ table{
     top:0;
 }
 .container2{
-    width: 70vw;
+    width: 65vw;
 }
 .container2 a{
     position:relative;

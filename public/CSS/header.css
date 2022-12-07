@@ -70,12 +70,12 @@ nav .button:hover {
 }
 .new a.user-icon{
    color: #fff;
-   font-size: 28px;
+   font-size: 26px;
    text-align: center;
 }
 .new .user{
-   color: #fff;
-   font-size: 20px;
+   
+   font-size: 28px;
    display: inline;
 }
 
@@ -88,7 +88,7 @@ nav ul{
   left: -100%;
   background: #111;
   height: auto;
-  width: 20%;
+  width: 15%;
   text-align: center;
   display: block;
   transition: all 0.3s ease;
@@ -137,19 +137,36 @@ input[type="checkbox"]{
   display: none;
 }
 #uclick:checked ~ ul{
-    left: 75vw;
+    left: 77vw;
   }
   #uclick:checked ~ ul li a{
     margin-left: 0;
   }
 .drop-btn {
   position: relative;
-  top: -3vh;
-  padding-top:3vh;
+  top: -1.3vh;
+  padding: 1vh 0.5vw;
+  background:linear-gradient(to right, #FF4B2B, #FF416C);
   color: #fff;
   font-size: 22px;
   cursor: pointer;
   display: block;
+  
+  border-radius: 50%;
+  text-align: center;
+  width:3.5vw;
+}
+i.fa-user:before{
+    font-size: 30px;
+}
+div.user{
+  font-weight: bold;
+  background:linear-gradient(to right, #FF4B2B, #FF416C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 2vh 5vw;
+  border-bottom: 2px solid #fff;
+  
 }
 .nav {
   display: inline;
@@ -211,9 +228,14 @@ nav .money{
 nav .drop-btn{
   position:relative;
   left:5vw;
+  padding: 1vh 1vw;
+  width: 8vw;
 }
 nav ul{
   width: 25%;
+}
+#uclick:checked ~ ul {
+  left:72vw;
 }
 }
 @media only screen and (max-width: 400px){
@@ -230,8 +252,9 @@ nav ul{
       left:67vw;
     }
     nav .money{
+      top:3vh;
       width:25vw;
-      right: 15vw;
+      right: 13vw;
       height: 3vh;
       font-size: 12px;
     }
@@ -245,12 +268,15 @@ nav ul{
     }
     nav .drop-btn{
       position:relative;
-      left:11vw;
+      left:14vw;
       font-size: 20px;
       top:-1.5vh;
+      padding: 1vh 1vw;
+      width: 12vw;
     }
     .new .user{
-      font-size: 18px;
+      font-size: 25px;
+      padding: 2vh 7vw;
     }
 }
 @media only screen and (max-width: 375px){
@@ -279,16 +305,14 @@ nav ul{
   }
   nav .drop-btn{
     position:relative;
-    left:10vw;
+    
     font-size: 20px;
-    top:-2vh;
+
   }
-  .new .user{
-    font-size: 18px;
-  }
+ 
   nav .money{
     width:25vw;
-    right: 16vw;
+    top:4vh;
     height: 3vh;
     font-size: 12px;
   }
@@ -302,5 +326,9 @@ nav ul{
   }
   nav .logo img{
     width: 18vw;
+  }
+  .new .user{
+    
+    padding: 2vh 6vw;
   }
 }

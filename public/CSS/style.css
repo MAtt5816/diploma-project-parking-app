@@ -138,11 +138,11 @@
 }
 .banner .download{
     top:67vh;
-    right: 25vw;
+    right: 31vw;
 }
 .banner img.appstore{
     top: 64vh;
-    right: 26vw;
+    right: 33vw;
 }
 }
 @media only screen and (max-width: 400px){

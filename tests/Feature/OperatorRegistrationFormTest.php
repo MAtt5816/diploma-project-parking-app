@@ -12,35 +12,35 @@ class OperatorRegistrationFormTest extends TestCase
 {
     use RefreshDatabase;
 
-    // /**
-    //  * A basic test example.
-    //  *
-    //  * @return void
-    //  */
-    // public function test_example()
-    // {
-    //     $response = $this->get('/');
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function test_example()
+    {
+        $response = $this->get('/');
  
-    //     $response->assertStatus(200);
-    // }
+        $response->assertStatus(200);
+    }
 
-    // /**
-    //  * @return void
-    //  */
-    // public function test_select_form_is_rendered()
-    // {
-    //     $response = $this->get('/signup');
-    //     $response->assertStatus(200);
-    // }
+    /**
+     * @return void
+     */
+    public function test_select_form_is_rendered()
+    {
+        $response = $this->get('/signup');
+        $response->assertStatus(200);
+    }
 
-    // /**
-    //  * @return void
-    //  */
-    // public function test_registation_form_is_rendered()
-    // {
-    //     $response = $this->postJson('/signup', ['user' => 'operator']);
-    //     $response->assertStatus(200);
-    // }
+    /**
+     * @return void
+     */
+    public function test_registation_form_is_rendered()
+    {
+        $response = $this->postJson('/signup', ['user' => 'operator']);
+        $response->assertStatus(200);
+    }
 
     /**
      * @return void

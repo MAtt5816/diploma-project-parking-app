@@ -1,4 +1,4 @@
-# Work in progress
+# Diploma project - **Web application for booking and paying for parking spaces**
 <hr />
 
 > **_NOTE:_**  .env & config/database.php files are unstaged.
